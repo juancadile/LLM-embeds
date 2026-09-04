@@ -1,6 +1,6 @@
 # LLM-embeds rerun — report
 
-Generated 2026-09-04 19:37 by `python -m src.run_all` at git 59a3fab; python 3.12.3, numpy 2.5.2, host promaxgb10-e746.
+Generated 2026-09-04 19:39 by `python -m src.run_all` at git 92daccc; python 3.11.4, numpy 1.26.4, host MacBook-Pro-5.local.
 Seed 2026 throughout. Original notebooks untouched; code in `src/`.
 
 ## Phase 1 — define(a+b), controls, define2, analogies
@@ -602,6 +602,29 @@ _See the Reading paragraphs above; the recommendation paragraph is written by ha
 _Phase 3 ran in 2048 s._
 
 ## Notes and deviations
+
+### Verdicts (written after Phase 3 completed, 2026-09-04)
+
+**Which object the paper's magnitude numbers were computed on.** OPT: the residual stream *before* the final LayerNorm (cache matches the pre-LN hook side with cosine 1.0000 / norm ratio 0.999 for OPT-1.3B and 0.9998 / 0.996 for OPT-13B). T5: the encoder output *after* its final RMSNorm (cache matches the post-norm side with cosine 0.9999 / ratio 1.000 for both t5-large and t5-3b; the pre-norm side of T5 is a different object with norms 10³–10⁵ larger). So the paper's two model families were measured on different kinds of vector.
+
+**The clean 74-pair magnitude test** (both arms from one extraction, L2, raw, pooled; Phase 3 "original recipe" table):
+
+| model | side the paper used | similar median | random median | p similar<random | p similar>random |
+|---|---|---:|---:|---:|---:|
+| OPT-1.3B | pre-LN | 7.3 | 13.8 | 2e-5 | 1 |
+| OPT-13B | pre-LN | 12.4 | 24.3 | 5e-5 | 1 |
+| T5-large | post-norm | 14.2 | 9.9 | 1 | 0.01 |
+| T5-3B | post-norm | 9.0 | 9.7 | 0.4 | 0.6 |
+
+Same picture in L1 and after mean-centering (all four combinations are in the report). On OPT, the paper's object, similar pairs are clearly closer in magnitude than random pairs, both sizes, every category. On T5-large they are farther, driven by the US/UK spellings (median 18.3 vs 9.9 random) that SentencePiece splits into up to 6 pieces. On T5-3B nothing. The supportable sentence is **"no consistent effect across models"**; the paper's "similar pairs were not closer in magnitude than random word pairs" is false for both OPT models on the authors' own pairs, and the T5-large result is a tokenization artifact rather than evidence about magnitude. Note also that post-LN OPT vectors give *stronger* "closer" results (median 2.3–2.5 vs 10.7–13.3), so on OPT the effect is not a LayerNorm artefact in either direction; the design still needs the pre-norm object to be named because the two differ by 2.2× in scale and a reader running the code today gets the other one.
+
+**Does the magnitude result change with layer / pooling / context?** Yes, completely. Across the 20 configurations of one model the pooled p-value (similar<random, L2 raw) ranges from 1e-13 to 0.81 (Qwen3-14B), 1e-11 to 0.98 (Llama-3.1-8B), 4e-12 to 0.56 (Qwen3-1.7B). Word-alone contexts and early layers give "similar pairs closer" almost always; final-layer, prompt-context configurations give null or reversed results. A magnitude claim without the extraction recipe is not a claim about a model.
+
+**Which configuration best matches the Curie behaviour on the p. 16 table?** None reproduces it. Curie puts all 7 targets at rank 1. The best residual-stream configuration is Llama-3.1-8B-Instruct, 25 % depth (layer 8 of 32), mean pooling, prompt context: 2 of 7 at rank 1, mean rank 2, bachelor at rank 12, and 3 of 10 define2 pairs equal to the paper's. Qwen3-14B's best (75 % depth, mean, prompt) gets 1 of 7 at rank 1 with mean rank 3; Qwen3-1.7B's best gets 2 of 7. Every word-alone configuration is far worse (mean ranks in the hundreds to thousands), because 2,835 of 5,178 words split into several tokens without a leading space and the resulting space collapses (random-sum baseline 1.000 in some configurations). The p. 16 behaviour is therefore specific to OpenAI's similarity-trained embedding endpoint, not a general property of language-model word vectors.
+
+**Recommendation for the paper's method section.** (1) Name the object: model, layer index, pooling, context template, whether special tokens are pooled, and whether the vector is taken before or after the final normalisation layer; the present paper's OPT and T5 numbers differ on the last point. (2) For definition-style experiments on an open model use a mid-depth layer (25–75 % of depth), mean pooling over the word's own tokens, a short context so the word carries its leading space and is usually one token, and mean-centre the vocabulary before cosine (centering moves several late-layer configurations' mean rank from the hundreds to single digits, e.g. Qwen3-14B 25 % / last / prompt: 385 → 5). (3) For magnitude experiments use the pre-final-norm residual stream (post-norm norms are normalised per token) and always report tokens per word; exclude or separately report pairs whose members differ in token count. (4) Report a random-pair baseline and a per-word control (rank of the target under v(b) alone) with every define(a+b) claim.
+
+**Deviations from AGENT_BRIEF.md.** flan-T5-XXL was not re-extracted (≈45 GB > 40 GB limit); its cached vectors are still used in Phases 1–2. The "2026 open model" set is Qwen3-14B, Llama-3.1-8B-Instruct and Qwen3-1.7B (all already on the box). Phase 1's define2 for foal, rationality and causation cannot be run on the cached models (words absent from the vocabulary); Phase 3 runs them from the extracted query rows. The Phase 3 controls use 300 random pairs per configuration instead of 1,000 (Phase 1 uses 1,000).
 
 ### What the cached OPT vectors are (established 2026-09-04)
 
