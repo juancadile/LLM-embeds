@@ -229,7 +229,7 @@ def report(res) -> str:
         L.append("")
     for mid, entry in res.get("models", {}).items():
         L += [f"### 3.{list(res['models']).index(mid) + 1} {mid}", "",
-              f"Layer indices used: {entry.get('layer_indices')}. Extraction {entry.get('extract_seconds', 0):.0f} s. "
+              f"Layer indices used: {entry.get('layer_indices')}. Extraction {(entry.get('extract_seconds') or 0):.0f} s (0 = reused from cache). "
               + "; ".join(
                   f"{ctx}: {sum(v > 1 for v in tk.values())}/{len(tk)} words need >1 token, worst "
                   + ", ".join(f"{k}={v}" for k, v in sorted(tk.items(), key=lambda x: -x[1])[:5])

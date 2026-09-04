@@ -1,6 +1,6 @@
 # LLM-embeds rerun — report
 
-Generated 2026-09-04 15:45 by `python -m src.run_all` at git b1caeca; python 3.11.4, numpy 1.26.4, host MacBook-Pro-5.local.
+Generated 2026-09-04 19:37 by `python -m src.run_all` at git 59a3fab; python 3.12.3, numpy 2.5.2, host promaxgb10-e746.
 Seed 2026 throughout. Original notebooks untouched; code in `src/`.
 
 ## Phase 1 — define(a+b), controls, define2, analogies
@@ -236,6 +236,381 @@ The notebooks' "magnitude" was L1 (sum of absolute components). Where L1 and L2 
 
 _Phase 2 ran in 7 s._
 
-## Phase 3
+## Phase 3 — 2026 open model with explicit extraction choices
 
-_Not run (no results/phase3.json)._
+> Qwen/Qwen3-14B: 20 configurations reused from the previous run's phase3.json.
+> meta-llama/Llama-3.1-8B-Instruct: 20 configurations reused from the previous run's phase3.json.
+> Qwen/Qwen3-1.7B: 20 configurations reused from the previous run's phase3.json.
+> flan-t5-xxl: skipped, download ≈45 GB exceeds the 40 GB limit set in the brief.
+
+### 3.1 Qwen/Qwen3-14B
+
+Layer indices used: {'emb': 0, 'p25': 10, 'p50': 20, 'p75': 30, 'final': 40}. Extraction 61 s (0 = reused from cache). alone: 2835/5178 words need >1 token, worst bureaucracy=5, bad-tempered=4, congratulate=4, congratulation=4, counsellor=4; prompt: 175/5178 words need >1 token, worst bad-tempered=4, fiftieth=4, thirtieth=4, thought-provoking=4, a.m.=3
+
+| layer | pool | context | p16 targets at rank 1 (of 7), raw / centered | mean rank, raw / centered | sum beats v(b) alone (of 7) | bachelor rank | define2 = paper pair (of 10), raw / centered | magnitude p (similar < random, L2 raw) | median |%diff| ratio similar/random | random-sum baseline (raw) |
+| :--- | :--- | :--- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| final | mean | prompt | 2 / 1 | 146.9 / 395.4 | 5 | 841 | 0 / 0 | 0.81 | 1.05 | 0.941 |
+| p75 | mean | prompt | 1 / 1 | 3.4 / 2.6 | 0 | 1801 | 0 / 0 | 0.21 | 0.75 | 0.823 |
+| p25 | mean | prompt | 1 / 1 | 64.9 / 5.6 | 0 | 2237 | 2 / 2 | 7.4e-07 | 0.45 | 0.778 |
+| emb | mean | prompt | 1 / 1 | 90.4 / 23.0 | 1 | 1364 | 1 / 0 | 0.071 | 0.88 | 0.198 |
+| p50 | mean | prompt | 1 / 1 | 161.4 / 44.1 | 0 | 720 | 1 / 1 | 0.081 | 0.83 | 0.840 |
+| final | last | prompt | 1 / 0 | 560.9 / 863.1 | 5 | 818 | 0 / 0 | 0.0051 | 0.81 | 0.941 |
+| emb | mean | alone | 1 / 1 | 1069.9 / 945.1 | 5 | 1026 | 0 / 0 | 2.8e-07 | 0.52 | 0.466 |
+| p25 | last | prompt | 0 / 1 | 385.1 / 5.4 | 0 | 2132 | 2 / 2 | 1.4e-13 | 0.38 | 0.774 |
+| p75 | last | prompt | 0 / 0 | 6.4 / 3.6 | 0 | 1721 | 0 / 0 | 0.009 | 0.71 | 0.821 |
+| emb | last | prompt | 0 / 0 | 112.6 / 30.9 | 2 | 1277 | 1 / 0 | 0.051 | 0.85 | 0.192 |
+| p50 | last | prompt | 0 / 0 | 521.9 / 56.6 | 0 | 649 | 1 / 1 | 7e-07 | 0.59 | 0.838 |
+| emb | last | alone | 0 / 0 | 1292.1 / 1400.4 | 4 | 3868 | 0 / 0 | 0.78 | 1.03 | 0.549 |
+| final | mean | alone | 0 / 0 | 1421.9 / 2688.1 | 1 | 197 | 0 / 0 | 1.5e-06 | 0.23 | 0.925 |
+| final | last | alone | 0 / 0 | 1748.3 / 2750.9 | 3 | 430 | 0 / 0 | 1.7e-06 | 0.24 | 0.929 |
+| p25 | mean | alone | 0 / 0 | 1762.7 / 2289.9 | 3 | 3923 | 0 / 0 | 4.1e-12 | 0.05 | 1.000 |
+| p50 | mean | alone | 0 / 0 | 2280.9 / 2588.1 | 2 | 4300 | 0 / 0 | 5.4e-12 | 0.05 | 1.000 |
+| p75 | mean | alone | 0 / 0 | 2587.7 / 2265.3 | 1 | 4112 | 0 / 0 | 6.9e-12 | 0.05 | 1.000 |
+| p75 | last | alone | 0 / 0 | 3163.6 / 2474.9 | 1 | 4026 | 0 / 0 | 4.1e-11 | 0.18 | 0.940 |
+| p50 | last | alone | 0 / 0 | 3273.6 / 2179.4 | 1 | 3178 | 0 / 0 | 2.9e-08 | 0.17 | 0.939 |
+| p25 | last | alone | 0 / 0 | 3397.4 / 2212.9 | 1 | 3364 | 1 / 1 | 6e-07 | 0.27 | 0.902 |
+
+**Best configuration by the p. 16 criterion: layer final, mean pooling, context prompt.** Its p. 16 table (raw, a and b excluded):
+
+| a + b → target | rank | cos | top-3 |
+| :--- | ---: | ---: | ---: |
+| young + dog → puppy | 831 | 0.8763 | old-fashioned 0.921, soldier 0.920, educated 0.918 |
+| young + cat → kitten | 1 | 0.9186 | kitten 0.919, old-fashioned 0.912, only 0.911 |
+| young + duck → duckling | 1 | 0.9323 | duckling 0.932, old-fashioned 0.927, cheaply 0.917 |
+| female + spouse → wife | 148 | 0.9246 | spouses 0.961, inmate 0.949, unemployed 0.944 |
+| male + spouse → husband | 41 | 0.9114 | spouses 0.937, wives 0.926, inmate 0.925 |
+| male + sibling → brother | 3 | 0.9236 | sister 0.927, spouse 0.924, brother 0.924 |
+| female + sibling → sister | 3 | 0.9407 | girlfriend 0.943, spouses 0.941, sister 0.941 |
+| man + unmarried → bachelor | 841 | 0.8607 | woman 0.930, part-time 0.917, evil 0.913 |
+
+define2 (raw) on the same configuration:
+
+| target | paper (Curie) | this model top-3 |
+| :--- | :--- | :--- |
+| wife | spouse + woman | blade + husband 0.947<br>husband + woman 0.946<br>husband + shade 0.945 |
+| duckling | duck + youngster | awkwardly + bird 0.933<br>bird + youngster 0.933<br>bird + scissors 0.933 |
+| puppy | dog + kitten | baby + kitten 0.914<br>crazy + kitten 0.904<br>dog + kitten 0.900 |
+| foal | horse + puppy | ago + tiring 0.894<br>ago + prey 0.893<br>ago + calm 0.893 |
+| freedom | independence + liberty | liberty + wisdom 0.970<br>awareness + liberty 0.970<br>dignity + liberty 0.970 |
+| autonomy | control + independence | independence + sovereignty 0.973<br>accuracy + sovereignty 0.973<br>creativity + sovereignty 0.973 |
+| justice | fairness + judicial | equality + judge 0.973<br>fairness + judge 0.971<br>equality + magistrate 0.971 |
+| knowledge | information + wisdom | language + wisdom 0.967<br>expertise + language 0.966<br>expertise + wisdom 0.965 |
+| rationality | logical + reasoning | implication + reasonable 0.970<br>immoral + reasoning 0.968<br>justification + reasonable 0.967 |
+| causation | consequence + correlation | irrationals + precedent 0.900<br>intention + irrationals 0.900<br>conception + irrationals 0.899 |
+
+Magnitude test on every configuration (L2, median |%diff|; p = similar < random):
+
+| layer | pool | ctx | mode | random | us_uk | plural | verb | all |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| emb | mean | alone | raw | 14.5 | 6.8 (p=0.012) | 7.8 (p=0.00069) | 7.5 (p=0.00071) | 7.6 (p=2.8e-07) |
+| emb | mean | alone | center | 16.2 | 9.5 (p=0.0089) | 8.0 (p=0.00048) | 7.9 (p=0.00051) | 8.2 (p=1.1e-07) |
+| emb | mean | prompt | raw | 9.6 | 13.3 (p=0.95) | 9.0 (p=0.46) | 6.9 (p=0.0015) | 8.5 (p=0.071) |
+| emb | mean | prompt | center | 9.0 | 13.0 (p=0.95) | 7.7 (p=0.53) | 6.2 (p=0.002) | 7.6 (p=0.092) |
+| emb | last | alone | raw | 11.8 | 9.2 (p=0.47) | 8.8 (p=0.55) | 12.8 (p=0.85) | 12.2 (p=0.78) |
+| emb | last | alone | center | 10.6 | 9.5 (p=0.52) | 8.3 (p=0.54) | 12.2 (p=0.92) | 11.4 (p=0.86) |
+| emb | last | prompt | raw | 9.2 | 10.2 (p=0.72) | 6.4 (p=0.18) | 7.5 (p=0.029) | 7.9 (p=0.051) |
+| emb | last | prompt | center | 8.6 | 9.4 (p=0.67) | 5.6 (p=0.13) | 6.3 (p=0.02) | 7.2 (p=0.027) |
+| p25 | mean | alone | raw | 49.7 | 1.3 (p=0.00024) | 3.4 (p=3.1e-06) | 2.4 (p=3.2e-05) | 2.6 (p=4.1e-12) |
+| p25 | mean | alone | center | 23.3 | 4.5 (p=0.02) | 9.5 (p=0.0015) | 6.1 (p=0.00034) | 6.7 (p=4.2e-07) |
+| p25 | mean | prompt | raw | 6.3 | 3.9 (p=0.0037) | 5.0 (p=0.19) | 2.1 (p=1.4e-06) | 2.8 (p=7.4e-07) |
+| p25 | mean | prompt | center | 10.2 | 6.3 (p=0.0059) | 8.5 (p=0.48) | 7.1 (p=0.0089) | 7.2 (p=0.0042) |
+| p25 | last | alone | raw | 18.0 | 3.7 (p=0.0018) | 4.3 (p=5.3e-05) | 8.5 (p=0.021) | 4.8 (p=6e-07) |
+| p25 | last | alone | center | 9.5 | 0.1 (p=0.0018) | 0.3 (p=7.9e-05) | 1.6 (p=0.0075) | 0.3 (p=1.9e-07) |
+| p25 | last | prompt | raw | 6.0 | 3.9 (p=0.0036) | 2.4 (p=6e-05) | 2.1 (p=5.8e-09) | 2.3 (p=1.4e-13) |
+| p25 | last | prompt | center | 10.1 | 6.2 (p=0.011) | 6.9 (p=0.013) | 5.7 (p=3.5e-05) | 6.3 (p=3.3e-07) |
+| p50 | mean | alone | raw | 49.0 | 1.2 (p=0.00029) | 2.7 (p=3.5e-06) | 2.2 (p=3.3e-05) | 2.4 (p=5.4e-12) |
+| p50 | mean | alone | center | 22.5 | 4.1 (p=0.019) | 8.5 (p=0.0015) | 5.6 (p=0.00028) | 6.1 (p=3.3e-07) |
+| p50 | mean | prompt | raw | 5.3 | 5.7 (p=0.57) | 6.6 (p=0.86) | 3.2 (p=0.0012) | 4.4 (p=0.081) |
+| p50 | mean | prompt | center | 8.2 | 13.4 (p=0.95) | 12.5 (p=0.99) | 6.3 (p=0.11) | 8.4 (p=0.87) |
+| p50 | last | alone | raw | 13.8 | 1.9 (p=0.0015) | 2.1 (p=6.4e-08) | 5.5 (p=0.056) | 2.4 (p=2.9e-08) |
+| p50 | last | alone | center | 9.1 | 0.1 (p=0.0016) | 0.1 (p=2.4e-06) | 1.5 (p=0.003) | 0.2 (p=3.5e-09) |
+| p50 | last | prompt | raw | 5.1 | 5.9 (p=0.72) | 3.1 (p=0.0034) | 2.4 (p=4.3e-07) | 3.1 (p=7e-07) |
+| p50 | last | prompt | center | 8.3 | 17.3 (p=0.99) | 12.2 (p=0.98) | 6.5 (p=0.088) | 9.1 (p=0.89) |
+| p75 | mean | alone | raw | 47.6 | 1.2 (p=0.00028) | 3.1 (p=3.8e-06) | 2.5 (p=3.8e-05) | 2.5 (p=6.9e-12) |
+| p75 | mean | alone | center | 22.9 | 4.2 (p=0.02) | 8.6 (p=0.002) | 6.5 (p=0.0003) | 6.9 (p=4.8e-07) |
+| p75 | mean | prompt | raw | 3.7 | 2.2 (p=0.064) | 5.0 (p=0.87) | 2.7 (p=0.096) | 2.7 (p=0.21) |
+| p75 | mean | prompt | center | 9.6 | 4.2 (p=0.007) | 6.7 (p=0.2) | 10.6 (p=0.77) | 8.4 (p=0.18) |
+| p75 | last | alone | raw | 12.9 | 1.9 (p=0.00079) | 2.3 (p=1.2e-07) | 2.7 (p=0.00085) | 2.3 (p=4.1e-11) |
+| p75 | last | alone | center | 9.4 | 0.2 (p=0.00061) | 0.6 (p=1.1e-05) | 1.5 (p=0.015) | 0.8 (p=6e-08) |
+| p75 | last | prompt | raw | 3.4 | 1.4 (p=0.0021) | 4.2 (p=0.53) | 2.5 (p=0.029) | 2.5 (p=0.009) |
+| p75 | last | prompt | center | 9.4 | 4.2 (p=0.0088) | 4.0 (p=0.00052) | 10.2 (p=0.57) | 6.4 (p=0.003) |
+| final | mean | alone | raw | 29.6 | 4.1 (p=0.0025) | 6.7 (p=0.00015) | 7.2 (p=0.02) | 6.9 (p=1.5e-06) |
+| final | mean | alone | center | 12.0 | 7.3 (p=0.1) | 6.5 (p=0.056) | 9.8 (p=0.13) | 7.5 (p=0.013) |
+| final | mean | prompt | raw | 10.2 | 7.0 (p=0.32) | 11.5 (p=0.94) | 10.8 (p=0.56) | 10.8 (p=0.81) |
+| final | mean | prompt | center | 20.9 | 6.6 (p=0.0016) | 14.0 (p=0.014) | 23.3 (p=0.84) | 17.6 (p=0.039) |
+| final | last | alone | raw | 27.7 | 3.3 (p=0.00044) | 8.1 (p=0.0002) | 7.2 (p=0.037) | 6.6 (p=1.7e-06) |
+| final | last | alone | center | 13.6 | 4.0 (p=0.044) | 6.9 (p=0.013) | 9.1 (p=0.17) | 6.6 (p=0.004) |
+| final | last | prompt | raw | 9.6 | 5.7 (p=0.011) | 4.6 (p=0.0018) | 10.7 (p=0.54) | 7.8 (p=0.0051) |
+| final | last | prompt | center | 21.5 | 10.7 (p=0.0049) | 14.1 (p=0.025) | 24.3 (p=0.71) | 16.5 (p=0.037) |
+
+### 3.2 meta-llama/Llama-3.1-8B-Instruct
+
+Layer indices used: {'emb': 0, 'p25': 8, 'p50': 16, 'p75': 24, 'final': 32}. Extraction 41 s (0 = reused from cache). alone: 2830/5178 words need >1 token, worst bureaucracy=5, bad-tempered=4, congratulate=4, congratulation=4, counsellor=4; prompt: 175/5178 words need >1 token, worst bad-tempered=4, fiftieth=4, thirtieth=4, thought-provoking=4, a.m.=3
+
+| layer | pool | context | p16 targets at rank 1 (of 7), raw / centered | mean rank, raw / centered | sum beats v(b) alone (of 7) | bachelor rank | define2 = paper pair (of 10), raw / centered | magnitude p (similar < random, L2 raw) | median |%diff| ratio similar/random | random-sum baseline (raw) |
+| :--- | :--- | :--- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| p25 | mean | prompt | 2 / 2 | 2.4 / 2.3 | 3 | 12 | 3 / 3 | 0.029 | 0.79 | 0.797 |
+| p75 | last | alone | 2 / 2 | 38.1 / 4.6 | 0 | 5008 | 2 / 2 | 2.9e-05 | 0.59 | 0.747 |
+| final | mean | prompt | 2 / 1 | 41.0 / 186.0 | 0 | 1213 | 1 / 0 | 0.98 | 1.21 | 0.839 |
+| p75 | mean | prompt | 1 / 2 | 2.7 / 2.4 | 1 | 1394 | 3 / 3 | 0.19 | 0.75 | 0.823 |
+| p75 | last | prompt | 0 / 2 | 2.9 / 2.4 | 1 | 1349 | 3 / 3 | 0.015 | 0.67 | 0.821 |
+| p50 | mean | prompt | 1 / 1 | 5.0 / 4.1 | 1 | 373 | 4 / 4 | 0.0013 | 0.67 | 0.831 |
+| emb | mean | prompt | 1 / 1 | 8.4 / 3.6 | 0 | 354 | 2 / 1 | 0.12 | 0.72 | 0.271 |
+| p25 | mean | alone | 1 / 1 | 40.6 / 7.7 | 4 | 775 | 2 / 1 | 2.8e-08 | 0.36 | 0.832 |
+| p50 | last | alone | 1 / 0 | 176.9 / 15.1 | 1 | 4651 | 1 / 1 | 0.00061 | 0.68 | 0.763 |
+| final | last | alone | 1 / 1 | 272.9 / 116.1 | 0 | 4962 | 1 / 1 | 0.19 | 0.82 | 0.800 |
+| final | mean | alone | 1 / 1 | 278.0 / 198.3 | 2 | 4400 | 0 / 0 | 1e-08 | 0.24 | 0.826 |
+| p25 | last | prompt | 1 / 1 | 286.0 / 5.7 | 3 | 11 | 3 / 3 | 4.2e-08 | 0.55 | 0.793 |
+| final | last | prompt | 1 / 0 | 345.3 / 517.6 | 1 | 1129 | 1 / 0 | 0.13 | 0.87 | 0.837 |
+| emb | mean | alone | 1 / 1 | 805.3 / 743.1 | 3 | 1801 | 0 / 0 | 2.6e-05 | 0.37 | 0.450 |
+| p50 | mean | alone | 0 / 1 | 67.1 / 19.9 | 4 | 888 | 0 / 0 | 3.7e-08 | 0.47 | 0.828 |
+| p75 | mean | alone | 0 / 1 | 214.4 / 21.4 | 1 | 1700 | 0 / 0 | 4.6e-08 | 0.41 | 0.802 |
+| p50 | last | prompt | 0 / 0 | 94.6 / 7.4 | 1 | 309 | 4 / 4 | 1.4e-11 | 0.50 | 0.829 |
+| emb | last | prompt | 0 / 0 | 444.7 / 171.3 | 0 | 326 | 2 / 1 | 0.12 | 0.78 | 0.265 |
+| p25 | last | alone | 0 / 0 | 817.9 / 142.6 | 1 | 4630 | 2 / 1 | 0.094 | 0.87 | 0.731 |
+| emb | last | alone | 0 / 0 | 1029.1 / 1161.1 | 4 | 2454 | 0 / 0 | 0.73 | 1.08 | 0.507 |
+
+**Best configuration by the p. 16 criterion: layer p25, mean pooling, context prompt.** Its p. 16 table (raw, a and b excluded):
+
+| a + b → target | rank | cos | top-3 |
+| :--- | ---: | ---: | ---: |
+| young + dog → puppy | 4 | 0.8103 | child 0.836, cat 0.817, kid 0.812 |
+| young + cat → kitten | 5 | 0.7958 | dog 0.847, child 0.829, kid 0.818 |
+| young + duck → duckling | 1 | 0.8465 | duckling 0.846, bird 0.821, chicken 0.801 |
+| female + spouse → wife | 1 | 0.8319 | wife 0.832, spouses 0.830, woman 0.818 |
+| male + spouse → husband | 2 | 0.8204 | spouses 0.829, husband 0.820, wife 0.820 |
+| male + sibling → brother | 2 | 0.8045 | siblings 0.863, brother 0.804, sister 0.803 |
+| female + sibling → sister | 2 | 0.8189 | siblings 0.864, sister 0.819, male 0.810 |
+| man + unmarried → bachelor | 12 | 0.7309 | woman 0.797, male 0.774, married 0.770 |
+
+define2 (raw) on the same configuration:
+
+| target | paper (Curie) | this model top-3 |
+| :--- | :--- | :--- |
+| wife | spouse + woman | husband + spouse 0.893<br>girlfriend + husband 0.891<br>girlfriend + spouse 0.885 |
+| duckling | duck + youngster | kitten + pig 0.822<br>chicken + kitten 0.817<br>bird + kitten 0.816 |
+| puppy | dog + kitten | dog + kitten 0.914<br>baby + kitten 0.876<br>horse + kitten 0.865 |
+| foal | horse + puppy | colt + loom 0.874<br>colt + horse 0.868<br>beak + colt 0.861 |
+| freedom | independence + liberty | liberation + liberty 0.902<br>independence + liberty 0.890<br>liberty + peace 0.888 |
+| autonomy | control + independence | independence + sovereignty 0.848<br>independent + sovereignty 0.829<br>competence + sovereignty 0.829 |
+| justice | fairness + judicial | fairness + judicial 0.844<br>fairness + judge 0.844<br>fairness + law 0.836 |
+| knowledge | information + wisdom | information + wisdom 0.878<br>awareness + information 0.858<br>ignorance + information 0.857 |
+| rationality | logical + reasoning | logic + reasonable 0.852<br>logical + reason 0.847<br>irrationals + reason 0.846 |
+| causation | consequence + correlation | correlation + motive 0.768<br>correlation + decision-making 0.767<br>correlation + existence 0.766 |
+
+Magnitude test on every configuration (L2, median |%diff|; p = similar < random):
+
+| layer | pool | ctx | mode | random | us_uk | plural | verb | all |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| emb | mean | alone | raw | 26.4 | 5.2 (p=0.0038) | 12.5 (p=0.0063) | 7.8 (p=0.014) | 9.8 (p=2.6e-05) |
+| emb | mean | alone | center | 28.2 | 7.0 (p=0.0048) | 13.7 (p=0.0093) | 8.2 (p=0.013) | 10.4 (p=3.8e-05) |
+| emb | mean | prompt | raw | 11.1 | 5.1 (p=0.04) | 16.5 (p=0.95) | 7.1 (p=0.015) | 8.0 (p=0.12) |
+| emb | mean | prompt | center | 12.2 | 6.2 (p=0.043) | 18.6 (p=0.95) | 7.7 (p=0.017) | 8.4 (p=0.12) |
+| emb | last | alone | raw | 10.8 | 3.5 (p=0.047) | 14.8 (p=0.95) | 10.8 (p=0.66) | 11.6 (p=0.73) |
+| emb | last | alone | center | 11.6 | 3.6 (p=0.049) | 14.8 (p=0.94) | 11.0 (p=0.58) | 11.6 (p=0.67) |
+| emb | last | prompt | raw | 10.7 | 4.9 (p=0.00077) | 16.5 (p=0.98) | 7.7 (p=0.038) | 8.4 (p=0.12) |
+| emb | last | prompt | center | 11.8 | 5.6 (p=0.00084) | 17.3 (p=0.97) | 8.1 (p=0.037) | 8.4 (p=0.089) |
+| p25 | mean | alone | raw | 9.7 | 1.4 (p=9.1e-05) | 5.0 (p=9.8e-05) | 3.7 (p=0.0057) | 3.5 (p=2.8e-08) |
+| p25 | mean | alone | center | 18.5 | 10.9 (p=0.06) | 5.5 (p=1.1e-06) | 6.5 (p=0.00031) | 6.3 (p=2.9e-09) |
+| p25 | mean | prompt | raw | 5.5 | 8.4 (p=0.89) | 5.2 (p=0.39) | 3.3 (p=0.00078) | 4.3 (p=0.029) |
+| p25 | mean | prompt | center | 7.8 | 16.9 (p=1) | 11.6 (p=0.98) | 6.4 (p=0.1) | 8.4 (p=0.93) |
+| p25 | last | alone | raw | 5.5 | 4.1 (p=0.066) | 5.0 (p=0.071) | 5.5 (p=0.58) | 4.8 (p=0.094) |
+| p25 | last | alone | center | 7.3 | 14.0 (p=0.92) | 4.2 (p=0.0073) | 2.4 (p=3e-06) | 4.0 (p=2.3e-05) |
+| p25 | last | prompt | raw | 5.3 | 7.3 (p=0.7) | 2.9 (p=0.00028) | 2.4 (p=2.6e-07) | 2.9 (p=4.2e-08) |
+| p25 | last | prompt | center | 7.7 | 16.9 (p=1) | 5.9 (p=0.17) | 5.6 (p=0.012) | 6.8 (p=0.18) |
+| p50 | mean | alone | raw | 7.9 | 4.4 (p=0.0024) | 3.9 (p=5.9e-05) | 3.5 (p=0.0021) | 3.7 (p=3.7e-08) |
+| p50 | mean | alone | center | 16.1 | 5.5 (p=0.0046) | 4.5 (p=1.9e-07) | 5.9 (p=0.00011) | 5.4 (p=1.8e-11) |
+| p50 | mean | prompt | raw | 5.5 | 1.4 (p=0.0065) | 3.8 (p=0.14) | 4.0 (p=0.021) | 3.7 (p=0.0013) |
+| p50 | mean | prompt | center | 8.2 | 3.6 (p=0.0059) | 7.8 (p=0.65) | 5.8 (p=0.027) | 5.8 (p=0.019) |
+| p50 | last | alone | raw | 5.5 | 1.7 (p=0.0016) | 3.7 (p=0.016) | 4.5 (p=0.12) | 3.7 (p=0.00061) |
+| p50 | last | alone | center | 8.4 | 3.0 (p=0.0073) | 6.1 (p=0.028) | 5.7 (p=0.029) | 5.7 (p=0.00034) |
+| p50 | last | prompt | raw | 5.2 | 1.2 (p=6.2e-05) | 2.0 (p=1.6e-06) | 3.1 (p=0.00029) | 2.6 (p=1.4e-11) |
+| p50 | last | prompt | center | 8.0 | 3.5 (p=0.0034) | 7.7 (p=0.12) | 5.5 (p=0.0012) | 5.7 (p=6.1e-05) |
+| p75 | mean | alone | raw | 9.3 | 2.5 (p=0.0015) | 3.4 (p=0.00016) | 4.3 (p=0.0017) | 3.8 (p=4.6e-08) |
+| p75 | mean | alone | center | 14.8 | 6.4 (p=0.0052) | 4.5 (p=7.7e-06) | 10.8 (p=0.18) | 6.3 (p=1.2e-05) |
+| p75 | mean | prompt | raw | 3.0 | 0.6 (p=0.0041) | 2.9 (p=0.5) | 3.2 (p=0.58) | 2.2 (p=0.19) |
+| p75 | mean | prompt | center | 9.7 | 2.6 (p=0.0018) | 8.7 (p=0.16) | 12.5 (p=0.6) | 7.6 (p=0.06) |
+| p75 | last | alone | raw | 5.5 | 1.5 (p=0.0024) | 3.0 (p=0.0055) | 4.2 (p=0.021) | 3.3 (p=2.9e-05) |
+| p75 | last | alone | center | 8.5 | 5.2 (p=0.07) | 7.3 (p=0.26) | 8.8 (p=0.34) | 7.7 (p=0.11) |
+| p75 | last | prompt | raw | 2.9 | 0.6 (p=0.0008) | 2.3 (p=0.082) | 2.7 (p=0.43) | 1.9 (p=0.015) |
+| p75 | last | prompt | center | 9.5 | 2.6 (p=0.00032) | 5.2 (p=0.00048) | 9.6 (p=0.37) | 6.4 (p=0.00021) |
+| final | mean | alone | raw | 10.0 | 3.0 (p=0.0059) | 1.5 (p=3.2e-08) | 3.6 (p=0.022) | 2.4 (p=1e-08) |
+| final | mean | alone | center | 18.0 | 4.0 (p=0.0024) | 6.7 (p=2.2e-05) | 10.8 (p=0.044) | 8.3 (p=1.2e-06) |
+| final | mean | prompt | raw | 1.4 | 1.0 (p=0.14) | 1.9 (p=0.99) | 2.0 (p=0.94) | 1.7 (p=0.98) |
+| final | mean | prompt | center | 11.6 | 4.5 (p=0.0012) | 9.0 (p=0.022) | 11.5 (p=0.41) | 9.1 (p=0.0056) |
+| final | last | alone | raw | 2.0 | 0.9 (p=0.0021) | 1.5 (p=0.025) | 2.7 (p=0.98) | 1.6 (p=0.19) |
+| final | last | alone | center | 13.5 | 2.7 (p=0.00083) | 6.7 (p=0.0014) | 11.8 (p=0.053) | 9.3 (p=1.8e-05) |
+| final | last | prompt | raw | 1.3 | 0.7 (p=0.021) | 1.1 (p=0.11) | 1.4 (p=0.72) | 1.2 (p=0.13) |
+| final | last | prompt | center | 11.4 | 4.5 (p=4.4e-05) | 9.2 (p=0.051) | 11.3 (p=0.39) | 9.0 (p=0.0037) |
+
+### 3.3 Qwen/Qwen3-1.7B
+
+Layer indices used: None. Extraction 0 s (0 = reused from cache). alone: 2835/5178 words need >1 token, worst bureaucracy=5, bad-tempered=4, congratulate=4, congratulation=4, counsellor=4; prompt: 175/5178 words need >1 token, worst bad-tempered=4, fiftieth=4, thirtieth=4, thought-provoking=4, a.m.=3
+
+| layer | pool | context | p16 targets at rank 1 (of 7), raw / centered | mean rank, raw / centered | sum beats v(b) alone (of 7) | bachelor rank | define2 = paper pair (of 10), raw / centered | magnitude p (similar < random, L2 raw) | median |%diff| ratio similar/random | random-sum baseline (raw) |
+| :--- | :--- | :--- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| final | mean | prompt | 2 / 3 | 177.9 / 14.4 | 1 | 2124 | 3 / 1 | 0.0045 | 0.64 | 0.965 |
+| emb | mean | prompt | 2 / 2 | 2.4 / 2.4 | 0 | 16 | 2 / 2 | 0.53 | 1.07 | 0.400 |
+| p75 | mean | prompt | 2 / 2 | 2.4 / 3.3 | 3 | 137 | 2 / 2 | 0.2 | 0.90 | 0.828 |
+| p50 | mean | prompt | 2 / 1 | 64.7 / 17.4 | 2 | 249 | 1 / 0 | 0.21 | 0.85 | 0.881 |
+| final | last | prompt | 1 / 2 | 192.0 / 184.7 | 1 | 2080 | 3 / 1 | 3.7e-06 | 0.55 | 0.964 |
+| p75 | last | prompt | 1 / 1 | 6.0 / 15.0 | 4 | 105 | 2 / 2 | 0.0038 | 0.72 | 0.826 |
+| p25 | mean | prompt | 1 / 1 | 8.0 / 2.9 | 0 | 277 | 2 / 1 | 0.0088 | 0.73 | 0.741 |
+| emb | last | prompt | 1 / 1 | 175.1 / 46.7 | 1 | 16 | 2 / 2 | 0.56 | 1.11 | 0.402 |
+| p50 | last | prompt | 1 / 0 | 377.6 / 54.6 | 2 | 202 | 1 / 0 | 0.0016 | 0.72 | 0.878 |
+| emb | mean | alone | 1 / 1 | 893.3 / 666.0 | 3 | 2584 | 0 / 0 | 6.3e-08 | 0.32 | 0.454 |
+| p25 | last | prompt | 0 / 0 | 70.3 / 4.1 | 0 | 245 | 2 / 1 | 0.00011 | 0.66 | 0.737 |
+| emb | last | alone | 0 / 0 | 1598.3 / 1458.9 | 2 | 732 | 0 / 0 | 0.0066 | 0.73 | 0.577 |
+| p25 | mean | alone | 0 / 0 | 1738.4 / 2755.4 | 1 | 2859 | 0 / 0 | 4e-12 | 0.06 | 1.000 |
+| final | last | alone | 0 / 0 | 1752.3 / 2448.6 | 6 | 700 | 0 / 0 | 7.7e-10 | 0.25 | 0.956 |
+| final | mean | alone | 0 / 0 | 1901.4 / 2715.9 | 2 | 1277 | 0 / 0 | 4.7e-06 | 0.56 | 0.980 |
+| p75 | mean | alone | 0 / 0 | 2264.9 / 2659.0 | 2 | 3714 | 0 / 0 | 1.1e-11 | 0.06 | 1.000 |
+| p50 | mean | alone | 0 / 0 | 2390.9 / 2579.3 | 1 | 3006 | 0 / 0 | 4.2e-12 | 0.06 | 1.000 |
+| p25 | last | alone | 0 / 0 | 2844.7 / 2679.9 | 1 | 4789 | 0 / 0 | 6.1e-06 | 0.33 | 0.898 |
+| p75 | last | alone | 0 / 0 | 2874.3 / 2965.0 | 1 | 4577 | 0 / 0 | 6.1e-08 | 0.25 | 0.949 |
+| p50 | last | alone | 0 / 0 | 3058.3 / 2502.4 | 1 | 4319 | 0 / 0 | 1.5e-06 | 0.39 | 0.950 |
+
+**Best configuration by the p. 16 criterion: layer final, mean pooling, context prompt.** Its p. 16 table (raw, a and b excluded):
+
+| a + b → target | rank | cos | top-3 |
+| :--- | ---: | ---: | ---: |
+| young + dog → puppy | 291 | 0.9402 | sexy 0.958, away 0.956, meet 0.956 |
+| young + cat → kitten | 173 | 0.9460 | that 0.961, sexy 0.961, meet 0.960 |
+| young + duck → duckling | 1 | 0.9781 | duckling 0.978, sexy 0.955, lovely 0.954 |
+| female + spouse → wife | 1 | 0.9681 | wife 0.968, spouses 0.967, daughter 0.963 |
+| male + spouse → husband | 748 | 0.9308 | female 0.968, wife 0.954, spouses 0.951 |
+| male + sibling → brother | 28 | 0.9449 | female 0.965, siblings 0.959, sister 0.954 |
+| female + sibling → sister | 3 | 0.9646 | siblings 0.971, daughter 0.966, sister 0.965 |
+| man + unmarried → bachelor | 2124 | 0.9231 | woman 0.956, young 0.955, that 0.955 |
+
+define2 (raw) on the same configuration:
+
+| target | paper (Curie) | this model top-3 |
+| :--- | :--- | :--- |
+| wife | spouse + woman | spouse + woman 0.977<br>daughter + spouse 0.976<br>girlfriend + spouse 0.976 |
+| duckling | duck + youngster | awkwardly + bird 0.969<br>bird + cheaply 0.968<br>bird + youngster 0.968 |
+| puppy | dog + kitten | dog + kitten 0.952<br>baby + kitten 0.951<br>funny + kitten 0.951 |
+| foal | horse + puppy | ago + colt 0.937<br>colt + into 0.934<br>solo + yawn 0.934 |
+| freedom | independence + liberty | independence + liberty 0.982<br>happiness + liberty 0.981<br>liberty + unity 0.981 |
+| autonomy | control + independence | competence + independence 0.970<br>independence + sovereignty 0.970<br>independence + tolerance 0.969 |
+| justice | fairness + judicial | fairness + magistrate 0.966<br>fairness + senate 0.966<br>fairness + jurisdiction 0.966 |
+| knowledge | information + wisdom | expertise + information 0.970<br>expertise + intelligence 0.967<br>awareness + expertise 0.967 |
+| rationality | logical + reasoning | reasonable + theory 0.981<br>complexity + reasonable 0.981<br>reasonable + theology 0.980 |
+| causation | consequence + correlation | assertion + irrationals 0.958<br>assumption + irrationals 0.958<br>duration + irrationals 0.958 |
+
+Magnitude test on every configuration (L2, median |%diff|; p = similar < random):
+
+| layer | pool | ctx | mode | random | us_uk | plural | verb | all |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| emb | mean | alone | raw | 18.4 | 3.0 (p=0.0016) | 5.8 (p=6e-05) | 6.2 (p=0.004) | 5.8 (p=6.3e-08) |
+| emb | mean | alone | center | 17.8 | 3.0 (p=0.00073) | 5.9 (p=1.7e-05) | 6.2 (p=0.0048) | 5.5 (p=1.8e-08) |
+| emb | mean | prompt | raw | 5.7 | 8.8 (p=0.98) | 7.6 (p=0.81) | 3.3 (p=0.038) | 6.1 (p=0.53) |
+| emb | mean | prompt | center | 5.7 | 8.1 (p=0.9) | 5.5 (p=0.61) | 4.0 (p=0.046) | 5.2 (p=0.3) |
+| emb | last | alone | raw | 6.5 | 4.2 (p=0.045) | 5.1 (p=0.14) | 4.8 (p=0.043) | 4.8 (p=0.0066) |
+| emb | last | alone | center | 6.7 | 3.7 (p=0.025) | 5.0 (p=0.13) | 6.3 (p=0.24) | 5.7 (p=0.027) |
+| emb | last | prompt | raw | 5.5 | 8.8 (p=0.99) | 7.6 (p=0.73) | 3.5 (p=0.062) | 6.1 (p=0.56) |
+| emb | last | prompt | center | 5.6 | 8.1 (p=0.91) | 5.5 (p=0.69) | 4.0 (p=0.06) | 5.2 (p=0.4) |
+| p25 | mean | alone | raw | 44.0 | 0.2 (p=0.00027) | 5.5 (p=3.2e-05) | 2.3 (p=3.8e-06) | 2.4 (p=4e-12) |
+| p25 | mean | alone | center | 20.7 | 0.7 (p=0.002) | 19.0 (p=0.087) | 6.6 (p=9.1e-07) | 7.6 (p=8.3e-08) |
+| p25 | mean | prompt | raw | 5.5 | 4.4 (p=0.29) | 4.0 (p=0.31) | 3.6 (p=0.0039) | 4.0 (p=0.0088) |
+| p25 | mean | prompt | center | 7.6 | 8.4 (p=0.66) | 7.2 (p=0.39) | 5.2 (p=0.034) | 6.3 (p=0.1) |
+| p25 | last | alone | raw | 16.8 | 4.4 (p=0.0013) | 5.6 (p=0.00061) | 6.5 (p=0.034) | 5.6 (p=6.1e-06) |
+| p25 | last | alone | center | 9.3 | 0.0 (p=0.0019) | 0.0 (p=5.3e-05) | 3.3 (p=0.003) | 0.0 (p=4.4e-08) |
+| p25 | last | prompt | raw | 5.4 | 3.5 (p=0.069) | 4.0 (p=0.1) | 2.4 (p=0.00034) | 3.5 (p=0.00011) |
+| p25 | last | prompt | center | 7.6 | 8.3 (p=0.67) | 6.2 (p=0.095) | 4.5 (p=0.00057) | 5.7 (p=0.002) |
+| p50 | mean | alone | raw | 43.7 | 0.2 (p=0.00028) | 5.5 (p=3.3e-05) | 2.3 (p=3.8e-06) | 2.4 (p=4.2e-12) |
+| p50 | mean | alone | center | 20.7 | 0.7 (p=0.002) | 19.0 (p=0.087) | 6.5 (p=8.7e-07) | 7.7 (p=8e-08) |
+| p50 | mean | prompt | raw | 3.7 | 2.8 (p=0.12) | 4.2 (p=0.6) | 3.0 (p=0.23) | 3.1 (p=0.21) |
+| p50 | mean | prompt | center | 7.1 | 8.0 (p=0.66) | 7.4 (p=0.65) | 5.9 (p=0.14) | 7.0 (p=0.36) |
+| p50 | last | alone | raw | 13.7 | 2.4 (p=0.00055) | 4.1 (p=7.1e-05) | 6.0 (p=0.051) | 5.4 (p=1.5e-06) |
+| p50 | last | alone | center | 9.3 | 0.1 (p=0.00054) | 0.2 (p=0.00012) | 3.3 (p=0.0023) | 0.2 (p=2.7e-08) |
+| p50 | last | prompt | raw | 3.6 | 2.8 (p=0.04) | 3.1 (p=0.15) | 2.4 (p=0.0085) | 2.6 (p=0.0016) |
+| p50 | last | prompt | center | 7.1 | 9.5 (p=0.72) | 6.3 (p=0.34) | 5.8 (p=0.12) | 6.7 (p=0.2) |
+| p75 | mean | alone | raw | 41.1 | 0.5 (p=0.00031) | 5.4 (p=3.5e-05) | 2.5 (p=8.5e-06) | 2.5 (p=1.1e-11) |
+| p75 | mean | alone | center | 20.8 | 0.7 (p=0.0022) | 19.1 (p=0.093) | 6.6 (p=8.8e-07) | 7.9 (p=9.6e-08) |
+| p75 | mean | prompt | raw | 4.2 | 1.5 (p=0.047) | 2.9 (p=0.095) | 5.1 (p=0.81) | 3.8 (p=0.2) |
+| p75 | mean | prompt | center | 10.9 | 4.2 (p=0.00034) | 6.7 (p=0.0023) | 12.1 (p=0.7) | 7.2 (p=0.0042) |
+| p75 | last | alone | raw | 14.1 | 1.3 (p=9e-05) | 2.8 (p=2.8e-06) | 8.5 (p=0.053) | 3.5 (p=6.1e-08) |
+| p75 | last | alone | center | 8.9 | 0.5 (p=0.0006) | 0.8 (p=1.6e-05) | 3.4 (p=0.0099) | 1.2 (p=4.2e-08) |
+| p75 | last | prompt | raw | 4.0 | 1.4 (p=0.0037) | 2.4 (p=0.00029) | 5.1 (p=0.73) | 2.9 (p=0.0038) |
+| p75 | last | prompt | center | 10.6 | 3.7 (p=0.00038) | 4.8 (p=0.00013) | 12.5 (p=0.71) | 6.9 (p=0.00096) |
+| final | mean | alone | raw | 10.7 | 4.5 (p=0.0058) | 7.4 (p=0.0084) | 7.4 (p=0.0018) | 6.0 (p=4.7e-06) |
+| final | mean | alone | center | 11.3 | 7.0 (p=0.042) | 9.1 (p=0.41) | 13.8 (p=0.83) | 9.8 (p=0.45) |
+| final | mean | prompt | raw | 5.7 | 2.5 (p=0.012) | 4.2 (p=0.22) | 4.0 (p=0.031) | 3.6 (p=0.0045) |
+| final | mean | prompt | center | 16.6 | 5.5 (p=0.0019) | 9.0 (p=0.00088) | 16.7 (p=0.53) | 10.3 (p=0.0016) |
+| final | last | alone | raw | 20.7 | 2.7 (p=0.00028) | 5.0 (p=1.5e-05) | 5.9 (p=0.00075) | 5.1 (p=7.7e-10) |
+| final | last | alone | center | 7.5 | 7.0 (p=0.1) | 4.1 (p=0.0085) | 11.4 (p=1) | 7.2 (p=0.49) |
+| final | last | prompt | raw | 5.5 | 1.6 (p=0.00019) | 2.2 (p=0.002) | 4.0 (p=0.023) | 3.0 (p=3.7e-06) |
+| final | last | prompt | center | 16.9 | 5.9 (p=0.00028) | 7.6 (p=0.00024) | 16.7 (p=0.49) | 10.4 (p=0.0003) |
+
+### 3.x Original OPT/T5 recipe re-extracted on the GPU: the clean 74-pair magnitude test, on both sides of the final layer norm
+
+Word alone, final layer, mean over tokens (OPT drops BOS; T5 keeps EOS), as in the notebooks. The whole 5,124-word vocab and the 51 out-of-vocab pair words are embedded in one run, so the similar-pair arm and the 5,000 random pairs come from the same vectors. A forward hook captures the model's final normalisation layer on both sides: **preln** is the residual stream before it, **postln** is after it (what current transformers returns as `last_hidden_state`). Consistency = cosine and norm ratio between that side and the cached vector over all 5,124 vocab words: the side the cache matches tells which object the paper's magnitude numbers were computed on. Post-LN norms carry little per-word information by construction (each token is normalised to unit variance, then scaled by γ), so a null magnitude result on that side is trivial; the pre-LN side is where magnitude could mean anything.
+
+| model | side | this side vs cache | random median (L2 raw) | us_uk | plural | verb | all pooled |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| opt-1.3b | preln | cos median 1.0000 (p5 1.000, min 0.982); norm ratio 0.999 (p5 0.997, p95 1.002, cv 0.002); norm cv this side 0.160 vs cache 0.160 | 13.8 | 1.7 (n=11, p=7.4e-05) | 9.6 (n=27, p=0.0064) | 9.0 (n=36, p=0.041) | 7.3 (n=74, p=1.6e-05) |
+| opt-1.3b | postln | cos median 0.9922 (p5 0.983, min 0.954); norm ratio 0.452 (p5 0.376, p95 0.530, cv 0.105); norm cv this side 0.132 vs cache 0.160 | 13.3 | 0.8 (n=11, p=0.0035) | 2.5 (n=27, p=0.00019) | 4.8 (n=36, p=0.025) | 2.5 (n=74, p=2.9e-06) |
+| opt-13b | preln | cos median 0.9998 (p5 1.000, min 0.999); norm ratio 0.996 (p5 0.987, p95 1.002, cv 0.004); norm cv this side 0.290 vs cache 0.293 | 24.3 | 7.9 (n=11, p=0.005) | 15.4 (n=27, p=0.057) | 12.2 (n=36, p=0.0026) | 12.4 (n=74, p=5.1e-05) |
+| opt-13b | postln | cos median 0.9967 (p5 0.972, min 0.883); norm ratio 0.416 (p5 0.343, p95 0.503, cv 0.119); norm cv this side 0.222 vs cache 0.293 | 10.7 | 1.1 (n=11, p=0.0015) | 3.1 (n=27, p=0.00051) | 2.3 (n=36, p=0.0023) | 2.3 (n=74, p=1.8e-07) |
+| t5-large | preln | cos median 0.7461 (p5 0.179, min 0.065); norm ratio 7843.626 (p5 1432.601, p95 55000.875, cv 2.285); norm cv this side 2.064 vs cache 0.131 | 11.5 | 14.0 (n=11, p=0.93) | 11.4 (n=27, p=0.66) | 9.4 (n=36, p=0.33) | 10.9 (n=74, p=0.7) |
+| t5-large | postln | cos median 0.9999 (p5 1.000, min 0.573); norm ratio 1.000 (p5 0.997, p95 1.003, cv 0.016); norm cv this side 0.131 vs cache 0.131 | 9.9 | 18.3 (n=11, p=0.94) | 11.3 (n=27, p=0.86) | 11.3 (n=36, p=0.93) | 14.2 (n=74, p=0.99) |
+| t5-3b | preln | cos median 0.1014 (p5 0.074, min 0.049); norm ratio 81862.234 (p5 23357.188, p95 117283.125, cv 0.304); norm cv this side 0.285 vs cache 0.113 | 14.4 | 48.8 (n=11, p=0.98) | 15.7 (n=27, p=0.42) | 13.1 (n=36, p=0.28) | 15.3 (n=74, p=0.62) |
+| t5-3b | postln | cos median 0.9999 (p5 1.000, min 0.820); norm ratio 1.000 (p5 0.996, p95 1.004, cv 0.005); norm cv this side 0.113 vs cache 0.113 | 9.7 | 6.5 (n=11, p=0.22) | 14.0 (n=27, p=0.92) | 8.5 (n=36, p=0.093) | 9.0 (n=74, p=0.36) |
+
+All metrics, pooled over the 74 pairs:
+
+| model | side | metric | mode | similar median | random median | p similar<random | p similar>random |
+| :--- | :--- | :--- | :--- | ---: | ---: | ---: | ---: |
+| opt-1.3b | preln | L1 | raw | 5.8 | 13.3 | 2.3e-06 | 1 |
+| opt-1.3b | preln | L1 | center | 7.2 | 16.0 | 1.2e-08 | 1 |
+| opt-1.3b | preln | L2 | raw | 7.3 | 13.8 | 1.6e-05 | 1 |
+| opt-1.3b | preln | L2 | center | 7.1 | 16.7 | 4.1e-09 | 1 |
+| opt-1.3b | postln | L1 | raw | 4.4 | 13.4 | 1.1e-05 | 1 |
+| opt-1.3b | postln | L1 | center | 5.6 | 16.4 | 2.8e-07 | 1 |
+| opt-1.3b | postln | L2 | raw | 2.5 | 13.3 | 2.9e-06 | 1 |
+| opt-1.3b | postln | L2 | center | 6.2 | 16.8 | 8.4e-08 | 1 |
+| opt-13b | preln | L1 | raw | 7.6 | 10.4 | 0.023 | 0.98 |
+| opt-13b | preln | L1 | center | 10.5 | 13.1 | 0.042 | 0.96 |
+| opt-13b | preln | L2 | raw | 12.4 | 24.3 | 5.1e-05 | 1 |
+| opt-13b | preln | L2 | center | 13.1 | 20.5 | 0.00049 | 1 |
+| opt-13b | postln | L1 | raw | 7.6 | 10.7 | 0.0015 | 1 |
+| opt-13b | postln | L1 | center | 10.0 | 15.1 | 0.0014 | 1 |
+| opt-13b | postln | L2 | raw | 2.3 | 10.7 | 1.8e-07 | 1 |
+| opt-13b | postln | L2 | center | 4.2 | 16.1 | 3.1e-07 | 1 |
+| t5-large | preln | L1 | raw | 8.5 | 8.4 | 0.56 | 0.44 |
+| t5-large | preln | L1 | center | 7.3 | 7.7 | 0.42 | 0.58 |
+| t5-large | preln | L2 | raw | 10.9 | 11.5 | 0.7 | 0.3 |
+| t5-large | preln | L2 | center | 9.0 | 6.5 | 0.96 | 0.041 |
+| t5-large | postln | L1 | raw | 13.9 | 9.4 | 0.94 | 0.056 |
+| t5-large | postln | L1 | center | 7.6 | 10.0 | 0.0042 | 1 |
+| t5-large | postln | L2 | raw | 14.2 | 9.9 | 0.99 | 0.012 |
+| t5-large | postln | L2 | center | 7.0 | 10.0 | 0.0029 | 1 |
+| t5-3b | preln | L1 | raw | 14.5 | 14.8 | 0.43 | 0.57 |
+| t5-3b | preln | L1 | center | 41.3 | 55.4 | 0.0052 | 0.99 |
+| t5-3b | preln | L2 | raw | 15.3 | 14.4 | 0.62 | 0.38 |
+| t5-3b | preln | L2 | center | 59.5 | 75.0 | 0.0057 | 0.99 |
+| t5-3b | postln | L1 | raw | 10.1 | 9.8 | 0.3 | 0.7 |
+| t5-3b | postln | L1 | center | 10.0 | 11.2 | 0.49 | 0.51 |
+| t5-3b | postln | L2 | raw | 9.0 | 9.7 | 0.36 | 0.64 |
+| t5-3b | postln | L2 | center | 9.0 | 10.9 | 0.31 | 0.69 |
+
+### Recommendation for the method section
+
+_See the Reading paragraphs above; the recommendation paragraph is written by hand in results/NOTES.md once the tables are in._
+
+_Phase 3 ran in 2048 s._
+
+## Notes and deviations
+
+### What the cached OPT vectors are (established 2026-09-04)
+
+The cached OPT-1.3B vectors (`opt/1_3B.txt`) are the **residual stream before OPT's final layer norm**, not `last_hidden_state` as produced by any current transformers build. Evidence, all in `results/`:
+
+1. Re-extracting with the notebook recipe under current transformers (5.16) gives vectors with cosine 0.992 to the cache but **0.45× the norm** (per word: p5 0.38, p50 0.45, p95 0.53; `phase3.json`, opt-1.3b postln side).
+2. Capturing both sides of `decoder.final_layer_norm` with a forward hook: the **pre-LN side matches the cache with cosine 1.0000 and norm ratio 0.999 (CV 0.002) over all 5,124 vocab words**; the post-LN side is the 0.45× one (`phase3.json`, opt-1.3b preln/postln).
+3. Reproduction under the pinned version, transformers 4.20.1 (`src/repro_tf420.py`, throwaway venv): the notebook function verbatim gives the **post-LN** vectors (cosine 0.99995, norm ratio 1.0000 to the current re-extraction; `repro_tf420.json`). So 4.20.1 by itself did not drop the norm.
+4. Loading under 4.20.1 with `_remove_final_layer_norm=True` reproduces the cache to **max abs difference 4e-4** (`repro_tf420_noln.json`), and emits the "model.decoder.final_layer_norm.weight/bias were not used" warning. Mechanism, from the transformers source history: releases up to 4.20.0 had no decoder-level final LayerNorm in `OPTModel`; 4.20.1 added it, with `_remove_final_layer_norm` kept "for backward compatibility with checkpoints fine-tuned before transformers v4.20.1" (metaseq PR 164). The saved outputs of every OPT notebook (`magnitudes*.ipynb`, `negatives*.ipynb`, `simdef*.ipynb`) contain that same unused-weights warning, so the caches were made by a pre-4.20.1 build, whatever `environment.yml` pins now. No revision of the Hub config for facebook/opt-1.3b ever set the flag.
+5. `opt/1_3B.txt.orig` is the same extraction on the older 3,471-word vocab (cosine 1.0000, ratio 1.000 on shared words); it is not a different generation.
+
+Consequences for the magnitude study: the paper's OPT magnitude numbers were computed on pre-LN residual-stream vectors. Post-LN vectors are normalised per token and their norms carry little per-word information by construction, so a magnitude test on them is trivially near-null. Phase 3 therefore reports the 74-pair test on **both** sides, labelled, and the paper's method section has to say which one it means. Whether the same holds for T5 (whose encoder also ends in a norm) is answered by the t5-large / t5-3b rows of the same table.
