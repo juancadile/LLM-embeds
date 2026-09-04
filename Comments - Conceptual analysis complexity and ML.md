@@ -1,0 +1,64 @@
+# Comments on "Conceptual Complexity, Conceptual Analysis, and Machine Learning" (revised 2)
+
+Jens — comments below, grouped by issue rather than by page. I'm keeping the definitions section (3.2, second half) at the end since you mentioned it might get split off into its own paper. Sections 1 and 2 I have basically nothing on; the argument that definability depends on complexity is clean and I buy it.
+
+## 1. Footnote 10 does less than you need it to (pp. 7–8)
+
+The invariance theorem says complexity across languages differs by at most an additive constant, and that constant depends on the *pair of languages*, not on the object. That's fine when you care about asymptotics, but the paper is about comparing individual concepts, and for individual objects the constant can be as large as the quantities being compared. "We only use languages that weren't introduced for this purpose" doesn't really help: English and PyTorch weren't introduced for this purpose either, and the constant between them could still swamp the difference between KNOWLEDGE and BACHELOR.
+
+I'd either say explicitly that you're only after ordinal comparisons at scales where the constant washes out, or drop the appeal to invariance and just own language-relativity as a limitation. (My margin note here was "what if I have a program that stores both strings at the same size?", which is the same point put worse.)
+
+## 2. Magnitude is not the measurand (p. 13)
+
+This is my main issue with 3.2. The argument runs: more complex concept → more space to specify → the model needs to represent the word "in more detail" → bigger vector. The gap is at "more space." Every word in the model gets exactly the same number of dimensions. What could differ isn't the size of the space but the geometry inside it: how the concept sits on the manifold, how many directions actually matter for it, how nonlinear the region around it is. The L2 norm is one scalar summary of a 4096-dimensional object, and there's no reason it's the one that tracks complexity.
+
+So when the test comes back negative, I don't think it rules out "the most natural candidate." It rules out a candidate that wasn't well motivated to begin with. The paper half-admits this ("admittedly quite speculative") but then presents the null result as informative about the vector→complexity relation in general. I'd narrow the claim: raw norm isn't a proxy, full stop, and say nothing about what that implies for other measures.
+
+Two smaller things on the same test:
+
+- The similar-word-pair design tests whether magnitude tracks *similarity*, not complexity. If 'color'/'colour' differ in norm, that tells you norm is noisy; it doesn't tell you much either way about the complexity hypothesis.
+- For OPT and T5 specifically: these use subword tokenization, so 'colour', plurals, and verb forms are often *more tokens* than their pair. If the "word vector" for a multi-token word is a sum or mean over tokens, the magnitude differences you found could be a tokenization artifact and nothing else. This needs to be addressed explicitly.
+
+And the bigger problem, from the notebooks: **the comparison the paper reports was never computed.** The magnitude notebooks print a signed L1 percent difference per pair and never aggregate. The "random pairs" baseline is a signed mean over unseeded random words, so positive and negative differences cancel. There are no means, medians, or tests anywhere in the repo. When I aggregate |%diff| properly and compare against 5,000 seeded random pairs, the similar pairs *are* closer than random for OPT-1.3B (p < 0.001) and for flan-T5-XXL (p = 0.001, and this model isn't mentioned in the paper), weakly for OPT-13B and T5-3B, and not for T5-large, where the result is driven by a few British spellings that split into many SentencePiece tokens (apologize/apologise at 94%). So "not closer in magnitude than random word pairs" is false on the authors' own pairs for at least one reported model. "No consistent effect across models, small n" is what the data supports. This section needs to be redone from scratch for the R&R; see point 4.
+
+## 3. Which vectors, exactly? (pp. 13, 15–18)
+
+"Word vectors" is doing a lot of work across the section, and the paper never says what was actually extracted. I went through the repo, so here's what the code does, and I think the paper needs to say this:
+
+- **OPT and T5 (magnitude test):** each word is run through the model *alone, with no context*, and the vector is the mean of the final-layer hidden states over the word's subword tokens (OPT drops the BOS token first; T5 does not drop the EOS token, so for a one-token word half of the "word vector" is `</s>`). So these are context-free, final-layer, mean-pooled residual stream vectors. Not the embedding matrix, and not what most people would picture from "word vectors."
+- **GPT-3 (definitions tests):** `text-similarity-{ada,curie,davinci}-001` embeddings endpoint. That's a separate embedding model trained for similarity, not the language model's word representations. It's fine as an experiment, but "we probe the word vectors of language models" isn't describing it, and the two halves of 3.2 aren't probing the same kind of object.
+- **"Magnitude"** in the code is mostly L1 (sum of absolute values) plus a count-of-dimensions-above-threshold measure, not L2. The paper should say which one the reported result is about.
+
+Three consequences:
+
+1. The tokenization worry from point 2 is real: multi-token words are averaged, so a British spelling that splits into two tokens gets a different kind of vector than its one-token American twin, and the T5 EOS issue adds a constant vector to every mean with weight 1/n. Either of these could produce the null result on its own.
+2. The linearity question has an answer now: these are final-layer vectors, i.e. after every MLP block in the model, taken with no context. Whether addition ≈ conjunction holds there is a specific empirical question, and there's a literature on when representations are linear and when they aren't. "Vector addition doesn't exactly match feature conjunction in present-day language models" (p. 18) is a claim about *this* choice of vector, not about language models.
+3. The paper's "several thousand dimensions" is 4096 for Curie, 1024 for Ada, 2048 for OPT-1.3B, etc. Worth stating per model.
+
+Related: p. 17 cites "footnote 7" for the unit-length vectors; it's footnote 15.
+
+## 4. Reproducibility
+
+The repo exists and the embeddings are cached for the 5,124-word vocab, so the define results can be recomputed from cache. But the three GPT-3 embedding endpoints are deprecated, so nothing can be extended: no new words, no new vocab, no rerun. And the paper describes none of what's in point 3, so a reader can't reconstruct the method from the text.
+
+I'd like to do the following before this goes out, and I'm happy to own it: rerun the magnitude and define tests on an open model (Llama or OLMo), with the extraction choices made explicit and tested (layer, pooling, with/without context, L1 vs L2), and put the vocab and pair lists in the paper's supplementary material. This also gives the paper a 2026 model instead of ones from 2020–22, which it needs — the ChatGPT-as-latest-GPT-3 framing on p. 12 already reads dated.
+
+## 5. Classifiers and bounds (pp. 10, 20)
+
+Two things on 3.1 and the "common solution" paragraph:
+
+The 100 kB → 100,000 characters → 20,000 words chain assumes 32-bit parameters are incompressible. They aren't. Quantization to 8 or 4 bits and pruning are standard and lose almost no accuracy, so the naive bound is loose by roughly an order of magnitude before you even get to the intrinsic-dimension move. Worth a sentence, since it's the same "tighten the bound" spirit as Li et al. and it's cheaper.
+
+On p. 20, my first reaction was: you can just prompt an LLM to act as a classifier, so what's the problem? But I think the answer is that a prompted LLM gives you a useless bound — the classifier *is* the whole model, so the upper bound on JUSTICE is the size of GPT-4. That's worth saying explicitly, because any reader with an ML background will have the same first reaction. And if that's the answer, then the interesting version of the "common solution" isn't "language models designed as classifiers" in general but something bounded: a small probe trained on the LLM's representations, or a distilled classifier, where the size actually tells you something. That's the same move as the dimensionality reduction in 3.1 applied to a different object, and it would tie the two halves of section 3 together.
+
+## Definitions section (pp. 14–19) — separate
+
+Short, since this may become its own paper. I reran the p. 16 table from the cached Curie embeddings; every cosine reproduces to four decimals. The problem isn't the numbers, it's what they show.
+
+- **No control was run, and the control kills the animal cases.** Rank of the definiendum for v(b) *alone* vs. v(a)+v(b): puppy is already dog's nearest neighbour (rank 1, cos 0.9046 alone vs 0.9045 with 'young'); same for kitten/cat and duckling/duck. Adding 'young' changes nothing. The kinship cases show a real but modest lift: wife goes from rank 2 to 1, brother from 3 to 1. And the canonical example doesn't work: unmarried + man → bachelor is rank 18 (rank 373 for 'man' alone), which fn. 22 attributes to polysemy, but that's a reason to worry about the method, not about 'bachelor'.
+- **Baseline.** For 300 random word pairs, the best non-a/b neighbour of v(a)+v(b) has mean cosine 0.900 (p10 0.882, p90 0.919). Puppy's 0.905 is the typical value for *any* pair, not a strong one. The define2 hits at 0.91–0.95 are the max over 13.1M pairs; the max of that many noisy scores is high by selection alone. Without a null, the numbers don't mean anything.
+- **The "midway" fact undercuts the conjunction reading.** p. 17 says v(a + b) is the midpoint of v(a) and v(b) because the vectors are unit length. Right — so define2(x) is finding the pair of words whose *bisector* points closest at x. That's interpolation, not conjunction. 'puppy' = 'dog' + 'kitten' isn't a curiosity to explain with the "walk" metaphor; it's exactly what the method computes. I'd stop calling this "a strong correlation between vector addition and feature conjunction" and describe what it is.
+- **Two algorithms presented as one.** puppy, duckling and foal on p. 18 come from `naive_def` (full vocab, self-pairs allowed, no cognate filter); wife, freedom, knowledge and the philosophy terms come from `revised`/`define` (plurals and target-prefix cognates removed). Under the unfiltered version, wife = spouse + *wives* (0.955) and knowledge = information + *know* (0.944). The cognate filter is also just a 3-letter prefix match, so fairness → equality + *unfair* passes.
+- **Anisotropy.** Mean pairwise cosine on Curie is 0.752 (the paper says "distance"; it's similarity), and only 221 of 13.1M pairs exceed 0.95, all spelling variants. That's the narrow-cone problem from Gao et al., and it's why every cosine in the paper lands in 0.85–0.95. The standard fix is cheap (mean-centering, or all-but-the-top); I'd expect the "define(a + b) lands on a and b first" artifact to mostly disappear after centering. Also: on OPT-13B the raw sums return cosines ≈ 0.97 for everything (young + dog → gay, monster, mother), so the "more recent models are promising" line on p. 16 is really "OpenAI's embedding endpoints are promising"; the open models are worse than Ada without centering.
+- **Small text fixes.** Vocab is 5,124, not 5,081 (5,081 is what's left after the plural filter). There's no "81 handpicked words" list in the repo. 12.9M pairs → 13.1M. "Average distance ≈ 0.75" → similarity.
+- The philosophical results ('knowledge' = 'information' + 'wisdom') read as associative neighbors, not candidate analyses, which is what you'd predict if the vectors encode usage rather than intension — your own point on p. 19. I'd lean into that as the diagnosis rather than presenting them as "hypotheses deserving further investigation."

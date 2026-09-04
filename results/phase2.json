@@ -1,0 +1,3030 @@
+{
+ "models": {
+  "opt-1.3b": {
+   "n_vocab": 5124,
+   "coverage": {
+    "us_uk": {
+     "n_pairs": 11,
+     "n_in_vocab": 2,
+     "pairs_in_vocab": [
+      [
+       "license",
+       "licence"
+      ],
+      [
+       "offence",
+       "offense"
+      ]
+     ],
+     "missing_words": [
+      "analog",
+      "analogue",
+      "analyze",
+      "apologise",
+      "color",
+      "flavor",
+      "maneuver",
+      "manoeuvre",
+      "organise",
+      "paediatric",
+      "pediatric",
+      "traveled",
+      "travelled"
+     ]
+    },
+    "plural": {
+     "n_pairs": 27,
+     "n_in_vocab": 3,
+     "pairs_in_vocab": [
+      [
+       "wife",
+       "wives"
+      ],
+      [
+       "child",
+       "children"
+      ],
+      [
+       "person",
+       "people"
+      ]
+     ],
+     "missing_words": [
+      "alumna",
+      "alumnae",
+      "alumni",
+      "alumnus",
+      "appendices",
+      "appendix",
+      "appendixes",
+      "bacterium",
+      "crises",
+      "datum",
+      "dogs",
+      "indices",
+      "men",
+      "mice",
+      "nuclei",
+      "nucleus",
+      "persons",
+      "phenomena",
+      "phenomenon",
+      "potatoes",
+      "radii",
+      "radius",
+      "teeth",
+      "theses"
+     ]
+    },
+    "verb": {
+     "n_pairs": 36,
+     "n_in_vocab": 5,
+     "pairs_in_vocab": [
+      [
+       "run",
+       "running"
+      ],
+      [
+       "think",
+       "thinking"
+      ],
+      [
+       "think",
+       "thought"
+      ],
+      [
+       "thinking",
+       "thought"
+      ],
+      [
+       "drive",
+       "driving"
+      ]
+     ],
+     "missing_words": [
+      "chewed",
+      "chewing",
+      "chews",
+      "cried",
+      "cries",
+      "crying",
+      "drives",
+      "drove",
+      "ran",
+      "runs",
+      "talked",
+      "talking",
+      "talks",
+      "thinks"
+     ]
+    }
+   },
+   "tests": {
+    "L1_raw": {
+     "us_uk": {
+      "n": 2,
+      "mean": 3.915730182934071,
+      "median": 3.915730182934071,
+      "p_less": 0.04865346900190288
+     },
+     "plural": {
+      "n": 3,
+      "mean": 10.793970388910088,
+      "median": 7.868895381437681,
+      "p_less": 0.2694906114396066
+     },
+     "verb": {
+      "n": 5,
+      "mean": 2.49662498853672,
+      "median": 2.9740960574390845,
+      "p_less": 0.00111418143513613
+     },
+     "all": {
+      "n": 10,
+      "mean": 5.2696496475282,
+      "median": 3.3225147676819073,
+      "p_less": 0.0006005297843728321,
+      "p_greater": 0.9993999307948411
+     }
+    },
+    "L2_raw": {
+     "us_uk": {
+      "n": 2,
+      "mean": 1.7551311102079796,
+      "median": 1.7551311102079796,
+      "p_less": 0.018707935954425065
+     },
+     "plural": {
+      "n": 3,
+      "mean": 16.52056907023916,
+      "median": 16.800584241824204,
+      "p_less": 0.61488849054011
+     },
+     "verb": {
+      "n": 5,
+      "mean": 3.8916049826212684,
+      "median": 4.0094616039262645,
+      "p_less": 0.004351132023893372
+     },
+     "all": {
+      "n": 10,
+      "mean": 7.252999434423977,
+      "median": 4.6440522087290645,
+      "p_less": 0.0043383088310772824,
+      "p_greater": 0.9956644784018368
+     }
+    },
+    "L1_center": {
+     "us_uk": {
+      "n": 2,
+      "mean": 9.585483852742492,
+      "median": 9.585483852742492,
+      "p_less": 0.17246095961656993
+     },
+     "plural": {
+      "n": 3,
+      "mean": 11.747311533511995,
+      "median": 8.050721965528986,
+      "p_less": 0.19948486401899235
+     },
+     "verb": {
+      "n": 5,
+      "mean": 3.232950684293055,
+      "median": 2.8778798996116723,
+      "p_less": 0.0013619771544958507
+     },
+     "all": {
+      "n": 10,
+      "mean": 7.057765572748624,
+      "median": 4.012299220829048,
+      "p_less": 0.0013398627783033424,
+      "p_greater": 0.9986611002172312
+     }
+    },
+    "L2_center": {
+     "us_uk": {
+      "n": 2,
+      "mean": 9.851212583383884,
+      "median": 9.851212583383884,
+      "p_less": 0.17133760650963165
+     },
+     "plural": {
+      "n": 3,
+      "mean": 15.783239893651972,
+      "median": 10.709658792355562,
+      "p_less": 0.3822105698228218
+     },
+     "verb": {
+      "n": 5,
+      "mean": 5.194022004363146,
+      "median": 3.7552888557450683,
+      "p_less": 0.005583150752290308
+     },
+     "all": {
+      "n": 10,
+      "mean": 9.30222548695394,
+      "median": 7.045616713597214,
+      "p_less": 0.008618384828007832,
+      "p_greater": 0.9913867350375521
+     }
+    }
+   },
+   "pairs": {
+    "L1_raw": {
+     "us_uk": [
+      [
+       "license",
+       "licence",
+       6.013684013043556
+      ],
+      [
+       "offence",
+       "offense",
+       1.8177763528245856
+      ]
+     ],
+     "plural": [
+      [
+       "wife",
+       "wives",
+       5.477437141139648
+      ],
+      [
+       "child",
+       "children",
+       7.868895381437681
+      ],
+      [
+       "person",
+       "people",
+       19.035578644152935
+      ]
+     ],
+     "verb": [
+      [
+       "run",
+       "running",
+       2.662734680557129
+      ],
+      [
+       "think",
+       "thinking",
+       0.2012646693235725
+      ],
+      [
+       "think",
+       "thought",
+       2.9740960574390845
+      ],
+      [
+       "thinking",
+       "thought",
+       3.1753132097516503
+      ],
+      [
+       "drive",
+       "driving",
+       3.469716325612165
+      ]
+     ]
+    },
+    "L2_raw": {
+     "us_uk": [
+      [
+       "license",
+       "licence",
+       2.15675875232637
+      ],
+      [
+       "offence",
+       "offense",
+       1.3535034680895894
+      ]
+     ],
+     "plural": [
+      [
+       "wife",
+       "wives",
+       6.749203849397996
+      ],
+      [
+       "child",
+       "children",
+       16.800584241824204
+      ],
+      [
+       "person",
+       "people",
+       26.011919119495275
+      ]
+     ],
+     "verb": [
+      [
+       "run",
+       "running",
+       2.085381934148171
+      ],
+      [
+       "think",
+       "thinking",
+       4.0094616039262645
+      ],
+      [
+       "think",
+       "thought",
+       6.0463824516487765
+      ],
+      [
+       "thinking",
+       "thought",
+       2.038156109851263
+      ],
+      [
+       "drive",
+       "driving",
+       5.2786428135318655
+      ]
+     ]
+    },
+    "L1_center": {
+     "us_uk": [
+      [
+       "license",
+       "licence",
+       15.69527747829075
+      ],
+      [
+       "offence",
+       "offense",
+       3.475690227194233
+      ]
+     ],
+     "plural": [
+      [
+       "wife",
+       "wives",
+       8.050721965528986
+      ],
+      [
+       "child",
+       "children",
+       4.548908214463863
+      ],
+      [
+       "person",
+       "people",
+       22.642304420543134
+      ]
+     ],
+     "verb": [
+      [
+       "run",
+       "running",
+       2.9723539277070605
+      ],
+      [
+       "think",
+       "thinking",
+       1.5605441746436666
+      ],
+      [
+       "think",
+       "thought",
+       2.8778798996116723
+      ],
+      [
+       "thinking",
+       "thought",
+       1.3174836473783396
+      ],
+      [
+       "drive",
+       "driving",
+       7.436491772124534
+      ]
+     ]
+    },
+    "L2_center": {
+     "us_uk": [
+      [
+       "license",
+       "licence",
+       16.251127172251827
+      ],
+      [
+       "offence",
+       "offense",
+       3.45129799451594
+      ]
+     ],
+     "plural": [
+      [
+       "wife",
+       "wives",
+       7.228745071337722
+      ],
+      [
+       "child",
+       "children",
+       10.709658792355562
+      ],
+      [
+       "person",
+       "people",
+       29.411315817262633
+      ]
+     ],
+     "verb": [
+      [
+       "run",
+       "running",
+       1.1689132411880447
+      ],
+      [
+       "think",
+       "thinking",
+       3.7552888557450683
+      ],
+      [
+       "think",
+       "thought",
+       6.862488355856705
+      ],
+      [
+       "thinking",
+       "thought",
+       3.1092026525831167
+      ],
+      [
+       "drive",
+       "driving",
+       11.074216916442795
+      ]
+     ]
+    }
+   },
+   "random": {
+    "L1_raw": {
+     "mean": 15.722453117370605,
+     "median": 13.306253433227539,
+     "n": 5000
+    },
+    "L2_raw": {
+     "mean": 16.491329193115234,
+     "median": 13.784576416015625,
+     "n": 5000
+    },
+    "L1_center": {
+     "mean": 18.8743839263916,
+     "median": 16.04151725769043,
+     "n": 5000
+    },
+    "L2_center": {
+     "mean": 19.660829544067383,
+     "median": 16.668737411499023,
+     "n": 5000
+    }
+   },
+   "l1_l2": {
+    "pearson": 0.9566897749900818,
+    "spearman": 0.9732630847108326
+   },
+   "spectrum": [
+    {
+     "dim": 1346,
+     "var_share": 0.033853303641080856,
+     "sqnorm_share": 0.05057474688834284
+    },
+    {
+     "dim": 1359,
+     "var_share": 0.017250753939151764,
+     "sqnorm_share": 0.02056690767336585
+    },
+    {
+     "dim": 1279,
+     "var_share": 0.010748598724603653,
+     "sqnorm_share": 0.011676554898411049
+    },
+    {
+     "dim": 614,
+     "var_share": 0.006953534670174122,
+     "sqnorm_share": 0.009789819474129866
+    },
+    {
+     "dim": 1326,
+     "var_share": 0.0065005929209291935,
+     "sqnorm_share": 0.004979154923321075
+    }
+   ],
+   "tokens": {
+    "alumna": 3,
+    "alumnae": 4,
+    "alumni": 2,
+    "alumnus": 3,
+    "analog": 2,
+    "analogue": 2,
+    "analyse": 2,
+    "analyze": 2,
+    "apologise": 2,
+    "apologize": 2,
+    "appendices": 2,
+    "appendix": 2,
+    "appendixes": 3,
+    "bacteria": 2,
+    "bacterium": 3,
+    "chew": 2,
+    "chewed": 2,
+    "chewing": 2,
+    "chews": 2,
+    "child": 1,
+    "children": 1,
+    "color": 1,
+    "colour": 1,
+    "cried": 2,
+    "cries": 2,
+    "crises": 2,
+    "crisis": 2,
+    "cry": 1,
+    "crying": 2,
+    "data": 1,
+    "datum": 2,
+    "dog": 1,
+    "dogs": 1,
+    "drive": 1,
+    "drives": 2,
+    "driving": 1,
+    "drove": 2,
+    "flavor": 2,
+    "flavour": 2,
+    "index": 1,
+    "indices": 2,
+    "licence": 2,
+    "license": 1,
+    "man": 1,
+    "maneuver": 3,
+    "manoeuvre": 3,
+    "men": 1,
+    "mice": 2,
+    "mouse": 1,
+    "nuclei": 3,
+    "nucleus": 3,
+    "offence": 2,
+    "offense": 2,
+    "organise": 2,
+    "organize": 2,
+    "paediatric": 3,
+    "pediatric": 2,
+    "people": 1,
+    "person": 1,
+    "persons": 2,
+    "phenomena": 3,
+    "phenomenon": 3,
+    "potato": 2,
+    "potatoes": 2,
+    "radii": 2,
+    "radius": 1,
+    "ran": 1,
+    "run": 1,
+    "running": 1,
+    "runs": 1,
+    "talk": 1,
+    "talked": 2,
+    "talking": 1,
+    "talks": 2,
+    "teeth": 2,
+    "theses": 2,
+    "thesis": 2,
+    "think": 1,
+    "thinking": 1,
+    "thinks": 2,
+    "thought": 1,
+    "tooth": 2,
+    "traveled": 2,
+    "travelled": 3,
+    "wife": 1,
+    "wives": 1
+   }
+  },
+  "opt-13b": {
+   "n_vocab": 5124,
+   "coverage": {
+    "us_uk": {
+     "n_pairs": 11,
+     "n_in_vocab": 2,
+     "pairs_in_vocab": [
+      [
+       "license",
+       "licence"
+      ],
+      [
+       "offence",
+       "offense"
+      ]
+     ],
+     "missing_words": [
+      "analog",
+      "analogue",
+      "analyze",
+      "apologise",
+      "color",
+      "flavor",
+      "maneuver",
+      "manoeuvre",
+      "organise",
+      "paediatric",
+      "pediatric",
+      "traveled",
+      "travelled"
+     ]
+    },
+    "plural": {
+     "n_pairs": 27,
+     "n_in_vocab": 3,
+     "pairs_in_vocab": [
+      [
+       "wife",
+       "wives"
+      ],
+      [
+       "child",
+       "children"
+      ],
+      [
+       "person",
+       "people"
+      ]
+     ],
+     "missing_words": [
+      "alumna",
+      "alumnae",
+      "alumni",
+      "alumnus",
+      "appendices",
+      "appendix",
+      "appendixes",
+      "bacterium",
+      "crises",
+      "datum",
+      "dogs",
+      "indices",
+      "men",
+      "mice",
+      "nuclei",
+      "nucleus",
+      "persons",
+      "phenomena",
+      "phenomenon",
+      "potatoes",
+      "radii",
+      "radius",
+      "teeth",
+      "theses"
+     ]
+    },
+    "verb": {
+     "n_pairs": 36,
+     "n_in_vocab": 5,
+     "pairs_in_vocab": [
+      [
+       "run",
+       "running"
+      ],
+      [
+       "think",
+       "thinking"
+      ],
+      [
+       "think",
+       "thought"
+      ],
+      [
+       "thinking",
+       "thought"
+      ],
+      [
+       "drive",
+       "driving"
+      ]
+     ],
+     "missing_words": [
+      "chewed",
+      "chewing",
+      "chews",
+      "cried",
+      "cries",
+      "crying",
+      "drives",
+      "drove",
+      "ran",
+      "runs",
+      "talked",
+      "talking",
+      "talks",
+      "thinks"
+     ]
+    }
+   },
+   "tests": {
+    "L1_raw": {
+     "us_uk": {
+      "n": 2,
+      "mean": 6.465718644790135,
+      "median": 6.465718644790135,
+      "p_less": 0.19213852604704945
+     },
+     "plural": {
+      "n": 3,
+      "mean": 7.808653881247902,
+      "median": 9.519123740547696,
+      "p_less": 0.22473541090570637
+     },
+     "verb": {
+      "n": 5,
+      "mean": 11.333035533041517,
+      "median": 11.623601853065086,
+      "p_less": 0.5187084850271073
+     },
+     "all": {
+      "n": 10,
+      "mean": 9.302257659853158,
+      "median": 8.000113636892491,
+      "p_less": 0.22070947026938914,
+      "p_greater": 0.7793554435853122
+     }
+    },
+    "L2_raw": {
+     "us_uk": {
+      "n": 2,
+      "mean": 36.52206613746296,
+      "median": 36.52206613746296,
+      "p_less": 0.5875015120528156
+     },
+     "plural": {
+      "n": 3,
+      "mean": 17.943699022637237,
+      "median": 22.051123713874095,
+      "p_less": 0.2311374652500765
+     },
+     "verb": {
+      "n": 5,
+      "mean": 5.558614487843295,
+      "median": 4.895449544885918,
+      "p_less": 0.0040894872117695
+     },
+     "all": {
+      "n": 10,
+      "mean": 15.46683017820541,
+      "median": 5.025647045607576,
+      "p_less": 0.01489631037282188,
+      "p_greater": 0.98511192627717
+     }
+    },
+    "L1_center": {
+     "us_uk": {
+      "n": 2,
+      "mean": 10.085556720439335,
+      "median": 10.085556720439335,
+      "p_less": 0.3058574905163911
+     },
+     "plural": {
+      "n": 3,
+      "mean": 16.568303490005636,
+      "median": 18.436971578476026,
+      "p_less": 0.725066976429427
+     },
+     "verb": {
+      "n": 5,
+      "mean": 16.98641352778852,
+      "median": 15.549425045517424,
+      "p_less": 0.7368632294985163
+     },
+     "all": {
+      "n": 10,
+      "mean": 15.48080915498382,
+      "median": 13.761230035773753,
+      "p_less": 0.7081903958821777,
+      "p_greater": 0.2918847394385928
+     }
+    },
+    "L2_center": {
+     "us_uk": {
+      "n": 2,
+      "mean": 27.065057231291984,
+      "median": 27.065057231291984,
+      "p_less": 0.6393731063426326
+     },
+     "plural": {
+      "n": 3,
+      "mean": 27.756498141166436,
+      "median": 33.146295498932545,
+      "p_less": 0.7160583285005794
+     },
+     "verb": {
+      "n": 5,
+      "mean": 7.35383661940502,
+      "median": 7.190028009928233,
+      "p_less": 0.00830994239724456
+     },
+     "all": {
+      "n": 10,
+      "mean": 17.416879198310834,
+      "median": 10.110746557190538,
+      "p_less": 0.11107218141732433,
+      "p_greater": 0.8889692514657234
+     }
+    }
+   },
+   "pairs": {
+    "L1_raw": {
+     "us_uk": [
+      [
+       "license",
+       "licence",
+       6.4503337563429834
+      ],
+      [
+       "offence",
+       "offense",
+       6.4811035332372855
+      ]
+     ],
+     "plural": [
+      [
+       "wife",
+       "wives",
+       12.319008868330542
+      ],
+      [
+       "child",
+       "children",
+       1.5878290348654653
+      ],
+      [
+       "person",
+       "people",
+       9.519123740547696
+      ]
+     ],
+     "verb": [
+      [
+       "run",
+       "running",
+       20.84666966935088
+      ],
+      [
+       "think",
+       "thinking",
+       11.623601853065086
+      ],
+      [
+       "think",
+       "thought",
+       5.76161436301942
+      ],
+      [
+       "thinking",
+       "thought",
+       5.871818228139435
+      ],
+      [
+       "drive",
+       "driving",
+       12.561473551632766
+      ]
+     ]
+    },
+    "L2_raw": {
+     "us_uk": [
+      [
+       "license",
+       "licence",
+       68.22722045973705
+      ],
+      [
+       "offence",
+       "offense",
+       4.816911815188855
+      ]
+     ],
+     "plural": [
+      [
+       "wife",
+       "wives",
+       4.057717133899043
+      ],
+      [
+       "child",
+       "children",
+       22.051123713874095
+      ],
+      [
+       "person",
+       "people",
+       27.72225622013857
+      ]
+     ],
+     "verb": [
+      [
+       "run",
+       "running",
+       5.155844546329233
+      ],
+      [
+       "think",
+       "thinking",
+       0.8371696784023328
+      ],
+      [
+       "think",
+       "thought",
+       4.05869571252383
+      ],
+      [
+       "thinking",
+       "thought",
+       4.895449544885918
+      ],
+      [
+       "drive",
+       "driving",
+       12.845912957075159
+      ]
+     ]
+    },
+    "L1_center": {
+     "us_uk": [
+      [
+       "license",
+       "licence",
+       8.198078414848585
+      ],
+      [
+       "offence",
+       "offense",
+       11.973035026030084
+      ]
+     ],
+     "plural": [
+      [
+       "wife",
+       "wives",
+       21.484209537052276
+      ],
+      [
+       "child",
+       "children",
+       9.783729354488607
+      ],
+      [
+       "person",
+       "people",
+       18.436971578476026
+      ]
+     ],
+     "verb": [
+      [
+       "run",
+       "running",
+       27.9594555608245
+      ],
+      [
+       "think",
+       "thinking",
+       15.549425045517424
+      ],
+      [
+       "think",
+       "thought",
+       8.304899478300399
+      ],
+      [
+       "thinking",
+       "thought",
+       7.26798961975636
+      ],
+      [
+       "drive",
+       "driving",
+       25.850297934543924
+      ]
+     ]
+    },
+    "L2_center": {
+     "us_uk": [
+      [
+       "license",
+       "licence",
+       42.51506935738363
+      ],
+      [
+       "offence",
+       "offense",
+       11.61504510520034
+      ]
+     ],
+     "plural": [
+      [
+       "wife",
+       "wives",
+       8.497503980633002
+      ],
+      [
+       "child",
+       "children",
+       33.146295498932545
+      ],
+      [
+       "person",
+       "people",
+       41.62569494393376
+      ]
+     ],
+     "verb": [
+      [
+       "run",
+       "running",
+       8.606448009180738
+      ],
+      [
+       "think",
+       "thinking",
+       1.3291472849438002
+      ],
+      [
+       "think",
+       "thought",
+       5.862281629976824
+      ],
+      [
+       "thinking",
+       "thought",
+       7.190028009928233
+      ],
+      [
+       "drive",
+       "driving",
+       13.7812781629955
+      ]
+     ]
+    }
+   },
+   "random": {
+    "L1_raw": {
+     "mean": 12.52963638305664,
+     "median": 10.359506607055664,
+     "n": 5000
+    },
+    "L2_raw": {
+     "mean": 30.54597282409668,
+     "median": 24.31067657470703,
+     "n": 5000
+    },
+    "L1_center": {
+     "mean": 15.262096405029297,
+     "median": 12.922718048095703,
+     "n": 5000
+    },
+    "L2_center": {
+     "mean": 23.524911880493164,
+     "median": 20.54283905029297,
+     "n": 5000
+    }
+   },
+   "l1_l2": {
+    "pearson": -0.18484282493591309,
+    "spearman": -0.006533494486004354
+   },
+   "spectrum": [
+    {
+     "dim": 902,
+     "var_share": 0.4445296823978424,
+     "sqnorm_share": 0.2878884119786964
+    },
+    {
+     "dim": 4960,
+     "var_share": 0.013043222017586231,
+     "sqnorm_share": 0.018805625005419366
+    },
+    {
+     "dim": 3964,
+     "var_share": 0.007962663657963276,
+     "sqnorm_share": 0.018927362555188947
+    },
+    {
+     "dim": 440,
+     "var_share": 0.00499312486499548,
+     "sqnorm_share": 0.002370809959191831
+    },
+    {
+     "dim": 387,
+     "var_share": 0.004927503876388073,
+     "sqnorm_share": 0.004881730076150542
+    }
+   ],
+   "tokens": {
+    "alumna": 3,
+    "alumnae": 4,
+    "alumni": 2,
+    "alumnus": 3,
+    "analog": 2,
+    "analogue": 2,
+    "analyse": 2,
+    "analyze": 2,
+    "apologise": 2,
+    "apologize": 2,
+    "appendices": 2,
+    "appendix": 2,
+    "appendixes": 3,
+    "bacteria": 2,
+    "bacterium": 3,
+    "chew": 2,
+    "chewed": 2,
+    "chewing": 2,
+    "chews": 2,
+    "child": 1,
+    "children": 1,
+    "color": 1,
+    "colour": 1,
+    "cried": 2,
+    "cries": 2,
+    "crises": 2,
+    "crisis": 2,
+    "cry": 1,
+    "crying": 2,
+    "data": 1,
+    "datum": 2,
+    "dog": 1,
+    "dogs": 1,
+    "drive": 1,
+    "drives": 2,
+    "driving": 1,
+    "drove": 2,
+    "flavor": 2,
+    "flavour": 2,
+    "index": 1,
+    "indices": 2,
+    "licence": 2,
+    "license": 1,
+    "man": 1,
+    "maneuver": 3,
+    "manoeuvre": 3,
+    "men": 1,
+    "mice": 2,
+    "mouse": 1,
+    "nuclei": 3,
+    "nucleus": 3,
+    "offence": 2,
+    "offense": 2,
+    "organise": 2,
+    "organize": 2,
+    "paediatric": 3,
+    "pediatric": 2,
+    "people": 1,
+    "person": 1,
+    "persons": 2,
+    "phenomena": 3,
+    "phenomenon": 3,
+    "potato": 2,
+    "potatoes": 2,
+    "radii": 2,
+    "radius": 1,
+    "ran": 1,
+    "run": 1,
+    "running": 1,
+    "runs": 1,
+    "talk": 1,
+    "talked": 2,
+    "talking": 1,
+    "talks": 2,
+    "teeth": 2,
+    "theses": 2,
+    "thesis": 2,
+    "think": 1,
+    "thinking": 1,
+    "thinks": 2,
+    "thought": 1,
+    "tooth": 2,
+    "traveled": 2,
+    "travelled": 3,
+    "wife": 1,
+    "wives": 1
+   }
+  },
+  "t5-large": {
+   "n_vocab": 5124,
+   "coverage": {
+    "us_uk": {
+     "n_pairs": 11,
+     "n_in_vocab": 2,
+     "pairs_in_vocab": [
+      [
+       "license",
+       "licence"
+      ],
+      [
+       "offence",
+       "offense"
+      ]
+     ],
+     "missing_words": [
+      "analog",
+      "analogue",
+      "analyze",
+      "apologise",
+      "color",
+      "flavor",
+      "maneuver",
+      "manoeuvre",
+      "organise",
+      "paediatric",
+      "pediatric",
+      "traveled",
+      "travelled"
+     ]
+    },
+    "plural": {
+     "n_pairs": 27,
+     "n_in_vocab": 3,
+     "pairs_in_vocab": [
+      [
+       "wife",
+       "wives"
+      ],
+      [
+       "child",
+       "children"
+      ],
+      [
+       "person",
+       "people"
+      ]
+     ],
+     "missing_words": [
+      "alumna",
+      "alumnae",
+      "alumni",
+      "alumnus",
+      "appendices",
+      "appendix",
+      "appendixes",
+      "bacterium",
+      "crises",
+      "datum",
+      "dogs",
+      "indices",
+      "men",
+      "mice",
+      "nuclei",
+      "nucleus",
+      "persons",
+      "phenomena",
+      "phenomenon",
+      "potatoes",
+      "radii",
+      "radius",
+      "teeth",
+      "theses"
+     ]
+    },
+    "verb": {
+     "n_pairs": 36,
+     "n_in_vocab": 5,
+     "pairs_in_vocab": [
+      [
+       "run",
+       "running"
+      ],
+      [
+       "think",
+       "thinking"
+      ],
+      [
+       "think",
+       "thought"
+      ],
+      [
+       "thinking",
+       "thought"
+      ],
+      [
+       "drive",
+       "driving"
+      ]
+     ],
+     "missing_words": [
+      "chewed",
+      "chewing",
+      "chews",
+      "cried",
+      "cries",
+      "crying",
+      "drives",
+      "drove",
+      "ran",
+      "runs",
+      "talked",
+      "talking",
+      "talks",
+      "thinks"
+     ]
+    }
+   },
+   "tests": {
+    "L1_raw": {
+     "us_uk": {
+      "n": 2,
+      "mean": 21.14748291761695,
+      "median": 21.14748291761695,
+      "p_less": 0.6272051250732547
+     },
+     "plural": {
+      "n": 3,
+      "mean": 13.308339039451035,
+      "median": 3.3156466764937575,
+      "p_less": 0.3211754835834932
+     },
+     "verb": {
+      "n": 5,
+      "mean": 15.617138913922838,
+      "median": 5.966489920453762,
+      "p_less": 0.567190295551893
+     },
+     "all": {
+      "n": 10,
+      "mean": 16.03056775232012,
+      "median": 5.882007485560704,
+      "p_less": 0.5040597467455257,
+      "p_greater": 0.49602755671883886
+     }
+    },
+    "L2_raw": {
+     "us_uk": {
+      "n": 2,
+      "mean": 24.909795400515137,
+      "median": 24.909795400515137,
+      "p_less": 0.7182536135823478
+     },
+     "plural": {
+      "n": 3,
+      "mean": 17.99701461943474,
+      "median": 5.555969212424661,
+      "p_less": 0.4862048654997808
+     },
+     "verb": {
+      "n": 5,
+      "mean": 18.008202666246657,
+      "median": 8.860971509656704,
+      "p_less": 0.7072792211163789
+     },
+     "all": {
+      "n": 10,
+      "mean": 19.385164799056778,
+      "median": 8.117102095558943,
+      "p_less": 0.7338451034638827,
+      "p_greater": 0.2662267421116004
+     }
+    },
+    "L1_center": {
+     "us_uk": {
+      "n": 2,
+      "mean": 13.442700755007623,
+      "median": 13.442700755007623,
+      "p_less": 0.5561808300770216
+     },
+     "plural": {
+      "n": 3,
+      "mean": 2.8839735570621676,
+      "median": 3.3010930424082834,
+      "p_less": 0.018773396880986767
+     },
+     "verb": {
+      "n": 5,
+      "mean": 7.155556902773952,
+      "median": 8.380492403921224,
+      "p_less": 0.14724329612193987
+     },
+     "all": {
+      "n": 10,
+      "mean": 7.131510669507152,
+      "median": 5.072512096082028,
+      "p_less": 0.03465969299355096,
+      "p_greater": 0.9653570789964259
+     }
+    },
+    "L2_center": {
+     "us_uk": {
+      "n": 2,
+      "mean": 9.507224150228891,
+      "median": 9.507224150228891,
+      "p_less": 0.3457046651146194
+     },
+     "plural": {
+      "n": 3,
+      "mean": 3.1262065218902566,
+      "median": 3.048120521961233,
+      "p_less": 0.020349594877126825
+     },
+     "verb": {
+      "n": 5,
+      "mean": 5.78557024109258,
+      "median": 5.283633449496207,
+      "p_less": 0.056840538583765816
+     },
+     "all": {
+      "n": 10,
+      "mean": 5.732091907159145,
+      "median": 4.389857661559939,
+      "p_less": 0.007851240239690624,
+      "p_greater": 0.9921534770404116
+     }
+    }
+   },
+   "pairs": {
+    "L1_raw": {
+     "us_uk": [
+      [
+       "license",
+       "licence",
+       39.11699529986309
+      ],
+      [
+       "offence",
+       "offense",
+       3.1779705353708088
+      ]
+     ],
+     "plural": [
+      [
+       "wife",
+       "wives",
+       3.3156466764937575
+      ],
+      [
+       "child",
+       "children",
+       33.92012374950383
+      ],
+      [
+       "person",
+       "people",
+       2.689246692355517
+      ]
+     ],
+     "verb": [
+      [
+       "run",
+       "running",
+       5.966489920453762
+      ],
+      [
+       "think",
+       "thinking",
+       34.752529965652194
+      ],
+      [
+       "think",
+       "thought",
+       5.7975250506676455
+      ],
+      [
+       "thinking",
+       "thought",
+       29.101588644301636
+      ],
+      [
+       "drive",
+       "driving",
+       2.4675609885389593
+      ]
+     ]
+    },
+    "L2_raw": {
+     "us_uk": [
+      [
+       "license",
+       "licence",
+       44.79327786034488
+      ],
+      [
+       "offence",
+       "offense",
+       5.026312940685394
+      ]
+     ],
+     "plural": [
+      [
+       "wife",
+       "wives",
+       3.9262746491558675
+      ],
+      [
+       "child",
+       "children",
+       44.508799996723695
+      ],
+      [
+       "person",
+       "people",
+       5.555969212424661
+      ]
+     ],
+     "verb": [
+      [
+       "run",
+       "running",
+       8.860971509656704
+      ],
+      [
+       "think",
+       "thinking",
+       38.57557124828827
+      ],
+      [
+       "think",
+       "thought",
+       7.373232681461182
+      ],
+      [
+       "thinking",
+       "thought",
+       31.425796930364957
+      ],
+      [
+       "drive",
+       "driving",
+       3.8054409614621685
+      ]
+     ]
+    },
+    "L1_center": {
+     "us_uk": [
+      [
+       "license",
+       "licence",
+       3.2766578094393197
+      ],
+      [
+       "offence",
+       "offense",
+       23.608743700575925
+      ]
+     ],
+     "plural": [
+      [
+       "wife",
+       "wives",
+       3.3010930424082834
+      ],
+      [
+       "child",
+       "children",
+       0.7867020351942505
+      ],
+      [
+       "person",
+       "people",
+       4.564125593583969
+      ]
+     ],
+     "verb": [
+      [
+       "run",
+       "running",
+       9.918063058308686
+      ],
+      [
+       "think",
+       "thinking",
+       10.137541523697138
+      ],
+      [
+       "think",
+       "thought",
+       1.760788929362629
+      ],
+      [
+       "thinking",
+       "thought",
+       8.380492403921224
+      ],
+      [
+       "drive",
+       "driving",
+       5.580898598580087
+      ]
+     ]
+    },
+    "L2_center": {
+     "us_uk": [
+      [
+       "license",
+       "licence",
+       1.799400737733485
+      ],
+      [
+       "offence",
+       "offense",
+       17.215047562724298
+      ]
+     ],
+     "plural": [
+      [
+       "wife",
+       "wives",
+       3.6402301091251714
+      ],
+      [
+       "child",
+       "children",
+       3.048120521961233
+      ],
+      [
+       "person",
+       "people",
+       2.6902689345843656
+      ]
+     ],
+     "verb": [
+      [
+       "run",
+       "running",
+       10.069100287902172
+      ],
+      [
+       "think",
+       "thinking",
+       6.858918464833696
+      ],
+      [
+       "think",
+       "thought",
+       1.5767137892361158
+      ],
+      [
+       "thinking",
+       "thought",
+       5.283633449496207
+      ],
+      [
+       "drive",
+       "driving",
+       5.139485213994707
+      ]
+     ]
+    }
+   },
+   "random": {
+    "L1_raw": {
+     "mean": 13.345311164855957,
+     "median": 9.359623908996582,
+     "n": 5000
+    },
+    "L2_raw": {
+     "mean": 14.530263900756836,
+     "median": 9.896323204040527,
+     "n": 5000
+    },
+    "L1_center": {
+     "mean": 12.010517120361328,
+     "median": 9.957794189453125,
+     "n": 5000
+    },
+    "L2_center": {
+     "mean": 12.134037971496582,
+     "median": 9.96476936340332,
+     "n": 5000
+    }
+   },
+   "l1_l2": {
+    "pearson": 0.970679759979248,
+    "spearman": 0.93687752121195
+   },
+   "spectrum": [
+    {
+     "dim": 79,
+     "var_share": 0.00973931048065424,
+     "sqnorm_share": 0.025247886560736576
+    },
+    {
+     "dim": 58,
+     "var_share": 0.009315329603850842,
+     "sqnorm_share": 0.03131339570697347
+    },
+    {
+     "dim": 300,
+     "var_share": 0.009049075655639172,
+     "sqnorm_share": 0.015298174711832405
+    },
+    {
+     "dim": 674,
+     "var_share": 0.0054755909368395805,
+     "sqnorm_share": 0.011354719085935633
+    },
+    {
+     "dim": 801,
+     "var_share": 0.005027932580560446,
+     "sqnorm_share": 0.005497239957396148
+    }
+   ],
+   "tokens": {
+    "alumna": 5,
+    "alumnae": 6,
+    "alumni": 1,
+    "alumnus": 5,
+    "analog": 1,
+    "analogue": 3,
+    "analyse": 1,
+    "analyze": 1,
+    "apologise": 6,
+    "apologize": 1,
+    "appendices": 4,
+    "appendix": 3,
+    "appendixes": 5,
+    "bacteria": 1,
+    "bacterium": 3,
+    "chew": 1,
+    "chewed": 3,
+    "chewing": 2,
+    "chews": 2,
+    "child": 1,
+    "children": 1,
+    "color": 1,
+    "colour": 1,
+    "cried": 2,
+    "cries": 3,
+    "crises": 2,
+    "crisis": 1,
+    "cry": 1,
+    "crying": 1,
+    "data": 1,
+    "datum": 2,
+    "dog": 1,
+    "dogs": 1,
+    "drive": 1,
+    "drives": 1,
+    "driving": 1,
+    "drove": 1,
+    "flavor": 1,
+    "flavour": 1,
+    "index": 1,
+    "indices": 3,
+    "licence": 1,
+    "license": 1,
+    "man": 1,
+    "maneuver": 1,
+    "manoeuvre": 2,
+    "men": 1,
+    "mice": 1,
+    "mouse": 1,
+    "nuclei": 3,
+    "nucleus": 3,
+    "offence": 2,
+    "offense": 1,
+    "organise": 3,
+    "organize": 1,
+    "paediatric": 3,
+    "pediatric": 1,
+    "people": 1,
+    "person": 1,
+    "persons": 1,
+    "phenomena": 1,
+    "phenomenon": 1,
+    "potato": 1,
+    "potatoes": 1,
+    "radii": 3,
+    "radius": 1,
+    "ran": 1,
+    "run": 1,
+    "running": 1,
+    "runs": 1,
+    "talk": 1,
+    "talked": 1,
+    "talking": 1,
+    "talks": 1,
+    "teeth": 1,
+    "theses": 2,
+    "thesis": 1,
+    "think": 1,
+    "thinking": 1,
+    "thinks": 2,
+    "thought": 1,
+    "tooth": 1,
+    "traveled": 1,
+    "travelled": 2,
+    "wife": 1,
+    "wives": 1
+   }
+  },
+  "t5-3b": {
+   "n_vocab": 5124,
+   "coverage": {
+    "us_uk": {
+     "n_pairs": 11,
+     "n_in_vocab": 2,
+     "pairs_in_vocab": [
+      [
+       "license",
+       "licence"
+      ],
+      [
+       "offence",
+       "offense"
+      ]
+     ],
+     "missing_words": [
+      "analog",
+      "analogue",
+      "analyze",
+      "apologise",
+      "color",
+      "flavor",
+      "maneuver",
+      "manoeuvre",
+      "organise",
+      "paediatric",
+      "pediatric",
+      "traveled",
+      "travelled"
+     ]
+    },
+    "plural": {
+     "n_pairs": 27,
+     "n_in_vocab": 3,
+     "pairs_in_vocab": [
+      [
+       "wife",
+       "wives"
+      ],
+      [
+       "child",
+       "children"
+      ],
+      [
+       "person",
+       "people"
+      ]
+     ],
+     "missing_words": [
+      "alumna",
+      "alumnae",
+      "alumni",
+      "alumnus",
+      "appendices",
+      "appendix",
+      "appendixes",
+      "bacterium",
+      "crises",
+      "datum",
+      "dogs",
+      "indices",
+      "men",
+      "mice",
+      "nuclei",
+      "nucleus",
+      "persons",
+      "phenomena",
+      "phenomenon",
+      "potatoes",
+      "radii",
+      "radius",
+      "teeth",
+      "theses"
+     ]
+    },
+    "verb": {
+     "n_pairs": 36,
+     "n_in_vocab": 5,
+     "pairs_in_vocab": [
+      [
+       "run",
+       "running"
+      ],
+      [
+       "think",
+       "thinking"
+      ],
+      [
+       "think",
+       "thought"
+      ],
+      [
+       "thinking",
+       "thought"
+      ],
+      [
+       "drive",
+       "driving"
+      ]
+     ],
+     "missing_words": [
+      "chewed",
+      "chewing",
+      "chews",
+      "cried",
+      "cries",
+      "crying",
+      "drives",
+      "drove",
+      "ran",
+      "runs",
+      "talked",
+      "talking",
+      "talks",
+      "thinks"
+     ]
+    }
+   },
+   "tests": {
+    "L1_raw": {
+     "us_uk": {
+      "n": 2,
+      "mean": 1.0502229159796834,
+      "median": 1.0502229159796834,
+      "p_less": 0.015046562093195737
+     },
+     "plural": {
+      "n": 3,
+      "mean": 11.235650277779635,
+      "median": 13.870016977463685,
+      "p_less": 0.57758601118092
+     },
+     "verb": {
+      "n": 5,
+      "mean": 17.53966826854422,
+      "median": 11.970747736319357,
+      "p_less": 0.8420239744093134
+     },
+     "all": {
+      "n": 10,
+      "mean": 12.350573800801937,
+      "median": 11.546038005735847,
+      "p_less": 0.43899325497952313,
+      "p_greater": 0.5610930286152767
+     }
+    },
+    "L2_raw": {
+     "us_uk": {
+      "n": 2,
+      "mean": 1.6915126143823924,
+      "median": 1.6915126143823924,
+      "p_less": 0.024643208489188932
+     },
+     "plural": {
+      "n": 3,
+      "mean": 10.912687442733711,
+      "median": 13.847451455469912,
+      "p_less": 0.5444912872774053
+     },
+     "verb": {
+      "n": 5,
+      "mean": 17.283549429834906,
+      "median": 12.518404223879756,
+      "p_less": 0.842248018975369
+     },
+     "all": {
+      "n": 10,
+      "mean": 12.253883470614046,
+      "median": 12.13740634550268,
+      "p_less": 0.4569103741821554,
+      "p_greater": 0.5431764229105531
+     }
+    },
+    "L1_center": {
+     "us_uk": {
+      "n": 2,
+      "mean": 13.906210758732113,
+      "median": 13.906210758732113,
+      "p_less": 0.53755547034049
+     },
+     "plural": {
+      "n": 3,
+      "mean": 9.032661767580535,
+      "median": 9.737563805127202,
+      "p_less": 0.2896599892857017
+     },
+     "verb": {
+      "n": 5,
+      "mean": 12.35482083975919,
+      "median": 14.936143901821627,
+      "p_less": 0.47968749953904954
+     },
+     "all": {
+      "n": 10,
+      "mean": 11.668451101900178,
+      "median": 9.985245898538544,
+      "p_less": 0.3830330798669661,
+      "p_greater": 0.6170504452896013
+     }
+    },
+    "L2_center": {
+     "us_uk": {
+      "n": 2,
+      "mean": 13.508068538647057,
+      "median": 13.508068538647057,
+      "p_less": 0.5365827788890954
+     },
+     "plural": {
+      "n": 3,
+      "mean": 8.887612984325367,
+      "median": 8.403161646157573,
+      "p_less": 0.29792151121380095
+     },
+     "verb": {
+      "n": 5,
+      "mean": 12.664454441961317,
+      "median": 13.578841433125522,
+      "p_less": 0.53509991517008
+     },
+     "all": {
+      "n": 10,
+      "mean": 11.700124824007682,
+      "median": 10.048729313762571,
+      "p_less": 0.42574218070885783,
+      "p_greater": 0.574343608545464
+     }
+    }
+   },
+   "pairs": {
+    "L1_raw": {
+     "us_uk": [
+      [
+       "license",
+       "licence",
+       1.2145065875306205
+      ],
+      [
+       "offence",
+       "offense",
+       0.8859392444287465
+      ]
+     ],
+     "plural": [
+      [
+       "wife",
+       "wives",
+       5.078417497193395
+      ],
+      [
+       "child",
+       "children",
+       14.758516358681831
+      ],
+      [
+       "person",
+       "people",
+       13.870016977463685
+      ]
+     ],
+     "verb": [
+      [
+       "run",
+       "running",
+       3.4330404146372873
+      ],
+      [
+       "think",
+       "thinking",
+       36.02132778765671
+      ],
+      [
+       "think",
+       "thought",
+       11.121328275152337
+      ],
+      [
+       "thinking",
+       "thought",
+       25.151897128955405
+      ],
+      [
+       "drive",
+       "driving",
+       11.970747736319357
+      ]
+     ]
+    },
+    "L2_raw": {
+     "us_uk": [
+      [
+       "license",
+       "licence",
+       0.9056391308227197
+      ],
+      [
+       "offence",
+       "offense",
+       2.477386097942065
+      ]
+     ],
+     "plural": [
+      [
+       "wife",
+       "wives",
+       4.165914195403103
+      ],
+      [
+       "child",
+       "children",
+       14.724696677328117
+      ],
+      [
+       "person",
+       "people",
+       13.847451455469912
+      ]
+     ],
+     "verb": [
+      [
+       "run",
+       "running",
+       3.17435048993366
+      ],
+      [
+       "think",
+       "thinking",
+       35.239612393330766
+      ],
+      [
+       "think",
+       "thought",
+       11.756408467125604
+      ],
+      [
+       "thinking",
+       "thought",
+       23.728971574904755
+      ],
+      [
+       "drive",
+       "driving",
+       12.518404223879756
+      ]
+     ]
+    },
+    "L1_center": {
+     "us_uk": [
+      [
+       "license",
+       "licence",
+       4.555531618026625
+      ],
+      [
+       "offence",
+       "offense",
+       23.256889899437603
+      ]
+     ],
+     "plural": [
+      [
+       "wife",
+       "wives",
+       10.232927991949886
+      ],
+      [
+       "child",
+       "children",
+       9.737563805127202
+      ],
+      [
+       "person",
+       "people",
+       7.127493505664518
+      ]
+     ],
+     "verb": [
+      [
+       "run",
+       "running",
+       4.362404699791009
+      ],
+      [
+       "think",
+       "thinking",
+       21.22402030659209
+      ],
+      [
+       "think",
+       "thought",
+       2.8123882019915616
+      ],
+      [
+       "thinking",
+       "thought",
+       18.439147088599668
+      ],
+      [
+       "drive",
+       "driving",
+       14.936143901821627
+      ]
+     ]
+    },
+    "L2_center": {
+     "us_uk": [
+      [
+       "license",
+       "licence",
+       4.557476603061468
+      ],
+      [
+       "offence",
+       "offense",
+       22.458660474232648
+      ]
+     ],
+     "plural": [
+      [
+       "wife",
+       "wives",
+       8.403161646157573
+      ],
+      [
+       "child",
+       "children",
+       11.69429698136757
+      ],
+      [
+       "person",
+       "people",
+       6.565380325450961
+      ]
+     ],
+     "verb": [
+      [
+       "run",
+       "running",
+       4.460566885842714
+      ],
+      [
+       "think",
+       "thinking",
+       22.620133416888493
+      ],
+      [
+       "think",
+       "thought",
+       4.046293286149334
+      ],
+      [
+       "thinking",
+       "thought",
+       18.61643718780052
+      ],
+      [
+       "drive",
+       "driving",
+       13.578841433125522
+      ]
+     ]
+    }
+   },
+   "random": {
+    "L1_raw": {
+     "mean": 12.796923637390137,
+     "median": 9.735736846923828,
+     "n": 5000
+    },
+    "L2_raw": {
+     "mean": 12.794271469116211,
+     "median": 9.694721221923828,
+     "n": 5000
+    },
+    "L1_center": {
+     "mean": 13.756368637084961,
+     "median": 11.299947738647461,
+     "n": 5000
+    },
+    "L2_center": {
+     "mean": 13.410836219787598,
+     "median": 10.901458740234375,
+     "n": 5000
+    }
+   },
+   "l1_l2": {
+    "pearson": 0.9953775405883789,
+    "spearman": 0.9926081653994827
+   },
+   "spectrum": [
+    {
+     "dim": 792,
+     "var_share": 0.0032283677719533443,
+     "sqnorm_share": 0.0022981670323626983
+    },
+    {
+     "dim": 71,
+     "var_share": 0.003169619245454669,
+     "sqnorm_share": 0.0021340022901997643
+    },
+    {
+     "dim": 17,
+     "var_share": 0.002963691484183073,
+     "sqnorm_share": 0.002260096810389624
+    },
+    {
+     "dim": 751,
+     "var_share": 0.002869515446946025,
+     "sqnorm_share": 0.002211746142601822
+    },
+    {
+     "dim": 923,
+     "var_share": 0.002824679482728243,
+     "sqnorm_share": 0.002342624395280235
+    }
+   ],
+   "tokens": {
+    "alumna": 5,
+    "alumnae": 6,
+    "alumni": 1,
+    "alumnus": 5,
+    "analog": 1,
+    "analogue": 3,
+    "analyse": 1,
+    "analyze": 1,
+    "apologise": 6,
+    "apologize": 1,
+    "appendices": 4,
+    "appendix": 3,
+    "appendixes": 5,
+    "bacteria": 1,
+    "bacterium": 3,
+    "chew": 1,
+    "chewed": 3,
+    "chewing": 2,
+    "chews": 2,
+    "child": 1,
+    "children": 1,
+    "color": 1,
+    "colour": 1,
+    "cried": 2,
+    "cries": 3,
+    "crises": 2,
+    "crisis": 1,
+    "cry": 1,
+    "crying": 1,
+    "data": 1,
+    "datum": 2,
+    "dog": 1,
+    "dogs": 1,
+    "drive": 1,
+    "drives": 1,
+    "driving": 1,
+    "drove": 1,
+    "flavor": 1,
+    "flavour": 1,
+    "index": 1,
+    "indices": 3,
+    "licence": 1,
+    "license": 1,
+    "man": 1,
+    "maneuver": 1,
+    "manoeuvre": 2,
+    "men": 1,
+    "mice": 1,
+    "mouse": 1,
+    "nuclei": 3,
+    "nucleus": 3,
+    "offence": 2,
+    "offense": 1,
+    "organise": 3,
+    "organize": 1,
+    "paediatric": 3,
+    "pediatric": 1,
+    "people": 1,
+    "person": 1,
+    "persons": 1,
+    "phenomena": 1,
+    "phenomenon": 1,
+    "potato": 1,
+    "potatoes": 1,
+    "radii": 3,
+    "radius": 1,
+    "ran": 1,
+    "run": 1,
+    "running": 1,
+    "runs": 1,
+    "talk": 1,
+    "talked": 1,
+    "talking": 1,
+    "talks": 1,
+    "teeth": 1,
+    "theses": 2,
+    "thesis": 1,
+    "think": 1,
+    "thinking": 1,
+    "thinks": 2,
+    "thought": 1,
+    "tooth": 1,
+    "traveled": 1,
+    "travelled": 2,
+    "wife": 1,
+    "wives": 1
+   }
+  },
+  "flan-t5-xxl": {
+   "n_vocab": 5124,
+   "coverage": {
+    "us_uk": {
+     "n_pairs": 11,
+     "n_in_vocab": 2,
+     "pairs_in_vocab": [
+      [
+       "license",
+       "licence"
+      ],
+      [
+       "offence",
+       "offense"
+      ]
+     ],
+     "missing_words": [
+      "analog",
+      "analogue",
+      "analyze",
+      "apologise",
+      "color",
+      "flavor",
+      "maneuver",
+      "manoeuvre",
+      "organise",
+      "paediatric",
+      "pediatric",
+      "traveled",
+      "travelled"
+     ]
+    },
+    "plural": {
+     "n_pairs": 27,
+     "n_in_vocab": 3,
+     "pairs_in_vocab": [
+      [
+       "wife",
+       "wives"
+      ],
+      [
+       "child",
+       "children"
+      ],
+      [
+       "person",
+       "people"
+      ]
+     ],
+     "missing_words": [
+      "alumna",
+      "alumnae",
+      "alumni",
+      "alumnus",
+      "appendices",
+      "appendix",
+      "appendixes",
+      "bacterium",
+      "crises",
+      "datum",
+      "dogs",
+      "indices",
+      "men",
+      "mice",
+      "nuclei",
+      "nucleus",
+      "persons",
+      "phenomena",
+      "phenomenon",
+      "potatoes",
+      "radii",
+      "radius",
+      "teeth",
+      "theses"
+     ]
+    },
+    "verb": {
+     "n_pairs": 36,
+     "n_in_vocab": 5,
+     "pairs_in_vocab": [
+      [
+       "run",
+       "running"
+      ],
+      [
+       "think",
+       "thinking"
+      ],
+      [
+       "think",
+       "thought"
+      ],
+      [
+       "thinking",
+       "thought"
+      ],
+      [
+       "drive",
+       "driving"
+      ]
+     ],
+     "missing_words": [
+      "chewed",
+      "chewing",
+      "chews",
+      "cried",
+      "cries",
+      "crying",
+      "drives",
+      "drove",
+      "ran",
+      "runs",
+      "talked",
+      "talking",
+      "talks",
+      "thinks"
+     ]
+    }
+   },
+   "tests": {
+    "L1_raw": {
+     "us_uk": {
+      "n": 2,
+      "mean": 8.468206415844021,
+      "median": 8.468206415844021,
+      "p_less": 0.7431486204786142
+     },
+     "plural": {
+      "n": 3,
+      "mean": 3.098182152879686,
+      "median": 2.4755735397087806,
+      "p_less": 0.0792054999216365
+     },
+     "verb": {
+      "n": 5,
+      "mean": 2.4136564727560543,
+      "median": 2.142676876152627,
+      "p_less": 0.01210409749832136
+     },
+     "all": {
+      "n": 10,
+      "mean": 3.8299241654107363,
+      "median": 2.824703028432163,
+      "p_less": 0.01907402011820116,
+      "p_greater": 0.9809361556512638
+     }
+    },
+    "L2_raw": {
+     "us_uk": {
+      "n": 2,
+      "mean": 5.987744420917183,
+      "median": 5.987744420917183,
+      "p_less": 0.623677937889387
+     },
+     "plural": {
+      "n": 3,
+      "mean": 2.9615922911857773,
+      "median": 2.6505533744462095,
+      "p_less": 0.11342428995820769
+     },
+     "verb": {
+      "n": 5,
+      "mean": 2.286464801541198,
+      "median": 1.648717283644115,
+      "p_less": 0.019538634335313974
+     },
+     "all": {
+      "n": 10,
+      "mean": 3.2292589723097684,
+      "median": 2.6284724210822454,
+      "p_less": 0.0238992391829179,
+      "p_greater": 0.9761130743094428
+     }
+    },
+    "L1_center": {
+     "us_uk": {
+      "n": 2,
+      "mean": 14.268883199816315,
+      "median": 14.268883199816315,
+      "p_less": 0.5124047827267773
+     },
+     "plural": {
+      "n": 3,
+      "mean": 1.9606451857121956,
+      "median": 2.1426682648082775,
+      "p_less": 0.006568968153968478
+     },
+     "verb": {
+      "n": 5,
+      "mean": 3.8925978238441816,
+      "median": 3.202516981896856,
+      "p_less": 0.0050763628339442505
+     },
+     "all": {
+      "n": 10,
+      "mean": 5.388269107599013,
+      "median": 2.9990113101681937,
+      "p_less": 0.0007874944135992453,
+      "p_greater": 0.9992130969740799
+     }
+    },
+    "L2_center": {
+     "us_uk": {
+      "n": 2,
+      "mean": 14.4179140284691,
+      "median": 14.4179140284691,
+      "p_less": 0.5836841668885442
+     },
+     "plural": {
+      "n": 3,
+      "mean": 2.0148288750493712,
+      "median": 2.032621091432142,
+      "p_less": 0.007708521932175069
+     },
+     "verb": {
+      "n": 5,
+      "mean": 3.4595109112925675,
+      "median": 3.895375979067127,
+      "p_less": 0.0036959511207725346
+     },
+     "all": {
+      "n": 10,
+      "mean": 5.2177869238549155,
+      "median": 3.509049818619749,
+      "p_less": 0.0008895477056336402,
+      "p_greater": 0.9991111138417977
+     }
+    }
+   },
+   "pairs": {
+    "L1_raw": {
+     "us_uk": [
+      [
+       "license",
+       "licence",
+       6.845655175762806
+      ],
+      [
+       "offence",
+       "offense",
+       10.090757655925236
+      ]
+     ],
+     "plural": [
+      [
+       "wife",
+       "wives",
+       1.8221138521746887
+      ],
+      [
+       "child",
+       "children",
+       2.4755735397087806
+      ],
+      [
+       "person",
+       "people",
+       4.996859066755588
+      ]
+     ],
+     "verb": [
+      [
+       "run",
+       "running",
+       2.142676876152627
+      ],
+      [
+       "think",
+       "thinking",
+       4.637248445923558
+      ],
+      [
+       "think",
+       "thought",
+       3.1738325171555455
+      ],
+      [
+       "thinking",
+       "thought",
+       1.4639545853644933
+      ],
+      [
+       "drive",
+       "driving",
+       0.6505699391840469
+      ]
+     ]
+    },
+    "L2_raw": {
+     "us_uk": [
+      [
+       "license",
+       "licence",
+       6.85643562451121
+      ],
+      [
+       "offence",
+       "offense",
+       5.119053217323157
+      ]
+     ],
+     "plural": [
+      [
+       "wife",
+       "wives",
+       1.512862012919238
+      ],
+      [
+       "child",
+       "children",
+       2.6505533744462095
+      ],
+      [
+       "person",
+       "people",
+       4.721361486191884
+      ]
+     ],
+     "verb": [
+      [
+       "run",
+       "running",
+       1.648717283644115
+      ],
+      [
+       "think",
+       "thinking",
+       4.099670576327418
+      ],
+      [
+       "think",
+       "thought",
+       2.6063914677182813
+      ],
+      [
+       "thinking",
+       "thought",
+       1.4936783815916692
+      ],
+      [
+       "drive",
+       "driving",
+       1.5838662984245047
+      ]
+     ]
+    },
+    "L1_center": {
+     "us_uk": [
+      [
+       "license",
+       "licence",
+       4.91136361624792
+      ],
+      [
+       "offence",
+       "offense",
+       23.626402783384712
+      ]
+     ],
+     "plural": [
+      [
+       "wife",
+       "wives",
+       2.668225846192648
+      ],
+      [
+       "child",
+       "children",
+       2.1426682648082775
+      ],
+      [
+       "person",
+       "people",
+       1.0710414461356617
+      ]
+     ],
+     "verb": [
+      [
+       "run",
+       "running",
+       7.085487201722239
+      ],
+      [
+       "think",
+       "thinking",
+       3.202516981896856
+      ],
+      [
+       "think",
+       "thought",
+       4.790693444619313
+      ],
+      [
+       "thinking",
+       "thought",
+       1.5887858525429688
+      ],
+      [
+       "drive",
+       "driving",
+       2.7955056384395314
+      ]
+     ]
+    },
+    "L2_center": {
+     "us_uk": [
+      [
+       "license",
+       "licence",
+       6.649366187626188
+      ],
+      [
+       "offence",
+       "offense",
+       22.186461869312012
+      ]
+     ],
+     "plural": [
+      [
+       "wife",
+       "wives",
+       2.032621091432142
+      ],
+      [
+       "child",
+       "children",
+       0.8891418755436014
+      ],
+      [
+       "person",
+       "people",
+       3.1227236581723705
+      ]
+     ],
+     "verb": [
+      [
+       "run",
+       "running",
+       7.128075634024396
+      ],
+      [
+       "think",
+       "thinking",
+       3.895375979067127
+      ],
+      [
+       "think",
+       "thought",
+       4.222105808397462
+      ],
+      [
+       "thinking",
+       "thought",
+       0.32686437376511096
+      ],
+      [
+       "drive",
+       "driving",
+       1.725132761208744
+      ]
+     ]
+    }
+   },
+   "random": {
+    "L1_raw": {
+     "mean": 7.6970696449279785,
+     "median": 6.0904765129089355,
+     "n": 5000
+    },
+    "L2_raw": {
+     "mean": 6.40037202835083,
+     "median": 5.108986854553223,
+     "n": 5000
+    },
+    "L1_center": {
+     "mean": 14.871254920959473,
+     "median": 12.539050102233887,
+     "n": 5000
+    },
+    "L2_center": {
+     "mean": 14.328714370727539,
+     "median": 11.929903984069824,
+     "n": 5000
+    }
+   },
+   "l1_l2": {
+    "pearson": 0.9728584289550781,
+    "spearman": 0.9651220176409812
+   },
+   "spectrum": [
+    {
+     "dim": 1478,
+     "var_share": 0.004991151392459869,
+     "sqnorm_share": 0.1149340241609704
+    },
+    {
+     "dim": 1814,
+     "var_share": 0.0021166319493204355,
+     "sqnorm_share": 0.0013842660383016922
+    },
+    {
+     "dim": 2152,
+     "var_share": 0.0018925006734207273,
+     "sqnorm_share": 0.0010911642554921651
+    },
+    {
+     "dim": 3799,
+     "var_share": 0.0018172384006902575,
+     "sqnorm_share": 0.0009962515756547301
+    },
+    {
+     "dim": 892,
+     "var_share": 0.0017828886630013585,
+     "sqnorm_share": 0.004807246399650768
+    }
+   ],
+   "tokens": {
+    "alumna": 5,
+    "alumnae": 6,
+    "alumni": 1,
+    "alumnus": 5,
+    "analog": 1,
+    "analogue": 3,
+    "analyse": 1,
+    "analyze": 1,
+    "apologise": 6,
+    "apologize": 1,
+    "appendices": 4,
+    "appendix": 3,
+    "appendixes": 5,
+    "bacteria": 1,
+    "bacterium": 3,
+    "chew": 1,
+    "chewed": 3,
+    "chewing": 2,
+    "chews": 2,
+    "child": 1,
+    "children": 1,
+    "color": 1,
+    "colour": 1,
+    "cried": 2,
+    "cries": 3,
+    "crises": 2,
+    "crisis": 1,
+    "cry": 1,
+    "crying": 1,
+    "data": 1,
+    "datum": 2,
+    "dog": 1,
+    "dogs": 1,
+    "drive": 1,
+    "drives": 1,
+    "driving": 1,
+    "drove": 1,
+    "flavor": 1,
+    "flavour": 1,
+    "index": 1,
+    "indices": 3,
+    "licence": 1,
+    "license": 1,
+    "man": 1,
+    "maneuver": 1,
+    "manoeuvre": 2,
+    "men": 1,
+    "mice": 1,
+    "mouse": 1,
+    "nuclei": 3,
+    "nucleus": 3,
+    "offence": 2,
+    "offense": 1,
+    "organise": 3,
+    "organize": 1,
+    "paediatric": 3,
+    "pediatric": 1,
+    "people": 1,
+    "person": 1,
+    "persons": 1,
+    "phenomena": 1,
+    "phenomenon": 1,
+    "potato": 1,
+    "potatoes": 1,
+    "radii": 3,
+    "radius": 1,
+    "ran": 1,
+    "run": 1,
+    "running": 1,
+    "runs": 1,
+    "talk": 1,
+    "talked": 1,
+    "talking": 1,
+    "talks": 1,
+    "teeth": 1,
+    "theses": 2,
+    "thesis": 1,
+    "think": 1,
+    "thinking": 1,
+    "thinks": 2,
+    "thought": 1,
+    "tooth": 1,
+    "traveled": 1,
+    "travelled": 2,
+    "wife": 1,
+    "wives": 1
+   }
+  }
+ },
+ "seconds": 13.642889976501465
+}
