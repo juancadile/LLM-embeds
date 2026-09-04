@@ -58,17 +58,22 @@ def hf_revision(model_id: str) -> str | None:
 
 
 def write_sidecar(npy: Path, model_id: str, model, dtype: str, layer: str, layer_index: int, pool: str,
-                  ctx: str, template: str, tokens: dict[str, int]) -> None:
+                  ctx: str, template: str, tokens: dict[str, int], n_vocab: int | None = None) -> None:
     """Metadata next to every configuration's .npy; a configuration without one is not done."""
     counts = list(tokens.values())
+    n_rows = int(np.load(npy, mmap_mode="r").shape[0])
+    layout = (f"{n_rows} rows = {n_vocab} vocab rows (vocab/expanded_vocab.txt, in order) + {n_rows - n_vocab} query-only rows "
+              "(magnitude-pair words and define2 targets absent from the vocab; used as query vectors, never ranked or sampled)"
+              if n_vocab else f"{n_rows} rows aligned to the word list passed to extract()")
     meta = {
+        "row_layout": layout, "n_vocab_rows": n_vocab, "n_query_only_rows": (n_rows - n_vocab) if n_vocab else None,
         "model_id": model_id, "revision": hf_revision(model_id), "dtype": dtype,
         "architecture": (getattr(getattr(model, "config", None), "architectures", None) or [type(model).__name__])[0],
         "num_hidden_layers": getattr(getattr(model, "config", None), "num_hidden_layers", None),
         "hidden_size": getattr(getattr(model, "config", None), "hidden_size", None),
         "layer": layer, "layer_index": layer_index, "pooling": pool, "context": ctx, "context_template": template,
         "special_tokens_pooled": False,
-        "n_words": int(np.load(npy, mmap_mode="r").shape[0]),
+        "n_words": n_rows,
         "tokens_per_word": {"mean": float(np.mean(counts)) if counts else None,
                             "max": int(max(counts)) if counts else None,
                             "frac_multi_token": float(np.mean([c > 1 for c in counts])) if counts else None},
@@ -77,7 +82,7 @@ def write_sidecar(npy: Path, model_id: str, model, dtype: str, layer: str, layer
     json.dump(meta, open(npy.with_suffix(".json"), "w"), indent=1)
 
 
-def backfill_sidecars(model_ids: list[str], dtype: str = "bfloat16") -> list[str]:
+def backfill_sidecars(model_ids: list[str], dtype: str = "bfloat16", n_vocab: int | None = 5124, force: bool = False) -> list[str]:
     """Write missing sidecars for configurations extracted before sidecars existed."""
     from transformers import AutoConfig
     done = []
@@ -91,7 +96,7 @@ def backfill_sidecars(model_ids: list[str], dtype: str = "bfloat16") -> list[str
         class _M:  # minimal stand-in carrying the config
             config = cfg
         for f in CACHE.glob(f"{prefix}_*_*_*.npy"):
-            if f.with_suffix(".json").exists():
+            if f.with_suffix(".json").exists() and not force:
                 continue
             try:
                 _, layer, pool, ctx = f.stem.rsplit("_", 3)
@@ -99,14 +104,14 @@ def backfill_sidecars(model_ids: list[str], dtype: str = "bfloat16") -> list[str
                 continue
             if layer not in LAYERS or pool not in POOLS or ctx not in CONTEXTS:
                 continue
-            write_sidecar(f, mid, _M, dtype, layer, lidx[layer], pool, ctx, CONTEXTS[ctx], tokens.get(ctx, {}))
+            write_sidecar(f, mid, _M, dtype, layer, lidx[layer], pool, ctx, CONTEXTS[ctx], tokens.get(ctx, {}), n_vocab=n_vocab)
             done.append(f.stem)
     return done
 
 
 def extract(model_id: str, words: list[str], out_prefix: str | None = None, batch_size: int = 64,
             dtype="bfloat16", device="cuda", layers=LAYERS, pools=POOLS, contexts=CONTEXTS,
-            force: bool = False) -> dict:
+            force: bool = False, n_vocab: int | None = None) -> dict:
     """Run every (layer, pool, ctx) configuration in one pass per context.
     Returns {cfg_name: path} plus token counts."""
     import torch
@@ -166,7 +171,7 @@ def extract(model_id: str, words: list[str], out_prefix: str | None = None, batc
                     A[b0 + r] = H[pos].mean(0) if p == "mean" else H[pos[-1]]
         for (l, p), A in acc.items():
             np.save(paths[(l, p, ctx)], A)
-            write_sidecar(paths[(l, p, ctx)], model_id, model, dtype, l, lidx[l], p, ctx, template, tokens_per_word.get(ctx, {}))
+            write_sidecar(paths[(l, p, ctx)], model_id, model, dtype, l, lidx[l], p, ctx, template, tokens_per_word.get(ctx, {}), n_vocab=n_vocab)
         print(f"[extract] {out_prefix} ctx={ctx} done ({time.time() - t0:.0f}s)", flush=True)
     if tokens_per_word:
         json.dump(tokens_per_word, open(tok_path, "w"))

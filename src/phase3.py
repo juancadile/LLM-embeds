@@ -136,13 +136,23 @@ def run(models=None, skip_original=False):
         dump_json(res, RESULTS / "phase3.json")
         return res
 
+    # reuse fully evaluated models from a previous (interrupted) run
+    prev_path = RESULTS / "phase3.json"
+    prev = json.load(open(prev_path)) if prev_path.exists() else {}
+    n_cfg = len(LAYERS) * len(POOLS) * len(CONTEXTS)
+
     # 3.1 + 3.2: 2026 models
     for mid in models:
+        if mid in prev.get("models", {}) and len(prev["models"][mid].get("configs", {})) == n_cfg:
+            res["models"][mid] = prev["models"][mid]
+            res["notes"].append(f"{mid}: {n_cfg} configurations reused from the previous run's phase3.json.")
+            print(f"[phase3] {mid}: reused", flush=True)
+            continue
         if _free_gb() < MIN_FREE_GB:
             res["notes"].append(f"Stopped before {mid}: free disk {_free_gb():.0f} GB < {MIN_FREE_GB}.")
             break
         try:
-            ex = extract(mid, all_words, batch_size=32)
+            ex = extract(mid, all_words, batch_size=32, n_vocab=len(vocab))
         except Exception as e:  # noqa: BLE001
             res["notes"].append(f"{mid}: extraction failed: {type(e).__name__}: {str(e)[:300]}")
             print(res["notes"][-1], flush=True)

@@ -169,20 +169,20 @@ def report(res) -> str:
           "Where results differ across models, the defensible statement is \"no consistent effect across models\". "
           "None of this tests a complexity–magnitude *correlation*: the design only checks that magnitude is invariant under near-synonymy, a necessary condition.", ""]
 
-    # the notebooks' own printed values, all 74 pairs
+    # the notebooks' own printed values, all 74 pairs: record only, no test
     if res.get("notebook_record"):
         rows = []
         for name, e in res["notebook_record"].items():
-            row = [name, f"{e['n_used']}/{e['n_pairs_parsed']}", f"{fmt(e['random']['mean'], 1)} / {fmt(e['random']['median'], 1)}"]
+            row = [name, f"{e['n_used']}/{e['n_pairs_parsed']}"]
             for cat in list(CATEGORIES) + ["all"]:
                 t = e["cats"].get(cat)
-                row.append("—" if not t else f"{fmt(t['mean'], 1)} / {fmt(t['median'], 1)} (n={t['n']}, p={t['p_less']:.2g}{_stars(t['p_less'])})")
+                row.append("—" if not t else f"{fmt(t['mean'], 1)} / {fmt(t['median'], 1)} (n={t['n']})")
             row.append(", ".join(f"{x['pair']} {x['pct']:+.0f}%" for x in e["largest"]))
             rows.append(row)
-        L += ["### 2.2b The notebooks' own printed values: all 74 pairs, L1, notebook formula |n1/n2 − 1|·100", "",
-              "Parsed from the saved cell outputs of magnitudes*.ipynb. These use the vectors the notebooks embedded on the fly (not in the cache), so they are the full record but cannot be re-derived from the cached files; the random baseline is computed from the cache with the same formula. Typo pairs (talk→talkling, index→indicies) excluded.", "",
-              md_table(["model", "pairs used", "random mean / median"] + list(CATEGORIES) + ["all pooled", "largest |diff|"], rows, align_right_from=99), "",
-              "**Reading.** This is the table the reviewer's letter was written from. It disagrees with the cache-only table above on OPT-13B and T5-3B because that table has 10 pairs and this one 74; the GPU re-extraction in Phase 3 settles which to trust by re-embedding all 74 pairs with the original recipe and checking the re-extracted vectors against the cache for the words present in both.", ""]
+        L += ["### 2.2b The notebooks' own printed values for the 74 similar pairs — record only, NOT a valid test", "",
+              "Parsed from the saved cell outputs of magnitudes*.ipynb: signed L1 percent difference |n1/n2 − 1|·100 per similar pair, computed by the notebooks from vectors they embedded on the fly (only 10 of the 74 pairs are in the cache). Typo pairs excluded.", "",
+              "**Invalid as a test, and the reviewer's letter must not cite it.** No random arm exists in the notebook outputs (they print only a signed 100-word mean per word, which cancels). Any random baseline for these values has to come from the cached matrices, so a test would compare on-the-fly vectors against cached vectors. `opt/1_3B.txt.orig` shows the cache was re-extracted at least once, so the two sets are not guaranteed to be the same extraction, and a p-value from mixed arms is not evidence. The same mixing was inside the notebooks' own `Rand100` column. The only clean 74-pair comparison is the GPU re-extraction in Phase 3, which embeds the similar pairs *and* the random pairs with one recipe in one run and reports the cosine between re-extracted and cached vectors for the words present in both.", "",
+              md_table(["model", "pairs parsed", *[f"{c} mean / median |%diff|" for c in CATEGORIES], "all", "largest |diff|"], rows, align_right_from=99), ""]
 
     # tokens
     L += ["### 2.3 Tokens per word (tokenizer of each model family, word alone, no special tokens)", ""]

@@ -75,7 +75,11 @@ def parse() -> dict[str, list[dict]]:
 
 
 def analyse(include_typos: bool = False) -> dict:
-    """|pct| of the notebook pairs vs. random cache pairs under the same L1 ratio formula."""
+    """|pct| of the notebook pairs, plus a random arm drawn from the CACHE under the same
+    L1 ratio formula.  The two arms come from different extractions (on-the-fly vs cached),
+    so the p-values here are NOT valid evidence; they are kept in the JSON only so the
+    mixed-arm numbers the reviewer's letter was first drafted from remain traceable.
+    The report shows the similar-pair arm alone."""
     res = {}
     for model, recs in parse().items():
         vocab, V = load(model)
