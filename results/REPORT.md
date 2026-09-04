@@ -1,6 +1,6 @@
 # LLM-embeds rerun — report
 
-Generated 2026-09-04 15:34 by `python -m src.run_all` at git dd4bb5c; python 3.11.4, numpy 1.26.4, host MacBook-Pro-5.local.
+Generated 2026-09-04 15:39 by `python -m src.run_all` at git 6ef800d; python 3.11.4, numpy 1.26.4, host MacBook-Pro-5.local.
 Seed 2026 throughout. Original notebooks untouched; code in `src/`.
 
 ## Phase 1 — define(a+b), controls, define2, analogies
@@ -196,6 +196,20 @@ The notebooks embedded out-of-vocabulary words on the fly and never saved them, 
 **Reading (L2, raw, pooled).** opt-1.3b: similar pairs closer (median 4.6 vs 13.8, p=0.0043); opt-13b: similar pairs closer (median 5.0 vs 24.3, p=0.015); t5-large: no significant difference (median 8.1 vs 9.9); t5-3b: no significant difference (median 12.1 vs 9.7); flan-t5-xxl: similar pairs closer (median 2.6 vs 5.1, p=0.024). 
 The paper's sentence "similar pairs were not closer in magnitude than random pairs" is a claim about the pooled comparison; where p < 0.05 in the "closer" direction it is contradicted on the authors' own pairs. Where results differ across models, the defensible statement is "no consistent effect across models". None of this tests a complexity–magnitude *correlation*: the design only checks that magnitude is invariant under near-synonymy, a necessary condition.
 
+### 2.2b The notebooks' own printed values: all 74 pairs, L1, notebook formula |n1/n2 − 1|·100
+
+Parsed from the saved cell outputs of magnitudes*.ipynb. These use the vectors the notebooks embedded on the fly (not in the cache), so they are the full record but cannot be re-derived from the cached files; the random baseline is computed from the cache with the same formula. Typo pairs (talk→talkling, index→indicies) excluded.
+
+| model | pairs used | random mean / median | us_uk | plural | verb | all pooled | largest |diff| |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| opt-1.3b | 71/74 | 16.1 / 13.3 | 5.3 / 1.8 (n=11, p=0.00019***) | 9.3 / 7.2 (n=27, p=0.002**) | 12.2 / 7.1 (n=33, p=0.037*) | 10.0 / 6.1 (n=71, p=6.4e-06***) | driving/drove +30%, drive/drives +29%, persons/people -29% |
+| t5-large | 71/74 | 13.6 / 9.4 | 28.1 / 23.6 (n=11, p=0.98) | 20.1 / 11.0 (n=27, p=0.57) | 16.9 / 13.5 (n=33, p=0.91) | 19.8 / 13.6 (n=71, p=0.96) | index/indices +101%, apologize/apologise +94%, radius/radii +62% |
+| opt-13b | 70/74 | 12.7 / 10.3 | 6.7 / 5.6 (n=11, p=0.018*) | 9.8 / 9.3 (n=26, p=0.16) | 11.0 / 8.3 (n=33, p=0.19) | 9.9 / 8.0 (n=70, p=0.02*) | thinks/thought +33%, think/thinks -29%, talk/talked -27% |
+| t5-3b | 70/74 | 13.1 / 9.8 | 12.1 / 4.8 (n=11, p=0.13) | 19.1 / 14.5 (n=26, p=0.89) | 9.8 / 7.3 (n=33, p=0.075) | 13.6 / 8.2 (n=70, p=0.25) | persons/people +84%, appendix/appendixes +48%, apologize/apologise +46% |
+| flan-t5-xxl | 70/74 | 7.7 / 6.1 | 4.8 / 1.9 (n=11, p=0.05*) | 6.0 / 4.2 (n=26, p=0.041*) | 4.6 / 3.1 (n=33, p=0.00038***) | 5.2 / 3.2 (n=70, p=3.1e-05***) | datum/data +22%, appendix/appendices +21%, chew/chewing -20% |
+
+**Reading.** This is the table the reviewer's letter was written from. It disagrees with the cache-only table above on OPT-13B and T5-3B because that table has 10 pairs and this one 74; the GPU re-extraction in Phase 3 settles which to trust by re-embedding all 74 pairs with the original recipe and checking the re-extracted vectors against the cache for the words present in both.
+
 ### 2.3 Tokens per word (tokenizer of each model family, word alone, no special tokens)
 
 | model | words with >1 token (count) |
@@ -210,17 +224,17 @@ Because the cached OPT/T5 vectors are means over subword tokens (T5 also average
 
 ### 2.4 L1 vs L2 and rogue dimensions
 
-| model | Pearson(L1, L2) | Spearman | top-5 variance dims: mean share of squared L2 norm |
+| model | Pearson(L1, L2) | Spearman | top-3 variance dims: share of a word's squared L2 norm (mean, median over words) |
 | :--- | :--- | :--- | :--- |
-| opt-1.3b | 0.957 | 0.973 | d1346: 5.1%; d1359: 2.1%; d1279: 1.2%; d614: 1.0%; d1326: 0.5% |
-| opt-13b | -0.185 | -0.007 | d902: 28.8%; d4960: 1.9%; d3964: 1.9%; d440: 0.2%; d387: 0.5% |
-| t5-large | 0.971 | 0.937 | d79: 2.5%; d58: 3.1%; d300: 1.5%; d674: 1.1%; d801: 0.5% |
-| t5-3b | 0.995 | 0.993 | d792: 0.2%; d71: 0.2%; d17: 0.2%; d751: 0.2%; d923: 0.2% |
-| flan-t5-xxl | 0.973 | 0.965 | d1478: 11.5%; d1814: 0.1%; d2152: 0.1%; d3799: 0.1%; d892: 0.5% |
+| opt-1.3b | 0.957 | 0.973 | d1346: mean 5.1%, median 3.6%; d1359: mean 2.1%, median 1.1%; d1279: mean 1.2%, median 0.6% |
+| opt-13b | -0.185 | -0.007 | d902: mean 28.8%, median 11.1%; d4960: mean 1.9%, median 1.0%; d3964: mean 1.9%, median 1.2% |
+| t5-large | 0.971 | 0.937 | d79: mean 2.5%, median 2.2%; d58: mean 3.1%, median 3.0%; d300: mean 1.5%, median 1.2% |
+| t5-3b | 0.995 | 0.993 | d792: mean 0.2%, median 0.1%; d71: mean 0.2%, median 0.1%; d17: mean 0.2%, median 0.1% |
+| flan-t5-xxl | 0.973 | 0.965 | d1478: mean 11.5%, median 12.3%; d1814: mean 0.1%, median 0.1%; d2152: mean 0.1%, median 0.0% |
 
 The notebooks' "magnitude" was L1 (sum of absolute components). Where L1 and L2 are weakly correlated, the choice of norm changes the result; a dimension holding a large share of squared norm on its own is a rogue dimension (Timkey & van Schijndel 2021) and dominates L2 but not L1.
 
-_Phase 2 ran in 14 s._
+_Phase 2 ran in 7 s._
 
 ## Phase 3
 

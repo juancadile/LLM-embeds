@@ -56,7 +56,8 @@ def spectrum(V: np.ndarray, k: int = 5):
     top = np.argsort(-var)[:k]
     sq = V.astype(np.float64) ** 2
     share = sq / sq.sum(1, keepdims=True)
-    return [{"dim": int(d), "var_share": float(var[d] / var.sum()), "sqnorm_share": float(share[:, d].mean())} for d in top]
+    return [{"dim": int(d), "var_share": float(var[d] / var.sum()), "sqnorm_share": float(share[:, d].mean()),
+             "sqnorm_share_median": float(np.median(share[:, d])), "pooled_share": float(sq[:, d].sum() / sq.sum())} for d in top]
 
 
 def run_model(name: str):
@@ -110,6 +111,8 @@ def run(models=MAGNITUDE_MODELS):
     for name in models:
         res["models"][name] = run_model(name)
         print(f"[phase2] {name} done ({time.time() - t0:.0f}s)", flush=True)
+    from .notebook_record import analyse
+    res["notebook_record"] = analyse(include_typos=False)
     res["seconds"] = time.time() - t0
     dump_json(res, RESULTS / "phase2.json")
     return res
@@ -166,6 +169,21 @@ def report(res) -> str:
           "Where results differ across models, the defensible statement is \"no consistent effect across models\". "
           "None of this tests a complexity–magnitude *correlation*: the design only checks that magnitude is invariant under near-synonymy, a necessary condition.", ""]
 
+    # the notebooks' own printed values, all 74 pairs
+    if res.get("notebook_record"):
+        rows = []
+        for name, e in res["notebook_record"].items():
+            row = [name, f"{e['n_used']}/{e['n_pairs_parsed']}", f"{fmt(e['random']['mean'], 1)} / {fmt(e['random']['median'], 1)}"]
+            for cat in list(CATEGORIES) + ["all"]:
+                t = e["cats"].get(cat)
+                row.append("—" if not t else f"{fmt(t['mean'], 1)} / {fmt(t['median'], 1)} (n={t['n']}, p={t['p_less']:.2g}{_stars(t['p_less'])})")
+            row.append(", ".join(f"{x['pair']} {x['pct']:+.0f}%" for x in e["largest"]))
+            rows.append(row)
+        L += ["### 2.2b The notebooks' own printed values: all 74 pairs, L1, notebook formula |n1/n2 − 1|·100", "",
+              "Parsed from the saved cell outputs of magnitudes*.ipynb. These use the vectors the notebooks embedded on the fly (not in the cache), so they are the full record but cannot be re-derived from the cached files; the random baseline is computed from the cache with the same formula. Typo pairs (talk→talkling, index→indicies) excluded.", "",
+              md_table(["model", "pairs used", "random mean / median"] + list(CATEGORIES) + ["all pooled", "largest |diff|"], rows, align_right_from=99), "",
+              "**Reading.** This is the table the reviewer's letter was written from. It disagrees with the cache-only table above on OPT-13B and T5-3B because that table has 10 pairs and this one 74; the GPU re-extraction in Phase 3 settles which to trust by re-embedding all 74 pairs with the original recipe and checking the re-extracted vectors against the cache for the words present in both.", ""]
+
     # tokens
     L += ["### 2.3 Tokens per word (tokenizer of each model family, word alone, no special tokens)", ""]
     rows = []
@@ -185,9 +203,9 @@ def report(res) -> str:
         r = res["models"][name]
         sp = r["spectrum"]
         rows.append([name, fmt(r["l1_l2"]["pearson"], 3), fmt(r["l1_l2"]["spearman"], 3),
-                     "; ".join(f"d{s['dim']}: {100 * s['sqnorm_share']:.1f}%" for s in sp)])
+                     "; ".join(f"d{s['dim']}: mean {100 * s['sqnorm_share']:.1f}%, median {100 * s['sqnorm_share_median']:.1f}%" for s in sp[:3])])
     L += ["### 2.4 L1 vs L2 and rogue dimensions", "",
-          md_table(["model", "Pearson(L1, L2)", "Spearman", "top-5 variance dims: mean share of squared L2 norm"], rows, align_right_from=99), "",
+          md_table(["model", "Pearson(L1, L2)", "Spearman", "top-3 variance dims: share of a word's squared L2 norm (mean, median over words)"], rows, align_right_from=99), "",
           "The notebooks' \"magnitude\" was L1 (sum of absolute components). Where L1 and L2 are weakly correlated, the choice of norm changes the result; "
           "a dimension holding a large share of squared norm on its own is a rogue dimension (Timkey & van Schijndel 2021) and dominates L2 but not L1.", "",
           f"_Phase 2 ran in {res['seconds']:.0f} s._", ""]
