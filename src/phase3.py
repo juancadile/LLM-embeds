@@ -185,23 +185,32 @@ def run(models=None, skip_original=False):
                 # arm and the random arm of the magnitude test come from the same vectors.
                 cvocab, CV = load(name)
                 orig_words = list(cvocab) + [w for w in ALL_WORDS if w not in set(cvocab)]
-                out = CACHE / f"{name}_original_full.npy"
-                E = np.load(out) if out.exists() and np.load(out, mmap_mode="r").shape[0] == len(orig_words) \
-                    else extract_original_recipe(mid, orig_words, f"{name}_original_full")
-                EV, EX = E[:len(cvocab)], E[len(cvocab):]
+                sides = {}
+                for side in ("preln", "postln"):
+                    p = CACHE / f"{name}_original_full_{side}.npy"
+                    if p.exists() and np.load(p, mmap_mode="r").shape[0] == len(orig_words):
+                        sides[side] = np.load(p)
+                if len(sides) < 2:
+                    sides = extract_original_recipe(mid, orig_words, f"{name}_original_full")
                 extra = orig_words[len(cvocab):]
-                # consistency of the re-extraction with the cache, over all 5,124 vocab words
-                cos = np.einsum("ij,ij->i", CV, EV) / (np.linalg.norm(CV, axis=1) * np.linalg.norm(EV, axis=1) + 1e-9)
-                ratio = np.linalg.norm(EV, axis=1) / (np.linalg.norm(CV, axis=1) + 1e-9)
-                mag = {m: {mode: magnitude_eval(EV, cvocab, EX, extra, mode, m) for mode in ("raw", "center")} for m in ("L1", "L2")}
-                res["original"][name] = {
-                    "hf": mid, "n_vocab": len(cvocab), "n_extra": len(extra),
-                    "consistency": {"cos_mean": float(cos.mean()), "cos_median": float(np.median(cos)), "cos_p5": float(np.percentile(cos, 5)),
-                                    "cos_min": float(cos.min()), "frac_cos_below_0.99": float((cos < 0.99).mean()),
-                                    "norm_ratio_mean": float(ratio.mean()), "norm_ratio_p5": float(np.percentile(ratio, 5)),
-                                    "norm_ratio_p95": float(np.percentile(ratio, 95))},
-                    "magnitude": mag}
-                print(f"[phase3] original {name}: cache consistency cos median {np.median(cos):.4f}, norm ratio {ratio.mean():.3f} ({time.time() - t0:.0f}s)", flush=True)
+                entry = {"hf": mid, "n_vocab": len(cvocab), "n_extra": len(extra), "sides": {}}
+                for side, E in sides.items():
+                    EV, EX = E[:len(cvocab)], E[len(cvocab):]
+                    # consistency of this side with the cache, over all 5,124 vocab words
+                    cos = np.einsum("ij,ij->i", CV, EV) / (np.linalg.norm(CV, axis=1) * np.linalg.norm(EV, axis=1) + 1e-9)
+                    ratio = np.linalg.norm(EV, axis=1) / (np.linalg.norm(CV, axis=1) + 1e-9)
+                    nE = np.linalg.norm(EV, axis=1)
+                    mag = {m: {mode: magnitude_eval(EV, cvocab, EX, extra, mode, m) for mode in ("raw", "center")} for m in ("L1", "L2")}
+                    entry["sides"][side] = {
+                        "consistency": {"cos_mean": float(cos.mean()), "cos_median": float(np.median(cos)), "cos_p5": float(np.percentile(cos, 5)),
+                                        "cos_min": float(cos.min()), "frac_cos_below_0.99": float((cos < 0.99).mean()),
+                                        "norm_ratio_mean": float(ratio.mean()), "norm_ratio_p5": float(np.percentile(ratio, 5)),
+                                        "norm_ratio_p95": float(np.percentile(ratio, 95)), "norm_ratio_cv": float(ratio.std() / ratio.mean()),
+                                        "norm_cv_this_side": float(nE.std() / nE.mean()),
+                                        "norm_cv_cache": float(np.linalg.norm(CV, axis=1).std() / np.linalg.norm(CV, axis=1).mean())},
+                        "magnitude": mag}
+                    print(f"[phase3] original {name} {side}: cache cos median {np.median(cos):.4f}, norm ratio {ratio.mean():.3f} (cv {ratio.std() / ratio.mean():.3f}) ({time.time() - t0:.0f}s)", flush=True)
+                res["original"][name] = entry
             except Exception as e:  # noqa: BLE001
                 res["original"][name] = {"error": f"{type(e).__name__}: {str(e)[:300]}"}
                 print(f"[phase3] original {name} failed: {e}", flush=True)
@@ -262,31 +271,36 @@ def report(res) -> str:
               md_table(["layer", "pool", "ctx", "mode", "random"] + list(CATEGORIES) + ["all"], rows, align_right_from=99), ""]
 
     if res.get("original"):
-        L += ["### 3.x Original OPT/T5 recipe re-extracted on the GPU: the clean 74-pair magnitude test", "",
+        L += ["### 3.x Original OPT/T5 recipe re-extracted on the GPU: the clean 74-pair magnitude test, on both sides of the final layer norm", "",
               "Word alone, final layer, mean over tokens (OPT drops BOS; T5 keeps EOS), as in the notebooks. The whole 5,124-word vocab and the 51 "
               "out-of-vocab pair words are embedded in one run, so the similar-pair arm and the 5,000 random pairs come from the same vectors. "
-              "Consistency = cosine and norm ratio between the re-extracted vector and the cached vector over all 5,124 vocab words; "
-              "this is the direct test of whether the cache (and the notebooks' on-the-fly vectors) were the same extraction.", ""]
+              "A forward hook captures the model's final normalisation layer on both sides: **preln** is the residual stream before it, **postln** is after it "
+              "(what current transformers returns as `last_hidden_state`). Consistency = cosine and norm ratio between that side and the cached vector over all 5,124 vocab words: "
+              "the side the cache matches tells which object the paper's magnitude numbers were computed on. "
+              "Post-LN norms carry little per-word information by construction (each token is normalised to unit variance, then scaled by γ), so a null magnitude result on that side is trivial; the pre-LN side is where magnitude could mean anything.", ""]
         rows = []
         for name, o in res["original"].items():
             if "error" in o:
-                rows.append([name, o["error"], "", "", "", "", ""])
+                rows.append([name, "", o["error"], "", "", "", "", ""])
                 continue
-            c = o["consistency"]
-            m = o["magnitude"]["L2"]["raw"]
-            rows.append([name, f"cos median {fmt(c['cos_median'], 4)}, p5 {fmt(c['cos_p5'], 3)}, min {fmt(c['cos_min'], 3)}; {100 * c['frac_cos_below_0.99']:.1f}% of words below 0.99; norm ratio {fmt(c['norm_ratio_mean'], 3)} (p5 {fmt(c['norm_ratio_p5'], 3)}, p95 {fmt(c['norm_ratio_p95'], 3)})",
-                         fmt(m["random"]["median"], 1),
-                         *[f"{fmt(m['cats'][c_]['median'], 1)} (n={m['cats'][c_]['n']}, p={m['cats'][c_]['p_less']:.2g})" for c_ in list(CATEGORIES) + ["all"]]])
-        L += [md_table(["model", "re-extraction vs cache", "random median (L2 raw)"] + list(CATEGORIES) + ["all pooled"], rows, align_right_from=99), ""]
+            for side, s in o["sides"].items():
+                c = s["consistency"]
+                m = s["magnitude"]["L2"]["raw"]
+                rows.append([name, side,
+                             f"cos median {fmt(c['cos_median'], 4)} (p5 {fmt(c['cos_p5'], 3)}, min {fmt(c['cos_min'], 3)}); norm ratio {fmt(c['norm_ratio_mean'], 3)} (p5 {fmt(c['norm_ratio_p5'], 3)}, p95 {fmt(c['norm_ratio_p95'], 3)}, cv {fmt(c['norm_ratio_cv'], 3)}); norm cv this side {fmt(c['norm_cv_this_side'], 3)} vs cache {fmt(c['norm_cv_cache'], 3)}",
+                             fmt(m["random"]["median"], 1),
+                             *[f"{fmt(m['cats'][c_]['median'], 1)} (n={m['cats'][c_]['n']}, p={m['cats'][c_]['p_less']:.2g})" for c_ in list(CATEGORIES) + ["all"]]])
+        L += [md_table(["model", "side", "this side vs cache", "random median (L2 raw)"] + list(CATEGORIES) + ["all pooled"], rows, align_right_from=99), ""]
         rows = []
         for name, o in res["original"].items():
             if "error" in o:
                 continue
-            for metric in ("L1", "L2"):
-                for mode in ("raw", "center"):
-                    m = o["magnitude"][metric][mode]["cats"]["all"]
-                    rows.append([name, metric, mode, fmt(m["median"], 1), fmt(o["magnitude"][metric][mode]["random"]["median"], 1), f"{m['p_less']:.2g}", f"{m['p_greater']:.2g}"])
-        L += ["All metrics, pooled over the 74 pairs:", "", md_table(["model", "metric", "mode", "similar median", "random median", "p similar<random", "p similar>random"], rows, align_right_from=3), ""]
+            for side, s in o["sides"].items():
+                for metric in ("L1", "L2"):
+                    for mode in ("raw", "center"):
+                        m = s["magnitude"][metric][mode]["cats"]["all"]
+                        rows.append([name, side, metric, mode, fmt(m["median"], 1), fmt(s["magnitude"][metric][mode]["random"]["median"], 1), f"{m['p_less']:.2g}", f"{m['p_greater']:.2g}"])
+        L += ["All metrics, pooled over the 74 pairs:", "", md_table(["model", "side", "metric", "mode", "similar median", "random median", "p similar<random", "p similar>random"], rows, align_right_from=4), ""]
 
     L += ["### Recommendation for the method section", "",
           "_See the Reading paragraphs above; the recommendation paragraph is written by hand in results/NOTES.md once the tables are in._", "",

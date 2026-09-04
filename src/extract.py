@@ -183,9 +183,16 @@ def extract(model_id: str, words: list[str], out_prefix: str | None = None, batc
 
 
 def extract_original_recipe(model_id: str, words: list[str], out_prefix: str, device="cuda", dtype="bfloat16",
-                            batch_size: int = 32) -> np.ndarray:
+                            batch_size: int = 32) -> dict[str, np.ndarray]:
     """Re-create the notebooks' recipe for OPT / T5: word alone, final layer, mean over tokens.
-    OPT: drop the leading BOS.  T5: encoder only, EOS *included* (as in old/t5.ipynb)."""
+    OPT: drop the leading BOS.  T5: encoder only, EOS *included* (as in old/t5.ipynb).
+
+    Returns BOTH sides of the model's final normalisation layer, captured with a forward hook:
+      "preln"  = decoder/encoder output before final_layer_norm (the residual stream),
+      "postln" = after it (= last_hidden_state in current transformers).
+    Saved as {out_prefix}_preln.npy and {out_prefix}_postln.npy.  The notebooks' cached vectors
+    were produced by transformers 4.20.1, whose OPTModel did not load final_layer_norm, so which
+    side the cache sits on is an empirical question answered by comparing against both."""
     import torch
     from transformers import AutoTokenizer
     tok = AutoTokenizer.from_pretrained(model_id)
@@ -193,23 +200,36 @@ def extract_original_recipe(model_id: str, words: list[str], out_prefix: str, de
     if is_t5:
         from transformers import T5EncoderModel
         model = T5EncoderModel.from_pretrained(model_id, dtype=getattr(torch, dtype)).to(device).eval()
+        ln = model.encoder.final_layer_norm
     else:
         from transformers import OPTModel
         model = OPTModel.from_pretrained(model_id, dtype=getattr(torch, dtype)).to(device).eval()
-    out = np.zeros((len(words), model.config.hidden_size if not is_t5 else model.config.d_model), dtype=np.float32)
+        ln = model.decoder.final_layer_norm
+    captured = {}
+
+    def hook(_m, inp, outp):
+        captured["pre"] = inp[0].detach()
+        captured["post"] = outp.detach()
+    handle = ln.register_forward_hook(hook)
+    d = model.config.hidden_size if not is_t5 else model.config.d_model
+    out = {"preln": np.zeros((len(words), d), dtype=np.float32), "postln": np.zeros((len(words), d), dtype=np.float32)}
     tok.padding_side = "right"
     for b0 in range(0, len(words), batch_size):
         batch = words[b0:b0 + batch_size]
         enc = tok(batch, return_tensors="pt", padding=True)
         with torch.no_grad():
-            H = model(**{k: v.to(device) for k, v in enc.items()}).last_hidden_state.float().cpu().numpy()
+            model(**{k: v.to(device) for k, v in enc.items()})
         am = enc["attention_mask"].numpy().astype(bool)
+        Hs = {"preln": captured["pre"].float().cpu().numpy(), "postln": captured["post"].float().cpu().numpy()}
         for r in range(len(batch)):
             pos = np.where(am[r])[0]
             if not is_t5:
                 pos = pos[1:]            # drop BOS (</s>) as opt_squeeze.py did
-            out[b0 + r] = H[r, pos].mean(0)
-    np.save(CACHE / f"{out_prefix}.npy", out)
+            for k in out:
+                out[k][b0 + r] = Hs[k][r, pos].mean(0)
+    handle.remove()
+    for k, A in out.items():
+        np.save(CACHE / f"{out_prefix}_{k}.npy", A)
     del model
     torch.cuda.empty_cache()
     return out

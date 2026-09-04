@@ -1,0 +1,46 @@
+{
+ "transformers": "4.20.1",
+ "torch": "2.14.0+cu130",
+ "n_words": 20,
+ "words": [
+  "advertisement",
+  "backup",
+  "bike",
+  "completely",
+  "complicate",
+  "efficiency",
+  "fashion",
+  "fine",
+  "flee",
+  "ingredient",
+  "passport",
+  "peer",
+  "pill",
+  "punk",
+  "reasoning",
+  "set",
+  "span",
+  "still",
+  "stuff",
+  "threat"
+ ],
+ "final_layer_norm": {
+  "final_layer_norm_present": false,
+  "config._remove_final_layer_norm": true,
+  "config.do_layer_norm_before": true
+ },
+ "cos_vs_cache": {
+  "median": 1.0,
+  "min": 0.9999992847442627
+ },
+ "norm_ratio_vs_cache": {
+  "median": 0.9999999403953552,
+  "p5": 0.9999994039535522,
+  "p95": 1.0000004768371582
+ },
+ "max_abs_diff_vs_cache": 0.00039768218994140625,
+ "vs_current_transformers_postln": {
+  "cos_median": 0.995090126991272,
+  "norm_ratio_median_current_over_420": 0.4532264769077301
+ }
+}
