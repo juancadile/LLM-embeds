@@ -181,23 +181,27 @@ def run(models=None, skip_original=False):
                 res["notes"].append(f"{name}: skipped, download ≈{gb} GB exceeds the {DOWNLOAD_LIMIT_GB} GB limit set in the brief.")
                 continue
             try:
-                out = CACHE / f"{name}_original_pairs.npy"
-                if out.exists():
-                    E = np.load(out)
-                else:
-                    E = extract_original_recipe(mid, ALL_WORDS, f"{name}_original_pairs")
+                # One extraction run covers the whole vocab AND the pair words, so the similar-pair
+                # arm and the random arm of the magnitude test come from the same vectors.
                 cvocab, CV = load(name)
-                # consistency check: words present in both cache and re-extraction
-                common = [w for w in ALL_WORDS if w in set(cvocab)]
-                ci = [cvocab.index(w) for w in common]
-                ei = [ALL_WORDS.index(w) for w in common]
-                cos = [float(CV[i] @ E[j] / (np.linalg.norm(CV[i]) * np.linalg.norm(E[j]) + 1e-9)) for i, j in zip(ci, ei)]
-                normratio = [float(np.linalg.norm(E[j]) / np.linalg.norm(CV[i])) for i, j in zip(ci, ei)]
-                mag = {m: {mode: magnitude_eval(CV, cvocab, E, ALL_WORDS, mode, m) for mode in ("raw", "center")} for m in ("L1", "L2")}
-                res["original"][name] = {"hf": mid, "n_common": len(common), "consistency_cos_mean": float(np.mean(cos)) if cos else None,
-                                         "consistency_cos_min": float(np.min(cos)) if cos else None,
-                                         "norm_ratio_mean": float(np.mean(normratio)) if normratio else None, "magnitude": mag}
-                print(f"[phase3] original {name}: consistency cos mean {np.mean(cos):.3f} ({time.time() - t0:.0f}s)", flush=True)
+                orig_words = list(cvocab) + [w for w in ALL_WORDS if w not in set(cvocab)]
+                out = CACHE / f"{name}_original_full.npy"
+                E = np.load(out) if out.exists() and np.load(out, mmap_mode="r").shape[0] == len(orig_words) \
+                    else extract_original_recipe(mid, orig_words, f"{name}_original_full")
+                EV, EX = E[:len(cvocab)], E[len(cvocab):]
+                extra = orig_words[len(cvocab):]
+                # consistency of the re-extraction with the cache, over all 5,124 vocab words
+                cos = np.einsum("ij,ij->i", CV, EV) / (np.linalg.norm(CV, axis=1) * np.linalg.norm(EV, axis=1) + 1e-9)
+                ratio = np.linalg.norm(EV, axis=1) / (np.linalg.norm(CV, axis=1) + 1e-9)
+                mag = {m: {mode: magnitude_eval(EV, cvocab, EX, extra, mode, m) for mode in ("raw", "center")} for m in ("L1", "L2")}
+                res["original"][name] = {
+                    "hf": mid, "n_vocab": len(cvocab), "n_extra": len(extra),
+                    "consistency": {"cos_mean": float(cos.mean()), "cos_median": float(np.median(cos)), "cos_p5": float(np.percentile(cos, 5)),
+                                    "cos_min": float(cos.min()), "frac_cos_below_0.99": float((cos < 0.99).mean()),
+                                    "norm_ratio_mean": float(ratio.mean()), "norm_ratio_p5": float(np.percentile(ratio, 5)),
+                                    "norm_ratio_p95": float(np.percentile(ratio, 95))},
+                    "magnitude": mag}
+                print(f"[phase3] original {name}: cache consistency cos median {np.median(cos):.4f}, norm ratio {ratio.mean():.3f} ({time.time() - t0:.0f}s)", flush=True)
             except Exception as e:  # noqa: BLE001
                 res["original"][name] = {"error": f"{type(e).__name__}: {str(e)[:300]}"}
                 print(f"[phase3] original {name} failed: {e}", flush=True)
@@ -258,19 +262,22 @@ def report(res) -> str:
               md_table(["layer", "pool", "ctx", "mode", "random"] + list(CATEGORIES) + ["all"], rows, align_right_from=99), ""]
 
     if res.get("original"):
-        L += ["### 3.x Original OPT/T5 recipe re-extracted on the GPU for all magnitude pairs", "",
-              "Word alone, final layer, mean over tokens (OPT drops BOS; T5 keeps EOS), as in the notebooks. "
-              "Consistency = cosine between the re-extracted vector and the cached vector for words present in both.", ""]
+        L += ["### 3.x Original OPT/T5 recipe re-extracted on the GPU: the clean 74-pair magnitude test", "",
+              "Word alone, final layer, mean over tokens (OPT drops BOS; T5 keeps EOS), as in the notebooks. The whole 5,124-word vocab and the 51 "
+              "out-of-vocab pair words are embedded in one run, so the similar-pair arm and the 5,000 random pairs come from the same vectors. "
+              "Consistency = cosine and norm ratio between the re-extracted vector and the cached vector over all 5,124 vocab words; "
+              "this is the direct test of whether the cache (and the notebooks' on-the-fly vectors) were the same extraction.", ""]
         rows = []
         for name, o in res["original"].items():
             if "error" in o:
                 rows.append([name, o["error"], "", "", "", "", ""])
                 continue
+            c = o["consistency"]
             m = o["magnitude"]["L2"]["raw"]
-            rows.append([name, f"{o['n_common']} words, cos {fmt(o['consistency_cos_mean'], 3)} (min {fmt(o['consistency_cos_min'], 3)}), norm ratio {fmt(o['norm_ratio_mean'], 3)}",
+            rows.append([name, f"cos median {fmt(c['cos_median'], 4)}, p5 {fmt(c['cos_p5'], 3)}, min {fmt(c['cos_min'], 3)}; {100 * c['frac_cos_below_0.99']:.1f}% of words below 0.99; norm ratio {fmt(c['norm_ratio_mean'], 3)} (p5 {fmt(c['norm_ratio_p5'], 3)}, p95 {fmt(c['norm_ratio_p95'], 3)})",
                          fmt(m["random"]["median"], 1),
-                         *[f"{fmt(m['cats'][c]['median'], 1)} (n={m['cats'][c]['n']}, p={m['cats'][c]['p_less']:.2g})" for c in list(CATEGORIES) + ["all"]]])
-        L += [md_table(["model", "consistency with cache", "random median"] + list(CATEGORIES) + ["all pooled"], rows, align_right_from=99), ""]
+                         *[f"{fmt(m['cats'][c_]['median'], 1)} (n={m['cats'][c_]['n']}, p={m['cats'][c_]['p_less']:.2g})" for c_ in list(CATEGORIES) + ["all"]]])
+        L += [md_table(["model", "re-extraction vs cache", "random median (L2 raw)"] + list(CATEGORIES) + ["all pooled"], rows, align_right_from=99), ""]
         rows = []
         for name, o in res["original"].items():
             if "error" in o:

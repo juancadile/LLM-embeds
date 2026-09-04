@@ -1,6 +1,6 @@
 # LLM-embeds rerun — report
 
-Generated 2026-09-04 15:44 by `python -m src.run_all` at git 02e7026; python 3.11.4, numpy 1.26.4, host MacBook-Pro-5.local.
+Generated 2026-09-04 15:45 by `python -m src.run_all` at git b1caeca; python 3.11.4, numpy 1.26.4, host MacBook-Pro-5.local.
 Seed 2026 throughout. Original notebooks untouched; code in `src/`.
 
 ## Phase 1 — define(a+b), controls, define2, analogies
@@ -202,7 +202,7 @@ Parsed from the saved cell outputs of magnitudes*.ipynb: signed L1 percent diffe
 
 **Invalid as a test, and the reviewer's letter must not cite it.** No random arm exists in the notebook outputs (they print only a signed 100-word mean per word, which cancels). Any random baseline for these values has to come from the cached matrices, so a test would compare on-the-fly vectors against cached vectors. `opt/1_3B.txt.orig` shows the cache was re-extracted at least once, so the two sets are not guaranteed to be the same extraction, and a p-value from mixed arms is not evidence. The same mixing was inside the notebooks' own `Rand100` column. The only clean 74-pair comparison is the GPU re-extraction in Phase 3, which embeds the similar pairs *and* the random pairs with one recipe in one run and reports the cosine between re-extracted and cached vectors for the words present in both.
 
-| model | pairs parsed | us_uk mean / median |%diff| | plural mean / median |%diff| | verb mean / median |%diff| | all | largest |diff| |
+| model | pairs parsed | us_uk mean / median abs %diff | plural mean / median abs %diff | verb mean / median abs %diff | all | largest abs diff |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | opt-1.3b | 71/74 | 5.3 / 1.8 (n=11) | 9.3 / 7.2 (n=27) | 12.2 / 7.1 (n=33) | 10.0 / 6.1 (n=71) | driving/drove +30%, drive/drives +29%, persons/people -29% |
 | t5-large | 71/74 | 28.1 / 23.6 (n=11) | 20.1 / 11.0 (n=27) | 16.9 / 13.5 (n=33) | 19.8 / 13.6 (n=71) | index/indices +101%, apologize/apologise +94%, radius/radii +62% |

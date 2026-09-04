@@ -182,7 +182,7 @@ def report(res) -> str:
         L += ["### 2.2b The notebooks' own printed values for the 74 similar pairs — record only, NOT a valid test", "",
               "Parsed from the saved cell outputs of magnitudes*.ipynb: signed L1 percent difference |n1/n2 − 1|·100 per similar pair, computed by the notebooks from vectors they embedded on the fly (only 10 of the 74 pairs are in the cache). Typo pairs excluded.", "",
               "**Invalid as a test, and the reviewer's letter must not cite it.** No random arm exists in the notebook outputs (they print only a signed 100-word mean per word, which cancels). Any random baseline for these values has to come from the cached matrices, so a test would compare on-the-fly vectors against cached vectors. `opt/1_3B.txt.orig` shows the cache was re-extracted at least once, so the two sets are not guaranteed to be the same extraction, and a p-value from mixed arms is not evidence. The same mixing was inside the notebooks' own `Rand100` column. The only clean 74-pair comparison is the GPU re-extraction in Phase 3, which embeds the similar pairs *and* the random pairs with one recipe in one run and reports the cosine between re-extracted and cached vectors for the words present in both.", "",
-              md_table(["model", "pairs parsed", *[f"{c} mean / median |%diff|" for c in CATEGORIES], "all", "largest |diff|"], rows, align_right_from=99), ""]
+              md_table(["model", "pairs parsed", *[f"{c} mean / median abs %diff" for c in CATEGORIES], "all", "largest abs diff"], rows, align_right_from=99), ""]
 
     # tokens
     L += ["### 2.3 Tokens per word (tokenizer of each model family, word alone, no special tokens)", ""]
