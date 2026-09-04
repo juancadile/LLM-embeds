@@ -1,11 +1,143 @@
 # LLM-embeds rerun — report
 
-Generated 2026-09-04 15:03 by `python -m src.run_all` at git 4576936; python 3.11.4, numpy 1.26.4, host MacBook-Pro-5.local.
+Generated 2026-09-04 15:34 by `python -m src.run_all` at git dd4bb5c; python 3.11.4, numpy 1.26.4, host MacBook-Pro-5.local.
 Seed 2026 throughout. Original notebooks untouched; code in `src/`.
 
-## Phase 1
+## Phase 1 — define(a+b), controls, define2, analogies
 
-_Not run (no results/phase1.json)._
+### 1.1 Reproduction of the p. 16 table (GPT-3 Curie, raw)
+
+| a + b → target | cos(a, a+b) | paper | cos(target, a+b) | paper | match | next three |
+| :--- | ---: | ---: | ---: | ---: | ---: | ---: |
+| young + dog → puppy | 0.9423 | 0.9423 | 0.9045 | 0.9045 | ✓ | puppy 0.905, youth 0.901, child 0.898 |
+| young + cat → kitten | 0.9331 | 0.9331 | 0.8997 | 0.8997 | ✓ | kitten 0.900, kid 0.890, baby 0.889 |
+| young + duck → duckling | 0.9337 | 0.9337 | 0.9064 | 0.9064 | ✓ | duckling 0.906, youth 0.893, baby 0.880 |
+| female + spouse → wife | 0.9573 | 0.9573 | 0.9390 | 0.9389 | ✓ | wife 0.939, woman 0.930, girlfriend 0.909 |
+| male + spouse → husband | 0.9542 | 0.9542 | 0.9303 | 0.9303 | ✓ | husband 0.930, wife 0.909, partner 0.903 |
+| male + sibling → brother | 0.9515 | 0.9515 | 0.9233 | 0.9233 | ✓ | brother 0.923, siblings 0.909, adult 0.890 |
+| female + sibling → sister | 0.9507 | 0.9507 | 0.9318 | 0.9318 | ✓ | sister 0.932, siblings 0.911, daughter 0.903 |
+
+**Reading.** All seven cosines reproduce to four decimals, so the cached Curie file and this loader are the same data the paper used. cos(a, a+b) equals cos(b, a+b) exactly because Curie vectors are unit length, so a and b heading the list is arithmetic, not a finding.
+
+### 1.2 Controls, Curie, raw
+
+| a + b → target | rank under v(a) | cos | rank under v(b) | cos | rank under v(a)+v(b) | cos |
+| :--- | ---: | ---: | ---: | ---: | ---: | ---: |
+| young + dog → puppy | 283 | 0.8000 | 1 | 0.9046 | 1 | 0.9045 |
+| young + cat → kitten | 885 | 0.7828 | 1 | 0.8962 | 1 | 0.8997 |
+| young + duck → duckling | 537 | 0.7909 | 1 | 0.9017 | 1 | 0.9064 |
+| female + spouse → wife | 10 | 0.8719 | 2 | 0.9258 | 1 | 0.9390 |
+| male + spouse → husband | 11 | 0.8568 | 3 | 0.9186 | 1 | 0.9303 |
+| male + sibling → brother | 21 | 0.8477 | 3 | 0.9093 | 1 | 0.9233 |
+| female + sibling → sister | 21 | 0.8595 | 2 | 0.9122 | 1 | 0.9318 |
+| man + unmarried → bachelor | 373 | 0.8029 | 23 | 0.8245 | 18 | 0.8651 |
+
+Random-pair baseline (1000 seeded pairs, best non-a/b neighbour of v(a)+v(b)): mean 0.9007, p10 0.8824, p50 0.9010, p90 0.9187.
+
+### 1.2 Controls, Curie, center
+
+| a + b → target | rank under v(a) | cos | rank under v(b) | cos | rank under v(a)+v(b) | cos |
+| :--- | ---: | ---: | ---: | ---: | ---: | ---: |
+| young + dog → puppy | 73 | 0.2024 | 1 | 0.6361 | 1 | 0.5780 |
+| young + cat → kitten | 246 | 0.1283 | 1 | 0.6369 | 1 | 0.5548 |
+| young + duck → duckling | 37 | 0.2502 | 1 | 0.6769 | 1 | 0.6691 |
+| female + spouse → wife | 13 | 0.4203 | 2 | 0.6870 | 1 | 0.7025 |
+| male + spouse → husband | 8 | 0.3901 | 3 | 0.6720 | 1 | 0.6857 |
+| male + sibling → brother | 20 | 0.3337 | 3 | 0.6263 | 1 | 0.6321 |
+| female + sibling → sister | 14 | 0.4003 | 2 | 0.6488 | 1 | 0.6966 |
+| man + unmarried → bachelor | 74 | 0.2062 | 11 | 0.3557 | 6 | 0.3881 |
+
+Random-pair baseline (1000 seeded pairs, best non-a/b neighbour of v(a)+v(b)): mean 0.5009, p10 0.3838, p50 0.5021, p90 0.6153.
+
+**Reading.** Ranks exclude a and b themselves. For puppy, kitten, duckling the target is already the nearest neighbour of v(b) alone; adding v(a) changes the cosine by a few thousandths and the rank not at all. The kinship cases move the target from rank 2–3 under v(b) to rank 1 under the sum, a real but small effect. The bachelor example stays at rank 18. The baseline shows what a random sum scores against its best neighbour; a p. 16 cosine near the baseline mean is typical, not evidence of composition. Mean-centering removes the common component that inflates every raw cosine; compare the two tables to see which effects survive.
+
+### 1.3 define2 with one cognate filter (plural + 3-letter prefix + edit distance ≤ 2), top-3 per target
+
+**raw**
+
+| target | paper (Curie) | curie | davinci | opt-13b | t5-3b | flan-t5-xxl |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| wife | spouse + woman 0.949 | spouse + woman 0.949<br>mom + spouse 0.945<br>Mrs + spouse 0.944 | husband + woman 0.951<br>spouse + woman 0.950<br>husband + spouse 0.948 | husband + worker 0.994<br>worker + writer 0.993<br>mate + worker 0.992 | husband + woman 0.905<br>father + woman 0.888<br>father + husband 0.878 | husband + spouse 0.870<br>girlfriend + husband 0.852<br>girlfriend + spouse 0.844 |
+| duckling | duck + youngster 0.926 | chicken + youngster 0.881<br>chicken + cute 0.878<br>feather + youngster 0.877 | bird + puppy 0.880<br>chicken + puppy 0.880<br>bird + kitten 0.879 | cheerful + puppy 0.736<br>produce + puppy 0.733<br>neighbouring + puppy 0.725 | dancer + poisonous 0.739<br>dancer + disgusting 0.715<br>dancer + thirsty 0.711 | boar + chicken 0.519<br>chicken + kitten 0.514<br>chicken + puppy 0.514 |
+| puppy | dog + kitten 0.932 | dog + kitten 0.932<br>cute + dog 0.926<br>baby + dog 0.921 | dog + kitten 0.938<br>cute + dog 0.925<br>kitten + pet 0.918 | furniture + kitten 0.764<br>competence + kitten 0.761<br>kitten + sophisticated 0.761 | buddy + kitten 0.768<br>dog + kitten 0.764<br>dog + niece 0.755 | dog + kitten 0.866<br>baby + dog 0.833<br>dog + infant 0.829 |
+| foal | horse + puppy 0.909 | — | — | — | — | — |
+| freedom | independence + liberty 0.946 | independence + liberty 0.946<br>autonomy + liberty 0.936<br>independence + liberation 0.936 | independence + liberty 0.947<br>independence + liberation 0.945<br>liberation + liberty 0.941 | daughter + knowledge 0.989<br>awareness + dog 0.988<br>determination + dog 0.988 | ease + liberty 0.765<br>frustration + liberty 0.761<br>liberty + love 0.761 | independence + liberty 0.871<br>democracy + independence 0.851<br>independence + joy 0.851 |
+| autonomy | control + independence 0.918 | control + independence 0.918<br>ability + independence 0.917<br>independence + voluntary 0.916 | independent + sovereignty 0.934<br>independence + solo 0.929<br>independence + sovereignty 0.929 | ideology + literacy 0.801<br>literacy + ministry 0.799<br>literacy + sovereignty 0.796 | methodology + sovereignty 0.752<br>reliability + sovereignty 0.751<br>complexity + sovereignty 0.750 | independence + sovereignty 0.817<br>flexibility + independence 0.817<br>independence + mobility 0.815 |
+| justice | fairness + judicial 0.917 | fairness + judicial 0.917<br>judicial + revenge 0.913<br>equality + judicial 0.912 | judicial + moral 0.934<br>judicial + peace 0.933<br>fairness + judicial 0.933 | bass + existence 0.981<br>cheat + existence 0.980<br>existence + life 0.980 | judge + mercy 0.788<br>mercy + prison 0.777<br>crime + mercy 0.773 | court + equality 0.777<br>equality + judge 0.772<br>equality + judicial 0.768 |
+| knowledge | information + wisdom 0.934 | information + wisdom 0.934<br>educated + information 0.930<br>expertise + information 0.928 | information + wisdom 0.940<br>information + learn 0.935<br>educated + information 0.934 | awareness + product 0.990<br>direction + information 0.989<br>information + product 0.989 | awareness + skill 0.779<br>skill + understanding 0.773<br>expertise + understanding 0.766 | awareness + expertise 0.772<br>aware + expertise 0.768<br>awareness + information 0.765 |
+| rationality | logical + reasoning 0.924 | — | — | — | — | — |
+| causation | consequence + correlation 0.910 | — | — | — | — | — |
+
+Null distribution of the best define2 score (100 random unit-vector targets; 100 random real-word targets with the same filter):
+
+| model | unit mean | unit p90 | unit max | word mean | word p90 | word max |
+| :--- | ---: | ---: | ---: | ---: | ---: | ---: |
+| curie | 0.0292 | 0.0478 | 0.0757 | 0.9172 | 0.9378 | 0.9552 |
+| davinci | 0.0148 | 0.0237 | 0.0387 | 0.9238 | 0.9403 | 0.9518 |
+| opt-13b | 0.0434 | 0.0575 | 0.0688 | 0.8406 | 0.9891 | 0.9935 |
+| t5-3b | 0.1072 | 0.1337 | 0.1987 | 0.7744 | 0.8434 | 0.9273 |
+| flan-t5-xxl | 0.0514 | 0.0674 | 0.0899 | 0.7862 | 0.8512 | 0.9003 |
+
+**center**
+
+| target | paper (Curie) | curie | davinci | opt-13b | t5-3b | flan-t5-xxl |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| wife | spouse + woman 0.949 | spouse + woman 0.756<br>mom + spouse 0.738<br>girlfriend + spouse 0.738 | husband + spouse 0.730<br>husband + woman 0.727<br>spouse + woman 0.721 | husband + worker 0.985<br>worker + writer 0.984<br>mate + worker 0.983 | husband + woman 0.818<br>father + woman 0.783<br>father + husband 0.765 | husband + spouse 0.767<br>girlfriend + husband 0.732<br>girlfriend + spouse 0.717 |
+| duckling | duck + youngster 0.926 | chicken + youngster 0.568<br>chicken + cute 0.546<br>feather + youngster 0.546 | chicken + puppy 0.471<br>chicken + kitten 0.458<br>bird + puppy 0.457 | produce + puppy 0.775<br>producer + puppy 0.769<br>cheerful + puppy 0.768 | dancer + poisonous 0.733<br>dancer + disgusting 0.707<br>dancer + thirsty 0.699 | boar + chicken 0.438<br>chicken + pig 0.431<br>boar + kitten 0.431 |
+| puppy | dog + kitten 0.932 | dog + kitten 0.721<br>cute + dog 0.687<br>baby + dog 0.663 | dog + kitten 0.715<br>cute + dog 0.640<br>kitten + pet 0.611 | furniture + kitten 0.787<br>kitten + prestigious 0.786<br>competence + kitten 0.786 | buddy + kitten 0.575<br>dog + kitten 0.570<br>dog + niece 0.548 | dog + kitten 0.748<br>dog + pet 0.669<br>baby + dog 0.663 |
+| foal | horse + puppy 0.909 | — | — | — | — | — |
+| freedom | independence + liberty 0.946 | independence + liberty 0.729<br>independence + liberation 0.675<br>autonomy + liberty 0.668 | independence + liberty 0.688<br>independence + liberation 0.681<br>liberation + liberty 0.662 | daughter + knowledge 0.972<br>awareness + dog 0.971<br>determination + mother 0.971 | liberty + love 0.571<br>ease + liberty 0.571<br>liberty + peace 0.569 | independence + liberty 0.670<br>democracy + independence 0.628<br>autonomy + liberty 0.595 |
+| autonomy | control + independence 0.918 | independence + mobility 0.595<br>independence + sovereignty 0.594<br>independence + independent 0.591 | independent + sovereignty 0.672<br>independence + independent 0.666<br>independence + independently 0.663 | morality + predecessor 0.657<br>literacy + territory 0.657<br>literacy + sovereignty 0.655 | complexity + sovereignty 0.585<br>methodology + sovereignty 0.585<br>reliability + sovereignty 0.582 | independence + sovereignty 0.598<br>flexibility + independence 0.590<br>independence + mobility 0.580 |
+| justice | fairness + judicial 0.917 | fairness + judicial 0.574<br>judicial + revenge 0.543<br>equality + judicial 0.542 | judicial + moral 0.598<br>judgement + judicial 0.595<br>fairness + judicial 0.592 | bass + existence 0.952<br>corruption + everything 0.950<br>cheat + existence 0.950 | judge + mercy 0.583<br>mercy + prison 0.572<br>crime + mercy 0.559 | equality + fairness 0.539<br>democracy + fairness 0.530<br>court + equality 0.526 |
+| knowledge | information + wisdom 0.934 | information + wisdom 0.660<br>educated + information 0.639<br>expertise + information 0.623 | information + wisdom 0.649<br>educated + information 0.625<br>information + learn 0.614 | awareness + product 0.975<br>awareness + system 0.973<br>direction + information 0.973 | awareness + skill 0.554<br>skill + understanding 0.542<br>expertise + understanding 0.536 | awareness + expertise 0.437<br>awareness + information 0.434<br>awareness + wisdom 0.432 |
+| rationality | logical + reasoning 0.924 | — | — | — | — | — |
+| causation | consequence + correlation 0.910 | — | — | — | — | — |
+
+Null distribution of the best define2 score (100 random unit-vector targets; 100 random real-word targets with the same filter):
+
+| model | unit mean | unit p90 | unit max | word mean | word p90 | word max |
+| :--- | ---: | ---: | ---: | ---: | ---: | ---: |
+| curie | 0.0765 | 0.0843 | 0.0971 | 0.6027 | 0.7299 | 0.7712 |
+| davinci | 0.0442 | 0.0481 | 0.0526 | 0.5712 | 0.6951 | 0.7857 |
+| opt-13b | 0.0628 | 0.0707 | 0.0859 | 0.7792 | 0.9723 | 0.9851 |
+| t5-3b | 0.1481 | 0.1652 | 0.1881 | 0.6416 | 0.7568 | 0.9156 |
+| flan-t5-xxl | 0.0775 | 0.0843 | 0.0912 | 0.5468 | 0.6988 | 0.8493 |
+
+Targets marked — (foal, rationality, causation) are not in the cached vocabulary: the notebooks fetched their vectors live from the retired OpenAI endpoint and never saved them, so the paper's numbers for them cannot be reproduced from the caches. Phase 3 embeds them with the open models.
+
+**Reading.** The paper's pp. 18–19 numbers came from two filter settings (no filter for puppy/duckling/foal; plural + prefix for the rest). With one filter, compare the Curie column to the paper column: pairs that change are ones the original filter let through. In particular the paper's duckling = duck + youngster uses a cognate of the definiendum, which the paper's own definition of a definition forbids; with duck excluded the best Curie pair is chicken + youngster. The random-word null is the honest comparison: a target's best pair only means something if its score is well above what an arbitrary vocabulary word gets. Random unit vectors score far lower in the raw spaces because real words occupy a narrow cone; after centering the two nulls converge.
+
+### 1.4 Analogies with the mikolov() bug fixed
+
+Score = cos(v(a) − v(b) + v(c), v(d)); rank excludes a, b, c. The notebooks' values were cos(·, v("gpt")) and are not comparable.
+
+**raw** — cells are rank (cosine; top-1 word)
+
+| analogy | curie | davinci | opt-13b | t5-3b | flan-t5-xxl |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| king - man + woman -> queen | 1 (0.880; top: queen) | 2 (0.858; top: female) | 2423 (0.475; top: feeding) | 152 (0.379; top: cliff) | 1 (0.642; top: queen) |
+| man - king + queen -> woman | 1 (0.869; top: woman) | 1 (0.844; top: woman) | 1716 (0.360; top: minister) | 1 (0.710; top: woman) | 1 (0.712; top: woman) |
+| husband - man + woman -> wife | 1 (0.884; top: wife) | 1 (0.882; top: wife) | 2 (0.968; top: writer) | 1 (0.804; top: wife) | 1 (0.806; top: wife) |
+| brother - male + female -> sister | 1 (0.912; top: sister) | 1 (0.924; top: sister) | 2720 (0.440; top: father) | 1 (0.809; top: sister) | 1 (0.863; top: sister) |
+| father - man + woman -> mother | 1 (0.886; top: mother) | 1 (0.884; top: mother) | 6 (0.966; top: wife) | 7 (0.650; top: wife) | 1 (0.793; top: mother) |
+| kitten - cat + dog -> puppy | 1 (0.911; top: puppy) | 1 (0.905; top: puppy) | 2926 (0.506; top: cocktail) | 1 (0.639; top: puppy) | 1 (0.826; top: puppy) |
+| bigger - big + small -> smaller | skip | skip | skip | skip | skip |
+| walked - walk + run -> ran | skip | skip | skip | skip | skip |
+
+**center** — cells are rank (cosine; top-1 word)
+
+| analogy | curie | davinci | opt-13b | t5-3b | flan-t5-xxl |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| king - man + woman -> queen | 1 (0.615; top: queen) | 2 (0.409; top: female) | 2687 (-0.401; top: feeding) | 301 (0.238; top: cliff) | 1 (0.463; top: queen) |
+| man - king + queen -> woman | 1 (0.520; top: woman) | 2 (0.331; top: manner) | 3553 (-0.234; top: prince) | 1 (0.525; top: woman) | 1 (0.448; top: woman) |
+| husband - man + woman -> wife | 1 (0.672; top: wife) | 1 (0.639; top: wife) | 2 (0.937; top: writer) | 1 (0.693; top: wife) | 1 (0.688; top: wife) |
+| brother - male + female -> sister | 1 (0.709; top: sister) | 1 (0.644; top: sister) | 2732 (-0.393; top: father) | 1 (0.685; top: sister) | 1 (0.784; top: sister) |
+| father - man + woman -> mother | 1 (0.648; top: mother) | 1 (0.538; top: mother) | 6 (0.932; top: daughter) | 7 (0.454; top: wife) | 1 (0.663; top: mother) |
+| kitten - cat + dog -> puppy | 1 (0.682; top: puppy) | 1 (0.689; top: puppy) | 4 (0.285; top: boyfriend) | 1 (0.460; top: puppy) | 1 (0.701; top: puppy) |
+| bigger - big + small -> smaller | skip | skip | skip | skip | skip |
+| walked - walk + run -> ran | skip | skip | skip | skip | skip |
+
+_Phase 1 ran in 2301 s._
 
 ## Phase 2 — magnitude study, redone on the cached embeddings
 

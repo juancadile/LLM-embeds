@@ -167,7 +167,7 @@ def report(res) -> str:
         for r in res["controls"][m]:
             rows.append([f"{r['a']} + {r['b']} → {r['target']}", r["rank_a"], fmt(r["cos_a"]),
                          r["rank_b"], fmt(r["cos_b"]), r["rank_a+b"], fmt(r["cos_a+b"])])
-        L.append(md_table(["a + b → target", "rank | v(a)", "cos", "rank | v(b)", "cos", "rank | v(a)+v(b)", "cos"], rows))
+        L.append(md_table(["a + b → target", "rank under v(a)", "cos", "rank under v(b)", "cos", "rank under v(a)+v(b)", "cos"], rows))
         b = res["baseline"][m]
         L += ["", f"Random-pair baseline ({b['n']} seeded pairs, best non-a/b neighbour of v(a)+v(b)): "
               f"mean {fmt(b['mean'])}, p10 {fmt(b['p10'])}, p50 {fmt(b['p50'])}, p90 {fmt(b['p90'])}.", ""]
@@ -208,6 +208,7 @@ def report(res) -> str:
         L += [f"Targets marked — ({', '.join(missing)}) are not in the cached vocabulary: the notebooks fetched their vectors live from the retired OpenAI endpoint and never saved them, so the paper's numbers for them cannot be reproduced from the caches. Phase 3 embeds them with the open models.", ""]
     L += ["**Reading.** The paper's pp. 18–19 numbers came from two filter settings (no filter for puppy/duckling/foal; plural + prefix for the rest). "
           "With one filter, compare the Curie column to the paper column: pairs that change are ones the original filter let through. "
+          "In particular the paper's duckling = duck + youngster uses a cognate of the definiendum, which the paper's own definition of a definition forbids; with duck excluded the best Curie pair is chicken + youngster. "
           "The random-word null is the honest comparison: a target's best pair only means something if its score is well above what an arbitrary vocabulary word gets. "
           "Random unit vectors score far lower in the raw spaces because real words occupy a narrow cone; after centering the two nulls converge.", ""]
 

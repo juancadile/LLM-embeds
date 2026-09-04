@@ -1,4 +1,8 @@
 .vscode
-.ipynb_checkpointsresults/cache/
+.ipynb_checkpoints
+results/cache/
+results/*.log
 __pycache__/
 *.pyc
+.DS_Store
+~$*

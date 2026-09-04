@@ -1,0 +1,3830 @@
+{
+ "models": {
+  "curie": {
+   "raw": {
+    "define2": {
+     "wife": {
+      "top": [
+       [
+        "spouse",
+        "woman",
+        0.9490045309066772
+       ],
+       [
+        "mom",
+        "spouse",
+        0.9451271891593933
+       ],
+       [
+        "Mrs",
+        "spouse",
+        0.9435445070266724
+       ]
+      ],
+      "n_excluded": 65
+     },
+     "duckling": {
+      "top": [
+       [
+        "chicken",
+        "youngster",
+        0.8814737796783447
+       ],
+       [
+        "chicken",
+        "cute",
+        0.8776456713676453
+       ],
+       [
+        "feather",
+        "youngster",
+        0.8774614334106445
+       ]
+      ],
+      "n_excluded": 2
+     },
+     "puppy": {
+      "top": [
+       [
+        "dog",
+        "kitten",
+        0.9323458075523376
+       ],
+       [
+        "cute",
+        "dog",
+        0.9258225560188293
+       ],
+       [
+        "baby",
+        "dog",
+        0.9212896227836609
+       ]
+      ],
+      "n_excluded": 5
+     },
+     "foal": null,
+     "freedom": {
+      "top": [
+       [
+        "independence",
+        "liberty",
+        0.9460417032241821
+       ],
+       [
+        "autonomy",
+        "liberty",
+        0.9360641837120056
+       ],
+       [
+        "independence",
+        "liberation",
+        0.9355306625366211
+       ]
+      ],
+      "n_excluded": 8
+     },
+     "autonomy": {
+      "top": [
+       [
+        "control",
+        "independence",
+        0.9176713824272156
+       ],
+       [
+        "ability",
+        "independence",
+        0.9168004393577576
+       ],
+       [
+        "independence",
+        "voluntary",
+        0.9159498810768127
+       ]
+      ],
+      "n_excluded": 9
+     },
+     "justice": {
+      "top": [
+       [
+        "fairness",
+        "judicial",
+        0.9169657826423645
+       ],
+       [
+        "judicial",
+        "revenge",
+        0.9130244255065918
+       ],
+       [
+        "equality",
+        "judicial",
+        0.9122006297111511
+       ]
+      ],
+      "n_excluded": 7
+     },
+     "knowledge": {
+      "top": [
+       [
+        "information",
+        "wisdom",
+        0.9344558119773865
+       ],
+       [
+        "educated",
+        "information",
+        0.9301231503486633
+       ],
+       [
+        "expertise",
+        "information",
+        0.9282264113426208
+       ]
+      ],
+      "n_excluded": 6
+     },
+     "rationality": null,
+     "causation": null
+    },
+    "null": {
+     "random_unit": {
+      "mean": 0.029163706179824656,
+      "p50": 0.02839447557926178,
+      "p90": 0.04783072583377362,
+      "max": 0.07565505802631378
+     },
+     "random_word": {
+      "mean": 0.9171764582395554,
+      "p50": 0.9159450531005859,
+      "p90": 0.9378073573112488,
+      "max": 0.9551658034324646
+     }
+    },
+    "analogies": [
+     {
+      "analogy": "king - man + woman -> queen",
+      "rank": 1,
+      "cos": 0.8801087141036987,
+      "top": [
+       [
+        "queen",
+        0.8801087141036987
+       ],
+       [
+        "female",
+        0.8395159840583801
+       ],
+       [
+        "princess",
+        0.8272151947021484
+       ],
+       [
+        "kingdom",
+        0.8270215392112732
+       ],
+       [
+        "lady",
+        0.8218136429786682
+       ]
+      ],
+      "benchmark_cos_a_d": 0.8851291537284851
+     },
+     {
+      "analogy": "man - king + queen -> woman",
+      "rank": 1,
+      "cos": 0.8688682317733765,
+      "top": [
+       [
+        "woman",
+        0.8688682317733765
+       ],
+       [
+        "person",
+        0.833823025226593
+       ],
+       [
+        "lady",
+        0.8323787450790405
+       ],
+       [
+        "female",
+        0.8259197473526001
+       ],
+       [
+        "girl",
+        0.8163144588470459
+       ]
+      ],
+      "benchmark_cos_a_d": 0.8494311571121216
+     },
+     {
+      "analogy": "husband - man + woman -> wife",
+      "rank": 1,
+      "cos": 0.8839564323425293,
+      "top": [
+       [
+        "wife",
+        0.8839564323425293
+       ],
+       [
+        "spouse",
+        0.866219699382782
+       ],
+       [
+        "girlfriend",
+        0.8418878316879272
+       ],
+       [
+        "female",
+        0.8277043104171753
+       ],
+       [
+        "married",
+        0.8151497840881348
+       ]
+      ],
+      "benchmark_cos_a_d": 0.898564338684082
+     },
+     {
+      "analogy": "brother - male + female -> sister",
+      "rank": 1,
+      "cos": 0.9122252464294434,
+      "top": [
+       [
+        "sister",
+        0.9122252464294434
+       ],
+       [
+        "sisters",
+        0.8538987636566162
+       ],
+       [
+        "sibling",
+        0.8493818044662476
+       ],
+       [
+        "daughter",
+        0.8424896001815796
+       ],
+       [
+        "mother",
+        0.8365035653114319
+       ]
+      ],
+      "benchmark_cos_a_d": 0.8785021305084229
+     },
+     {
+      "analogy": "father - man + woman -> mother",
+      "rank": 1,
+      "cos": 0.8864797949790955,
+      "top": [
+       [
+        "mother",
+        0.8864797949790955
+       ],
+       [
+        "daughter",
+        0.8548879027366638
+       ],
+       [
+        "female",
+        0.8454862833023071
+       ],
+       [
+        "parent",
+        0.8349518179893494
+       ],
+       [
+        "wife",
+        0.8324866890907288
+       ]
+      ],
+      "benchmark_cos_a_d": 0.8890209794044495
+     },
+     {
+      "analogy": "kitten - cat + dog -> puppy",
+      "rank": 1,
+      "cos": 0.9112690687179565,
+      "top": [
+       [
+        "puppy",
+        0.9112690687179565
+       ],
+       [
+        "baby",
+        0.8286761045455933
+       ],
+       [
+        "animal",
+        0.82848060131073
+       ],
+       [
+        "cute",
+        0.8266615867614746
+       ],
+       [
+        "pupil",
+        0.8243180513381958
+       ]
+      ],
+      "benchmark_cos_a_d": 0.8786911964416504
+     },
+     {
+      "analogy": "bigger - big + small -> smaller",
+      "skipped": "word not in vocab"
+     },
+     {
+      "analogy": "walked - walk + run -> ran",
+      "skipped": "word not in vocab"
+     }
+    ]
+   },
+   "center": {
+    "define2": {
+     "wife": {
+      "top": [
+       [
+        "spouse",
+        "woman",
+        0.7560393214225769
+       ],
+       [
+        "mom",
+        "spouse",
+        0.7382145524024963
+       ],
+       [
+        "girlfriend",
+        "spouse",
+        0.7382051944732666
+       ]
+      ],
+      "n_excluded": 65
+     },
+     "duckling": {
+      "top": [
+       [
+        "chicken",
+        "youngster",
+        0.5682501792907715
+       ],
+       [
+        "chicken",
+        "cute",
+        0.5463201999664307
+       ],
+       [
+        "feather",
+        "youngster",
+        0.5462000966072083
+       ]
+      ],
+      "n_excluded": 2
+     },
+     "puppy": {
+      "top": [
+       [
+        "dog",
+        "kitten",
+        0.7210060358047485
+       ],
+       [
+        "cute",
+        "dog",
+        0.6866269707679749
+       ],
+       [
+        "baby",
+        "dog",
+        0.663316547870636
+       ]
+      ],
+      "n_excluded": 5
+     },
+     "foal": null,
+     "freedom": {
+      "top": [
+       [
+        "independence",
+        "liberty",
+        0.7293750643730164
+       ],
+       [
+        "independence",
+        "liberation",
+        0.6746761202812195
+       ],
+       [
+        "autonomy",
+        "liberty",
+        0.6677862405776978
+       ]
+      ],
+      "n_excluded": 8
+     },
+     "autonomy": {
+      "top": [
+       [
+        "independence",
+        "mobility",
+        0.595192015171051
+       ],
+       [
+        "independence",
+        "sovereignty",
+        0.594170331954956
+       ],
+       [
+        "independence",
+        "independent",
+        0.590808629989624
+       ]
+      ],
+      "n_excluded": 9
+     },
+     "justice": {
+      "top": [
+       [
+        "fairness",
+        "judicial",
+        0.5737729072570801
+       ],
+       [
+        "judicial",
+        "revenge",
+        0.5427526831626892
+       ],
+       [
+        "equality",
+        "judicial",
+        0.5420258641242981
+       ]
+      ],
+      "n_excluded": 7
+     },
+     "knowledge": {
+      "top": [
+       [
+        "information",
+        "wisdom",
+        0.6602761149406433
+       ],
+       [
+        "educated",
+        "information",
+        0.6393094658851624
+       ],
+       [
+        "expertise",
+        "information",
+        0.623268723487854
+       ]
+      ],
+      "n_excluded": 6
+     },
+     "rationality": null,
+     "causation": null
+    },
+    "null": {
+     "random_unit": {
+      "mean": 0.07647529467940331,
+      "p50": 0.07619870081543922,
+      "p90": 0.08428546637296677,
+      "max": 0.0970703512430191
+     },
+     "random_word": {
+      "mean": 0.6026594489812851,
+      "p50": 0.5927639305591583,
+      "p90": 0.7298753380775452,
+      "max": 0.7712153792381287
+     }
+    },
+    "analogies": [
+     {
+      "analogy": "king - man + woman -> queen",
+      "rank": 1,
+      "cos": 0.6154345273971558,
+      "top": [
+       [
+        "queen",
+        0.6154345273971558
+       ],
+       [
+        "female",
+        0.45895761251449585
+       ],
+       [
+        "princess",
+        0.44924384355545044
+       ],
+       [
+        "kingdom",
+        0.4361894726753235
+       ],
+       [
+        "lady",
+        0.4094572067260742
+       ]
+      ],
+      "benchmark_cos_a_d": 0.5016672611236572
+     },
+     {
+      "analogy": "man - king + queen -> woman",
+      "rank": 1,
+      "cos": 0.5204553008079529,
+      "top": [
+       [
+        "woman",
+        0.5204553008079529
+       ],
+       [
+        "lady",
+        0.3968796730041504
+       ],
+       [
+        "girl",
+        0.3538937270641327
+       ],
+       [
+        "female",
+        0.351550430059433
+       ],
+       [
+        "person",
+        0.3511924743652344
+       ]
+      ],
+      "benchmark_cos_a_d": 0.313956081867218
+     },
+     {
+      "analogy": "husband - man + woman -> wife",
+      "rank": 1,
+      "cos": 0.6719964742660522,
+      "top": [
+       [
+        "wife",
+        0.6719964742660522
+       ],
+       [
+        "spouse",
+        0.6153179407119751
+       ],
+       [
+        "girlfriend",
+        0.5421460866928101
+       ],
+       [
+        "female",
+        0.4782904386520386
+       ],
+       [
+        "married",
+        0.46146297454833984
+       ]
+      ],
+      "benchmark_cos_a_d": 0.5821998119354248
+     },
+     {
+      "analogy": "brother - male + female -> sister",
+      "rank": 1,
+      "cos": 0.7093906402587891,
+      "top": [
+       [
+        "sister",
+        0.7093906402587891
+       ],
+       [
+        "sisters",
+        0.5252763032913208
+       ],
+       [
+        "sibling",
+        0.484813928604126
+       ],
+       [
+        "daughter",
+        0.4556729793548584
+       ],
+       [
+        "mother",
+        0.433052122592926
+       ]
+      ],
+      "benchmark_cos_a_d": 0.5126038789749146
+     },
+     {
+      "analogy": "father - man + woman -> mother",
+      "rank": 1,
+      "cos": 0.6475454568862915,
+      "top": [
+       [
+        "mother",
+        0.6475454568862915
+       ],
+       [
+        "daughter",
+        0.5403685569763184
+       ],
+       [
+        "female",
+        0.49639683961868286
+       ],
+       [
+        "grandmother",
+        0.46649715304374695
+       ],
+       [
+        "wife",
+        0.4611510932445526
+       ]
+      ],
+      "benchmark_cos_a_d": 0.532544732093811
+     },
+     {
+      "analogy": "kitten - cat + dog -> puppy",
+      "rank": 1,
+      "cos": 0.6817041635513306,
+      "top": [
+       [
+        "puppy",
+        0.6817041635513306
+       ],
+       [
+        "duckling",
+        0.38005220890045166
+       ],
+       [
+        "pupil",
+        0.3670330345630646
+       ],
+       [
+        "animal",
+        0.3591853380203247
+       ],
+       [
+        "pet",
+        0.3588992953300476
+       ]
+      ],
+      "benchmark_cos_a_d": 0.547223687171936
+     },
+     {
+      "analogy": "bigger - big + small -> smaller",
+      "skipped": "word not in vocab"
+     },
+     {
+      "analogy": "walked - walk + run -> ran",
+      "skipped": "word not in vocab"
+     }
+    ]
+   }
+  },
+  "davinci": {
+   "raw": {
+    "define2": {
+     "wife": {
+      "top": [
+       [
+        "husband",
+        "woman",
+        0.9508569836616516
+       ],
+       [
+        "spouse",
+        "woman",
+        0.9495616555213928
+       ],
+       [
+        "husband",
+        "spouse",
+        0.9483833312988281
+       ]
+      ],
+      "n_excluded": 65
+     },
+     "duckling": {
+      "top": [
+       [
+        "bird",
+        "puppy",
+        0.879853367805481
+       ],
+       [
+        "chicken",
+        "puppy",
+        0.8797674775123596
+       ],
+       [
+        "bird",
+        "kitten",
+        0.8789018988609314
+       ]
+      ],
+      "n_excluded": 2
+     },
+     "puppy": {
+      "top": [
+       [
+        "dog",
+        "kitten",
+        0.937825083732605
+       ],
+       [
+        "cute",
+        "dog",
+        0.9245418310165405
+       ],
+       [
+        "kitten",
+        "pet",
+        0.9181400537490845
+       ]
+      ],
+      "n_excluded": 5
+     },
+     "foal": null,
+     "freedom": {
+      "top": [
+       [
+        "independence",
+        "liberty",
+        0.947104275226593
+       ],
+       [
+        "independence",
+        "liberation",
+        0.9449254870414734
+       ],
+       [
+        "liberation",
+        "liberty",
+        0.9407393336296082
+       ]
+      ],
+      "n_excluded": 8
+     },
+     "autonomy": {
+      "top": [
+       [
+        "independent",
+        "sovereignty",
+        0.9344328045845032
+       ],
+       [
+        "independence",
+        "solo",
+        0.9288399815559387
+       ],
+       [
+        "independence",
+        "sovereignty",
+        0.9285040497779846
+       ]
+      ],
+      "n_excluded": 9
+     },
+     "justice": {
+      "top": [
+       [
+        "judicial",
+        "moral",
+        0.9339962005615234
+       ],
+       [
+        "judicial",
+        "peace",
+        0.9331872463226318
+       ],
+       [
+        "fairness",
+        "judicial",
+        0.9326296448707581
+       ]
+      ],
+      "n_excluded": 7
+     },
+     "knowledge": {
+      "top": [
+       [
+        "information",
+        "wisdom",
+        0.940334141254425
+       ],
+       [
+        "information",
+        "learn",
+        0.935006320476532
+       ],
+       [
+        "educated",
+        "information",
+        0.9344298243522644
+       ]
+      ],
+      "n_excluded": 6
+     },
+     "rationality": null,
+     "causation": null
+    },
+    "null": {
+     "random_unit": {
+      "mean": 0.014847833956591784,
+      "p50": 0.015344968996942043,
+      "p90": 0.023742196895182133,
+      "max": 0.0387120358645916
+     },
+     "random_word": {
+      "mean": 0.9238332664966583,
+      "p50": 0.9241149127483368,
+      "p90": 0.9403221786022187,
+      "max": 0.9518285393714905
+     }
+    },
+    "analogies": [
+     {
+      "analogy": "king - man + woman -> queen",
+      "rank": 2,
+      "cos": 0.8581133484840393,
+      "top": [
+       [
+        "female",
+        0.867453932762146
+       ],
+       [
+        "queen",
+        0.8581133484840393
+       ],
+       [
+        "lady",
+        0.853590726852417
+       ],
+       [
+        "mother",
+        0.8473806977272034
+       ],
+       [
+        "kingdom",
+        0.8443326950073242
+       ]
+      ],
+      "benchmark_cos_a_d": 0.8985081315040588
+     },
+     {
+      "analogy": "man - king + queen -> woman",
+      "rank": 1,
+      "cos": 0.8438737392425537,
+      "top": [
+       [
+        "woman",
+        0.8438737392425537
+       ],
+       [
+        "manifest",
+        0.8372506499290466
+       ],
+       [
+        "person",
+        0.8371290564537048
+       ],
+       [
+        "lady",
+        0.8364039659500122
+       ],
+       [
+        "manner",
+        0.8358999490737915
+       ]
+      ],
+      "benchmark_cos_a_d": 0.8564068078994751
+     },
+     {
+      "analogy": "husband - man + woman -> wife",
+      "rank": 1,
+      "cos": 0.8822522759437561,
+      "top": [
+       [
+        "wife",
+        0.8822522759437561
+       ],
+       [
+        "wives",
+        0.8455038070678711
+       ],
+       [
+        "girlfriend",
+        0.8409303426742554
+       ],
+       [
+        "female",
+        0.837174117565155
+       ],
+       [
+        "married",
+        0.832818865776062
+       ]
+      ],
+      "benchmark_cos_a_d": 0.931387722492218
+     },
+     {
+      "analogy": "brother - male + female -> sister",
+      "rank": 1,
+      "cos": 0.9239815473556519,
+      "top": [
+       [
+        "sister",
+        0.9239815473556519
+       ],
+       [
+        "sisters",
+        0.8951865434646606
+       ],
+       [
+        "sibling",
+        0.889428973197937
+       ],
+       [
+        "woman",
+        0.8884133696556091
+       ],
+       [
+        "mother",
+        0.8761352896690369
+       ]
+      ],
+      "benchmark_cos_a_d": 0.9186488389968872
+     },
+     {
+      "analogy": "father - man + woman -> mother",
+      "rank": 1,
+      "cos": 0.8838383555412292,
+      "top": [
+       [
+        "mother",
+        0.8838383555412292
+       ],
+       [
+        "grandmother",
+        0.8707090616226196
+       ],
+       [
+        "female",
+        0.8671785593032837
+       ],
+       [
+        "daughter",
+        0.8668612241744995
+       ],
+       [
+        "wife",
+        0.8458043336868286
+       ]
+      ],
+      "benchmark_cos_a_d": 0.8940767049789429
+     },
+     {
+      "analogy": "kitten - cat + dog -> puppy",
+      "rank": 1,
+      "cos": 0.9054269194602966,
+      "top": [
+       [
+        "puppy",
+        0.9054269194602966
+       ],
+       [
+        "animal",
+        0.8177244663238525
+       ],
+       [
+        "baby",
+        0.8141217827796936
+       ],
+       [
+        "cute",
+        0.8068779110908508
+       ],
+       [
+        "kid",
+        0.8041208982467651
+       ]
+      ],
+      "benchmark_cos_a_d": 0.9024584293365479
+     },
+     {
+      "analogy": "bigger - big + small -> smaller",
+      "skipped": "word not in vocab"
+     },
+     {
+      "analogy": "walked - walk + run -> ran",
+      "skipped": "word not in vocab"
+     }
+    ]
+   },
+   "center": {
+    "define2": {
+     "wife": {
+      "top": [
+       [
+        "husband",
+        "spouse",
+        0.729609489440918
+       ],
+       [
+        "husband",
+        "woman",
+        0.7267640233039856
+       ],
+       [
+        "spouse",
+        "woman",
+        0.7211958169937134
+       ]
+      ],
+      "n_excluded": 65
+     },
+     "duckling": {
+      "top": [
+       [
+        "chicken",
+        "puppy",
+        0.4711554944515228
+       ],
+       [
+        "chicken",
+        "kitten",
+        0.4580710828304291
+       ],
+       [
+        "bird",
+        "puppy",
+        0.45650720596313477
+       ]
+      ],
+      "n_excluded": 2
+     },
+     "puppy": {
+      "top": [
+       [
+        "dog",
+        "kitten",
+        0.7153473496437073
+       ],
+       [
+        "cute",
+        "dog",
+        0.6396211981773376
+       ],
+       [
+        "kitten",
+        "pet",
+        0.6107968688011169
+       ]
+      ],
+      "n_excluded": 5
+     },
+     "foal": null,
+     "freedom": {
+      "top": [
+       [
+        "independence",
+        "liberty",
+        0.6882053017616272
+       ],
+       [
+        "independence",
+        "liberation",
+        0.6812713742256165
+       ],
+       [
+        "liberation",
+        "liberty",
+        0.6621652841567993
+       ]
+      ],
+      "n_excluded": 8
+     },
+     "autonomy": {
+      "top": [
+       [
+        "independent",
+        "sovereignty",
+        0.6720203757286072
+       ],
+       [
+        "independence",
+        "independent",
+        0.666263222694397
+       ],
+       [
+        "independence",
+        "independently",
+        0.6626788377761841
+       ]
+      ],
+      "n_excluded": 9
+     },
+     "justice": {
+      "top": [
+       [
+        "judicial",
+        "moral",
+        0.5978783369064331
+       ],
+       [
+        "judgement",
+        "judicial",
+        0.5954666137695312
+       ],
+       [
+        "fairness",
+        "judicial",
+        0.5923869609832764
+       ]
+      ],
+      "n_excluded": 7
+     },
+     "knowledge": {
+      "top": [
+       [
+        "information",
+        "wisdom",
+        0.6488207578659058
+       ],
+       [
+        "educated",
+        "information",
+        0.6246218085289001
+       ],
+       [
+        "information",
+        "learn",
+        0.6139231324195862
+       ]
+      ],
+      "n_excluded": 6
+     },
+     "rationality": null,
+     "causation": null
+    },
+    "null": {
+     "random_unit": {
+      "mean": 0.04418471068143845,
+      "p50": 0.04425511881709099,
+      "p90": 0.04811279177665711,
+      "max": 0.052649155259132385
+     },
+     "random_word": {
+      "mean": 0.5712280860543251,
+      "p50": 0.5611775815486908,
+      "p90": 0.6950615823268891,
+      "max": 0.7857348322868347
+     }
+    },
+    "analogies": [
+     {
+      "analogy": "king - man + woman -> queen",
+      "rank": 2,
+      "cos": 0.4091455638408661,
+      "top": [
+       [
+        "female",
+        0.46060508489608765
+       ],
+       [
+        "queen",
+        0.4091455638408661
+       ],
+       [
+        "lady",
+        0.3995390236377716
+       ],
+       [
+        "mother",
+        0.37187856435775757
+       ],
+       [
+        "grandmother",
+        0.3535092771053314
+       ]
+      ],
+      "benchmark_cos_a_d": 0.3195819556713104
+     },
+     {
+      "analogy": "man - king + queen -> woman",
+      "rank": 2,
+      "cos": 0.3314250111579895,
+      "top": [
+       [
+        "manner",
+        0.33772194385528564
+       ],
+       [
+        "woman",
+        0.3314250111579895
+       ],
+       [
+        "guy",
+        0.2979426980018616
+       ],
+       [
+        "manifest",
+        0.29489606618881226
+       ],
+       [
+        "lady",
+        0.29425734281539917
+       ]
+      ],
+      "benchmark_cos_a_d": 0.21314169466495514
+     },
+     {
+      "analogy": "husband - man + woman -> wife",
+      "rank": 1,
+      "cos": 0.6386841535568237,
+      "top": [
+       [
+        "wife",
+        0.6386841535568237
+       ],
+       [
+        "wives",
+        0.515213668346405
+       ],
+       [
+        "girlfriend",
+        0.49683064222335815
+       ],
+       [
+        "married",
+        0.46149876713752747
+       ],
+       [
+        "female",
+        0.4612874388694763
+       ]
+      ],
+      "benchmark_cos_a_d": 0.655056357383728
+     },
+     {
+      "analogy": "brother - male + female -> sister",
+      "rank": 1,
+      "cos": 0.6441000699996948,
+      "top": [
+       [
+        "sister",
+        0.6441000699996948
+       ],
+       [
+        "sisters",
+        0.5357875823974609
+       ],
+       [
+        "sibling",
+        0.49939411878585815
+       ],
+       [
+        "woman",
+        0.4697296619415283
+       ],
+       [
+        "siblings",
+        0.4538080394268036
+       ]
+      ],
+      "benchmark_cos_a_d": 0.5116183757781982
+     },
+     {
+      "analogy": "father - man + woman -> mother",
+      "rank": 1,
+      "cos": 0.5375393629074097,
+      "top": [
+       [
+        "mother",
+        0.5375393629074097
+       ],
+       [
+        "grandmother",
+        0.5127636194229126
+       ],
+       [
+        "daughter",
+        0.4766499400138855
+       ],
+       [
+        "female",
+        0.46242594718933105
+       ],
+       [
+        "granddaughter",
+        0.4189033508300781
+       ]
+      ],
+      "benchmark_cos_a_d": 0.3670446276664734
+     },
+     {
+      "analogy": "kitten - cat + dog -> puppy",
+      "rank": 1,
+      "cos": 0.6890239715576172,
+      "top": [
+       [
+        "puppy",
+        0.6890239715576172
+       ],
+       [
+        "duckling",
+        0.3289867043495178
+       ],
+       [
+        "animal",
+        0.3278876543045044
+       ],
+       [
+        "baby",
+        0.32467377185821533
+       ],
+       [
+        "cute",
+        0.30638980865478516
+       ]
+      ],
+      "benchmark_cos_a_d": 0.5942437648773193
+     },
+     {
+      "analogy": "bigger - big + small -> smaller",
+      "skipped": "word not in vocab"
+     },
+     {
+      "analogy": "walked - walk + run -> ran",
+      "skipped": "word not in vocab"
+     }
+    ]
+   }
+  },
+  "opt-13b": {
+   "raw": {
+    "define2": {
+     "wife": {
+      "top": [
+       [
+        "husband",
+        "worker",
+        0.9935046434402466
+       ],
+       [
+        "worker",
+        "writer",
+        0.9933438897132874
+       ],
+       [
+        "mate",
+        "worker",
+        0.9924737215042114
+       ]
+      ],
+      "n_excluded": 65
+     },
+     "duckling": {
+      "top": [
+       [
+        "cheerful",
+        "puppy",
+        0.7361035346984863
+       ],
+       [
+        "produce",
+        "puppy",
+        0.7327906489372253
+       ],
+       [
+        "neighbouring",
+        "puppy",
+        0.7248426079750061
+       ]
+      ],
+      "n_excluded": 2
+     },
+     "puppy": {
+      "top": [
+       [
+        "furniture",
+        "kitten",
+        0.76434326171875
+       ],
+       [
+        "competence",
+        "kitten",
+        0.7612197995185852
+       ],
+       [
+        "kitten",
+        "sophisticated",
+        0.760908305644989
+       ]
+      ],
+      "n_excluded": 5
+     },
+     "foal": null,
+     "freedom": {
+      "top": [
+       [
+        "daughter",
+        "knowledge",
+        0.988674521446228
+       ],
+       [
+        "awareness",
+        "dog",
+        0.9878829717636108
+       ],
+       [
+        "determination",
+        "dog",
+        0.9878524541854858
+       ]
+      ],
+      "n_excluded": 8
+     },
+     "autonomy": {
+      "top": [
+       [
+        "ideology",
+        "literacy",
+        0.8013354539871216
+       ],
+       [
+        "literacy",
+        "ministry",
+        0.798515796661377
+       ],
+       [
+        "literacy",
+        "sovereignty",
+        0.796495258808136
+       ]
+      ],
+      "n_excluded": 9
+     },
+     "justice": {
+      "top": [
+       [
+        "bass",
+        "existence",
+        0.980678379535675
+       ],
+       [
+        "cheat",
+        "existence",
+        0.9797794818878174
+       ],
+       [
+        "existence",
+        "life",
+        0.9795976877212524
+       ]
+      ],
+      "n_excluded": 7
+     },
+     "knowledge": {
+      "top": [
+       [
+        "awareness",
+        "product",
+        0.9899497032165527
+       ],
+       [
+        "direction",
+        "information",
+        0.9893039464950562
+       ],
+       [
+        "information",
+        "product",
+        0.9891905188560486
+       ]
+      ],
+      "n_excluded": 6
+     },
+     "rationality": null,
+     "causation": null
+    },
+    "null": {
+     "random_unit": {
+      "mean": 0.04336630098521709,
+      "p50": 0.04259270057082176,
+      "p90": 0.057515054941177375,
+      "max": 0.0687810555100441
+     },
+     "random_word": {
+      "mean": 0.840611771941185,
+      "p50": 0.8075683414936066,
+      "p90": 0.9891347408294677,
+      "max": 0.9935046434402466
+     }
+    },
+    "analogies": [
+     {
+      "analogy": "king - man + woman -> queen",
+      "rank": 2423,
+      "cos": 0.47450175881385803,
+      "top": [
+       [
+        "feeding",
+        0.9736717939376831
+       ],
+       [
+        "fighting",
+        0.9724504947662354
+       ],
+       [
+        "killing",
+        0.9699113368988037
+       ],
+       [
+        "running",
+        0.9692011475563049
+       ],
+       [
+        "outing",
+        0.9683918952941895
+       ]
+      ],
+      "benchmark_cos_a_d": 0.5037396550178528
+     },
+     {
+      "analogy": "man - king + queen -> woman",
+      "rank": 1716,
+      "cos": 0.3596286475658417,
+      "top": [
+       [
+        "minister",
+        0.592902660369873
+       ],
+       [
+        "lorry",
+        0.5839141011238098
+       ],
+       [
+        "denial",
+        0.5738634467124939
+       ],
+       [
+        "senator",
+        0.5704636573791504
+       ],
+       [
+        "prince",
+        0.5691767930984497
+       ]
+      ],
+      "benchmark_cos_a_d": 0.9726079106330872
+     },
+     {
+      "analogy": "husband - man + woman -> wife",
+      "rank": 2,
+      "cos": 0.9676656723022461,
+      "top": [
+       [
+        "writer",
+        0.9716567993164062
+       ],
+       [
+        "wife",
+        0.9676656723022461
+       ],
+       [
+        "founder",
+        0.9630112051963806
+       ],
+       [
+        "mate",
+        0.9627341628074646
+       ],
+       [
+        "uncle",
+        0.9615979790687561
+       ]
+      ],
+      "benchmark_cos_a_d": 0.985938549041748
+     },
+     {
+      "analogy": "brother - male + female -> sister",
+      "rank": 2720,
+      "cos": 0.4399973154067993,
+      "top": [
+       [
+        "father",
+        0.9841351509094238
+       ],
+       [
+        "owner",
+        0.9758750796318054
+       ],
+       [
+        "daughter",
+        0.9737522006034851
+       ],
+       [
+        "mother",
+        0.9722234606742859
+       ],
+       [
+        "runner",
+        0.9718204736709595
+       ]
+      ],
+      "benchmark_cos_a_d": 0.447024941444397
+     },
+     {
+      "analogy": "father - man + woman -> mother",
+      "rank": 6,
+      "cos": 0.9663400650024414,
+      "top": [
+       [
+        "wife",
+        0.9751059412956238
+       ],
+       [
+        "daughter",
+        0.9750285148620605
+       ],
+       [
+        "owner",
+        0.974599301815033
+       ],
+       [
+        "brother",
+        0.9731449484825134
+       ],
+       [
+        "uncle",
+        0.9694429636001587
+       ]
+      ],
+      "benchmark_cos_a_d": 0.9892878532409668
+     },
+     {
+      "analogy": "kitten - cat + dog -> puppy",
+      "rank": 2926,
+      "cos": 0.5055186152458191,
+      "top": [
+       [
+        "cocktail",
+        0.7251359820365906
+       ],
+       [
+        "cottage",
+        0.7143067121505737
+       ],
+       [
+        "friend",
+        0.711793065071106
+       ],
+       [
+        "friendship",
+        0.7044134736061096
+       ],
+       [
+        "firefighter",
+        0.6980736255645752
+       ]
+      ],
+      "benchmark_cos_a_d": 0.6327928304672241
+     },
+     {
+      "analogy": "bigger - big + small -> smaller",
+      "skipped": "word not in vocab"
+     },
+     {
+      "analogy": "walked - walk + run -> ran",
+      "skipped": "word not in vocab"
+     }
+    ]
+   },
+   "center": {
+    "define2": {
+     "wife": {
+      "top": [
+       [
+        "husband",
+        "worker",
+        0.9851313829421997
+       ],
+       [
+        "worker",
+        "writer",
+        0.9843663573265076
+       ],
+       [
+        "mate",
+        "worker",
+        0.9831786751747131
+       ]
+      ],
+      "n_excluded": 65
+     },
+     "duckling": {
+      "top": [
+       [
+        "produce",
+        "puppy",
+        0.775091290473938
+       ],
+       [
+        "producer",
+        "puppy",
+        0.7685577869415283
+       ],
+       [
+        "cheerful",
+        "puppy",
+        0.7678965926170349
+       ]
+      ],
+      "n_excluded": 2
+     },
+     "puppy": {
+      "top": [
+       [
+        "furniture",
+        "kitten",
+        0.7873395085334778
+       ],
+       [
+        "kitten",
+        "prestigious",
+        0.7859670519828796
+       ],
+       [
+        "competence",
+        "kitten",
+        0.7856648564338684
+       ]
+      ],
+      "n_excluded": 5
+     },
+     "foal": null,
+     "freedom": {
+      "top": [
+       [
+        "daughter",
+        "knowledge",
+        0.9724729061126709
+       ],
+       [
+        "awareness",
+        "dog",
+        0.9708600640296936
+       ],
+       [
+        "determination",
+        "mother",
+        0.970755934715271
+       ]
+      ],
+      "n_excluded": 8
+     },
+     "autonomy": {
+      "top": [
+       [
+        "morality",
+        "predecessor",
+        0.6574625968933105
+       ],
+       [
+        "literacy",
+        "territory",
+        0.6571101546287537
+       ],
+       [
+        "literacy",
+        "sovereignty",
+        0.655247688293457
+       ]
+      ],
+      "n_excluded": 9
+     },
+     "justice": {
+      "top": [
+       [
+        "bass",
+        "existence",
+        0.9524912238121033
+       ],
+       [
+        "corruption",
+        "everything",
+        0.9498968720436096
+       ],
+       [
+        "cheat",
+        "existence",
+        0.9495805501937866
+       ]
+      ],
+      "n_excluded": 7
+     },
+     "knowledge": {
+      "top": [
+       [
+        "awareness",
+        "product",
+        0.975010871887207
+       ],
+       [
+        "awareness",
+        "system",
+        0.9733740091323853
+       ],
+       [
+        "direction",
+        "information",
+        0.9732418656349182
+       ]
+      ],
+      "n_excluded": 6
+     },
+     "rationality": null,
+     "causation": null
+    },
+    "null": {
+     "random_unit": {
+      "mean": 0.06282996166497469,
+      "p50": 0.06250961124897003,
+      "p90": 0.07065131142735481,
+      "max": 0.08590667694807053
+     },
+     "random_word": {
+      "mean": 0.7791990435123444,
+      "p50": 0.7675650715827942,
+      "p90": 0.9723356425762176,
+      "max": 0.9851313829421997
+     }
+    },
+    "analogies": [
+     {
+      "analogy": "king - man + woman -> queen",
+      "rank": 2687,
+      "cos": -0.40148237347602844,
+      "top": [
+       [
+        "feeding",
+        0.9444136619567871
+       ],
+       [
+        "fighting",
+        0.9413100481033325
+       ],
+       [
+        "killing",
+        0.9357830286026001
+       ],
+       [
+        "running",
+        0.9333382844924927
+       ],
+       [
+        "outing",
+        0.9331380128860474
+       ]
+      ],
+      "benchmark_cos_a_d": -0.4199722707271576
+     },
+     {
+      "analogy": "man - king + queen -> woman",
+      "rank": 3553,
+      "cos": -0.23422420024871826,
+      "top": [
+       [
+        "prince",
+        0.5081558227539062
+       ],
+       [
+        "lorry",
+        0.5052682161331177
+       ],
+       [
+        "princess",
+        0.5043503046035767
+       ],
+       [
+        "minister",
+        0.4911472499370575
+       ],
+       [
+        "choir",
+        0.4816393554210663
+       ]
+      ],
+      "benchmark_cos_a_d": 0.9352465867996216
+     },
+     {
+      "analogy": "husband - man + woman -> wife",
+      "rank": 2,
+      "cos": 0.9374738335609436,
+      "top": [
+       [
+        "writer",
+        0.9443537592887878
+       ],
+       [
+        "wife",
+        0.9374738335609436
+       ],
+       [
+        "mate",
+        0.9272271394729614
+       ],
+       [
+        "founder",
+        0.9268920421600342
+       ],
+       [
+        "uncle",
+        0.9229950904846191
+       ]
+      ],
+      "benchmark_cos_a_d": 0.9673871994018555
+     },
+     {
+      "analogy": "brother - male + female -> sister",
+      "rank": 2732,
+      "cos": -0.3925086259841919,
+      "top": [
+       [
+        "father",
+        0.9629743099212646
+       ],
+       [
+        "owner",
+        0.9472525119781494
+       ],
+       [
+        "daughter",
+        0.9385334253311157
+       ],
+       [
+        "runner",
+        0.9363650679588318
+       ],
+       [
+        "mother",
+        0.9355686902999878
+       ]
+      ],
+      "benchmark_cos_a_d": -0.3988766670227051
+     },
+     {
+      "analogy": "father - man + woman -> mother",
+      "rank": 6,
+      "cos": 0.9317963719367981,
+      "top": [
+       [
+        "daughter",
+        0.9490354657173157
+       ],
+       [
+        "wife",
+        0.9486299753189087
+       ],
+       [
+        "owner",
+        0.9469786882400513
+       ],
+       [
+        "brother",
+        0.9446423649787903
+       ],
+       [
+        "uncle",
+        0.9380162954330444
+       ]
+      ],
+      "benchmark_cos_a_d": 0.9759863615036011
+     },
+     {
+      "analogy": "kitten - cat + dog -> puppy",
+      "rank": 4,
+      "cos": 0.2850671410560608,
+      "top": [
+       [
+        "boyfriend",
+        0.3212774097919464
+       ],
+       [
+        "cocktail",
+        0.3094063401222229
+       ],
+       [
+        "friendship",
+        0.28857365250587463
+       ],
+       [
+        "puppy",
+        0.2850671410560608
+       ],
+       [
+        "firefighter",
+        0.2724904417991638
+       ]
+      ],
+      "benchmark_cos_a_d": 0.6028505563735962
+     },
+     {
+      "analogy": "bigger - big + small -> smaller",
+      "skipped": "word not in vocab"
+     },
+     {
+      "analogy": "walked - walk + run -> ran",
+      "skipped": "word not in vocab"
+     }
+    ]
+   }
+  },
+  "t5-3b": {
+   "raw": {
+    "define2": {
+     "wife": {
+      "top": [
+       [
+        "husband",
+        "woman",
+        0.9053251147270203
+       ],
+       [
+        "father",
+        "woman",
+        0.8877739310264587
+       ],
+       [
+        "father",
+        "husband",
+        0.8776756525039673
+       ]
+      ],
+      "n_excluded": 65
+     },
+     "duckling": {
+      "top": [
+       [
+        "dancer",
+        "poisonous",
+        0.7393719553947449
+       ],
+       [
+        "dancer",
+        "disgusting",
+        0.7149301171302795
+       ],
+       [
+        "dancer",
+        "thirsty",
+        0.7112728357315063
+       ]
+      ],
+      "n_excluded": 2
+     },
+     "puppy": {
+      "top": [
+       [
+        "buddy",
+        "kitten",
+        0.7682904601097107
+       ],
+       [
+        "dog",
+        "kitten",
+        0.7635771632194519
+       ],
+       [
+        "dog",
+        "niece",
+        0.755157470703125
+       ]
+      ],
+      "n_excluded": 5
+     },
+     "foal": null,
+     "freedom": {
+      "top": [
+       [
+        "ease",
+        "liberty",
+        0.7646300196647644
+       ],
+       [
+        "frustration",
+        "liberty",
+        0.7613564133644104
+       ],
+       [
+        "liberty",
+        "love",
+        0.7608939409255981
+       ]
+      ],
+      "n_excluded": 8
+     },
+     "autonomy": {
+      "top": [
+       [
+        "methodology",
+        "sovereignty",
+        0.7518540024757385
+       ],
+       [
+        "reliability",
+        "sovereignty",
+        0.7507141828536987
+       ],
+       [
+        "complexity",
+        "sovereignty",
+        0.7499048113822937
+       ]
+      ],
+      "n_excluded": 9
+     },
+     "justice": {
+      "top": [
+       [
+        "judge",
+        "mercy",
+        0.7882910966873169
+       ],
+       [
+        "mercy",
+        "prison",
+        0.7767212986946106
+       ],
+       [
+        "crime",
+        "mercy",
+        0.7727097272872925
+       ]
+      ],
+      "n_excluded": 7
+     },
+     "knowledge": {
+      "top": [
+       [
+        "awareness",
+        "skill",
+        0.7786455750465393
+       ],
+       [
+        "skill",
+        "understanding",
+        0.7726664543151855
+       ],
+       [
+        "expertise",
+        "understanding",
+        0.7660428881645203
+       ]
+      ],
+      "n_excluded": 6
+     },
+     "rationality": null,
+     "causation": null
+    },
+    "null": {
+     "random_unit": {
+      "mean": 0.10717219285666943,
+      "p50": 0.10339705273509026,
+      "p90": 0.13373884707689285,
+      "max": 0.19867819547653198
+     },
+     "random_word": {
+      "mean": 0.7744215732812881,
+      "p50": 0.7837736010551453,
+      "p90": 0.8433825254440308,
+      "max": 0.9272817373275757
+     }
+    },
+    "analogies": [
+     {
+      "analogy": "king - man + woman -> queen",
+      "rank": 152,
+      "cos": 0.37879377603530884,
+      "top": [
+       [
+        "cliff",
+        0.4905535876750946
+       ],
+       [
+        "defender",
+        0.4864996671676636
+       ],
+       [
+        "therapist",
+        0.4758857488632202
+       ],
+       [
+        "eat",
+        0.4733826816082001
+       ],
+       [
+        "ray",
+        0.4722526967525482
+       ]
+      ],
+      "benchmark_cos_a_d": 0.38605302572250366
+     },
+     {
+      "analogy": "man - king + queen -> woman",
+      "rank": 1,
+      "cos": 0.7104822397232056,
+      "top": [
+       [
+        "woman",
+        0.7104822397232056
+       ],
+       [
+        "wife",
+        0.6498075723648071
+       ],
+       [
+        "son",
+        0.6497575044631958
+       ],
+       [
+        "father",
+        0.6382343769073486
+       ],
+       [
+        "gentleman",
+        0.6376967430114746
+       ]
+      ],
+      "benchmark_cos_a_d": 0.6845510005950928
+     },
+     {
+      "analogy": "husband - man + woman -> wife",
+      "rank": 1,
+      "cos": 0.8044918775558472,
+      "top": [
+       [
+        "wife",
+        0.8044918775558472
+       ],
+       [
+        "wives",
+        0.7608373165130615
+       ],
+       [
+        "married",
+        0.73088139295578
+       ],
+       [
+        "girlfriend",
+        0.6720061302185059
+       ],
+       [
+        "marriage",
+        0.6691284775733948
+       ]
+      ],
+      "benchmark_cos_a_d": 0.8426119089126587
+     },
+     {
+      "analogy": "brother - male + female -> sister",
+      "rank": 1,
+      "cos": 0.8090660572052002,
+      "top": [
+       [
+        "sister",
+        0.8090660572052002
+       ],
+       [
+        "sisters",
+        0.7585479021072388
+       ],
+       [
+        "wife",
+        0.7297698855400085
+       ],
+       [
+        "father",
+        0.7089475393295288
+       ],
+       [
+        "girl",
+        0.6967923641204834
+       ]
+      ],
+      "benchmark_cos_a_d": 0.8213803768157959
+     },
+     {
+      "analogy": "father - man + woman -> mother",
+      "rank": 7,
+      "cos": 0.6500781774520874,
+      "top": [
+       [
+        "wife",
+        0.7816805243492126
+       ],
+       [
+        "wives",
+        0.7427579164505005
+       ],
+       [
+        "married",
+        0.6686303019523621
+       ],
+       [
+        "grandmother",
+        0.6572811603546143
+       ],
+       [
+        "sister",
+        0.6540181636810303
+       ]
+      ],
+      "benchmark_cos_a_d": 0.759084165096283
+     },
+     {
+      "analogy": "kitten - cat + dog -> puppy",
+      "rank": 1,
+      "cos": 0.6390389204025269,
+      "top": [
+       [
+        "puppy",
+        0.6390389204025269
+       ],
+       [
+        "toilet",
+        0.5844001770019531
+       ],
+       [
+        "blonde",
+        0.5823281407356262
+       ],
+       [
+        "workout",
+        0.561963677406311
+       ],
+       [
+        "cute",
+        0.5551875829696655
+       ]
+      ],
+      "benchmark_cos_a_d": 0.6869099140167236
+     },
+     {
+      "analogy": "bigger - big + small -> smaller",
+      "skipped": "word not in vocab"
+     },
+     {
+      "analogy": "walked - walk + run -> ran",
+      "skipped": "word not in vocab"
+     }
+    ]
+   },
+   "center": {
+    "define2": {
+     "wife": {
+      "top": [
+       [
+        "husband",
+        "woman",
+        0.8182058930397034
+       ],
+       [
+        "father",
+        "woman",
+        0.7834198474884033
+       ],
+       [
+        "father",
+        "husband",
+        0.7651141881942749
+       ]
+      ],
+      "n_excluded": 65
+     },
+     "duckling": {
+      "top": [
+       [
+        "dancer",
+        "poisonous",
+        0.7330183982849121
+       ],
+       [
+        "dancer",
+        "disgusting",
+        0.7072588205337524
+       ],
+       [
+        "dancer",
+        "thirsty",
+        0.6985996961593628
+       ]
+      ],
+      "n_excluded": 2
+     },
+     "puppy": {
+      "top": [
+       [
+        "buddy",
+        "kitten",
+        0.5745987296104431
+       ],
+       [
+        "dog",
+        "kitten",
+        0.5704606175422668
+       ],
+       [
+        "dog",
+        "niece",
+        0.5482125878334045
+       ]
+      ],
+      "n_excluded": 5
+     },
+     "foal": null,
+     "freedom": {
+      "top": [
+       [
+        "liberty",
+        "love",
+        0.5713743567466736
+       ],
+       [
+        "ease",
+        "liberty",
+        0.5710534453392029
+       ],
+       [
+        "liberty",
+        "peace",
+        0.5685992240905762
+       ]
+      ],
+      "n_excluded": 8
+     },
+     "autonomy": {
+      "top": [
+       [
+        "complexity",
+        "sovereignty",
+        0.5854483842849731
+       ],
+       [
+        "methodology",
+        "sovereignty",
+        0.5846503973007202
+       ],
+       [
+        "reliability",
+        "sovereignty",
+        0.5824376344680786
+       ]
+      ],
+      "n_excluded": 9
+     },
+     "justice": {
+      "top": [
+       [
+        "judge",
+        "mercy",
+        0.5834562182426453
+       ],
+       [
+        "mercy",
+        "prison",
+        0.5720130801200867
+       ],
+       [
+        "crime",
+        "mercy",
+        0.5593127608299255
+       ]
+      ],
+      "n_excluded": 7
+     },
+     "knowledge": {
+      "top": [
+       [
+        "awareness",
+        "skill",
+        0.5540700554847717
+       ],
+       [
+        "skill",
+        "understanding",
+        0.5423946380615234
+       ],
+       [
+        "expertise",
+        "understanding",
+        0.5363033413887024
+       ]
+      ],
+      "n_excluded": 6
+     },
+     "rationality": null,
+     "causation": null
+    },
+    "null": {
+     "random_unit": {
+      "mean": 0.14812622718513013,
+      "p50": 0.14547618478536606,
+      "p90": 0.1652221381664276,
+      "max": 0.18805000185966492
+     },
+     "random_word": {
+      "mean": 0.6416402065753937,
+      "p50": 0.6319806575775146,
+      "p90": 0.7568467140197755,
+      "max": 0.9155653119087219
+     }
+    },
+    "analogies": [
+     {
+      "analogy": "king - man + woman -> queen",
+      "rank": 301,
+      "cos": 0.23774342238903046,
+      "top": [
+       [
+        "cliff",
+        0.4756959080696106
+       ],
+       [
+        "defender",
+        0.46390625834465027
+       ],
+       [
+        "therapist",
+        0.45809435844421387
+       ],
+       [
+        "eat",
+        0.4562080502510071
+       ],
+       [
+        "lane",
+        0.45486322045326233
+       ]
+      ],
+      "benchmark_cos_a_d": 0.2002163529396057
+     },
+     {
+      "analogy": "man - king + queen -> woman",
+      "rank": 1,
+      "cos": 0.525129497051239,
+      "top": [
+       [
+        "woman",
+        0.525129497051239
+       ],
+       [
+        "son",
+        0.4555395245552063
+       ],
+       [
+        "wife",
+        0.43698710203170776
+       ],
+       [
+        "gentleman",
+        0.42824119329452515
+       ],
+       [
+        "father",
+        0.41975316405296326
+       ]
+      ],
+      "benchmark_cos_a_d": 0.4800526797771454
+     },
+     {
+      "analogy": "husband - man + woman -> wife",
+      "rank": 1,
+      "cos": 0.6929260492324829,
+      "top": [
+       [
+        "wife",
+        0.6929260492324829
+       ],
+       [
+        "wives",
+        0.6178356409072876
+       ],
+       [
+        "married",
+        0.5699247121810913
+       ],
+       [
+        "girlfriend",
+        0.47580626606941223
+       ],
+       [
+        "marriage",
+        0.4731745719909668
+       ]
+      ],
+      "benchmark_cos_a_d": 0.7066935300827026
+     },
+     {
+      "analogy": "brother - male + female -> sister",
+      "rank": 1,
+      "cos": 0.6852219104766846,
+      "top": [
+       [
+        "sister",
+        0.6852219104766846
+       ],
+       [
+        "sisters",
+        0.6054936051368713
+       ],
+       [
+        "wife",
+        0.5449308156967163
+       ],
+       [
+        "father",
+        0.510185956954956
+       ],
+       [
+        "girl",
+        0.50825035572052
+       ]
+      ],
+      "benchmark_cos_a_d": 0.684617280960083
+     },
+     {
+      "analogy": "father - man + woman -> mother",
+      "rank": 7,
+      "cos": 0.45426422357559204,
+      "top": [
+       [
+        "wife",
+        0.6638598442077637
+       ],
+       [
+        "wives",
+        0.5969151258468628
+       ],
+       [
+        "married",
+        0.47021758556365967
+       ],
+       [
+        "sisters",
+        0.4644815921783447
+       ],
+       [
+        "sister",
+        0.46374624967575073
+       ]
+      ],
+      "benchmark_cos_a_d": 0.5634336471557617
+     },
+     {
+      "analogy": "kitten - cat + dog -> puppy",
+      "rank": 1,
+      "cos": 0.45995280146598816,
+      "top": [
+       [
+        "puppy",
+        0.45995280146598816
+       ],
+       [
+        "toilet",
+        0.37318456172943115
+       ],
+       [
+        "blonde",
+        0.3532577157020569
+       ],
+       [
+        "cute",
+        0.34389740228652954
+       ],
+       [
+        "workout",
+        0.33202075958251953
+       ]
+      ],
+      "benchmark_cos_a_d": 0.4597862660884857
+     },
+     {
+      "analogy": "bigger - big + small -> smaller",
+      "skipped": "word not in vocab"
+     },
+     {
+      "analogy": "walked - walk + run -> ran",
+      "skipped": "word not in vocab"
+     }
+    ]
+   }
+  },
+  "flan-t5-xxl": {
+   "raw": {
+    "define2": {
+     "wife": {
+      "top": [
+       [
+        "husband",
+        "spouse",
+        0.8702674508094788
+       ],
+       [
+        "girlfriend",
+        "husband",
+        0.8524645566940308
+       ],
+       [
+        "girlfriend",
+        "spouse",
+        0.8442028760910034
+       ]
+      ],
+      "n_excluded": 65
+     },
+     "duckling": {
+      "top": [
+       [
+        "boar",
+        "chicken",
+        0.5186054706573486
+       ],
+       [
+        "chicken",
+        "kitten",
+        0.5141891241073608
+       ],
+       [
+        "chicken",
+        "puppy",
+        0.5138485431671143
+       ]
+      ],
+      "n_excluded": 2
+     },
+     "puppy": {
+      "top": [
+       [
+        "dog",
+        "kitten",
+        0.8655879497528076
+       ],
+       [
+        "baby",
+        "dog",
+        0.8325740098953247
+       ],
+       [
+        "dog",
+        "infant",
+        0.8285185694694519
+       ]
+      ],
+      "n_excluded": 5
+     },
+     "foal": null,
+     "freedom": {
+      "top": [
+       [
+        "independence",
+        "liberty",
+        0.8713394403457642
+       ],
+       [
+        "democracy",
+        "independence",
+        0.8514461517333984
+       ],
+       [
+        "independence",
+        "joy",
+        0.8509130477905273
+       ]
+      ],
+      "n_excluded": 8
+     },
+     "autonomy": {
+      "top": [
+       [
+        "independence",
+        "sovereignty",
+        0.8171260356903076
+       ],
+       [
+        "flexibility",
+        "independence",
+        0.8169141411781311
+       ],
+       [
+        "independence",
+        "mobility",
+        0.8146637082099915
+       ]
+      ],
+      "n_excluded": 9
+     },
+     "justice": {
+      "top": [
+       [
+        "court",
+        "equality",
+        0.7770620584487915
+       ],
+       [
+        "equality",
+        "judge",
+        0.7717069387435913
+       ],
+       [
+        "equality",
+        "judicial",
+        0.7680152058601379
+       ]
+      ],
+      "n_excluded": 7
+     },
+     "knowledge": {
+      "top": [
+       [
+        "awareness",
+        "expertise",
+        0.7717992663383484
+       ],
+       [
+        "aware",
+        "expertise",
+        0.7676331400871277
+       ],
+       [
+        "awareness",
+        "information",
+        0.765484631061554
+       ]
+      ],
+      "n_excluded": 6
+     },
+     "rationality": null,
+     "causation": null
+    },
+    "null": {
+     "random_unit": {
+      "mean": 0.051417246945202354,
+      "p50": 0.05313969776034355,
+      "p90": 0.06735816523432733,
+      "max": 0.0898846685886383
+     },
+     "random_word": {
+      "mean": 0.7861724114418029,
+      "p50": 0.7935687899589539,
+      "p90": 0.8512233257293702,
+      "max": 0.9003134965896606
+     }
+    },
+    "analogies": [
+     {
+      "analogy": "king - man + woman -> queen",
+      "rank": 1,
+      "cos": 0.6423684358596802,
+      "top": [
+       [
+        "queen",
+        0.6423684358596802
+       ],
+       [
+        "princess",
+        0.5682474374771118
+       ],
+       [
+        "kingdom",
+        0.5120875239372253
+       ],
+       [
+        "female",
+        0.5049765706062317
+       ],
+       [
+        "girl",
+        0.5046816468238831
+       ]
+      ],
+      "benchmark_cos_a_d": 0.6996615529060364
+     },
+     {
+      "analogy": "man - king + queen -> woman",
+      "rank": 1,
+      "cos": 0.7122107744216919,
+      "top": [
+       [
+        "woman",
+        0.7122107744216919
+       ],
+       [
+        "girl",
+        0.6610310077667236
+       ],
+       [
+        "lady",
+        0.6499481797218323
+       ],
+       [
+        "guy",
+        0.6377825140953064
+       ],
+       [
+        "gentleman",
+        0.6300644278526306
+       ]
+      ],
+      "benchmark_cos_a_d": 0.775912880897522
+     },
+     {
+      "analogy": "husband - man + woman -> wife",
+      "rank": 1,
+      "cos": 0.8057852983474731,
+      "top": [
+       [
+        "wife",
+        0.8057852983474731
+       ],
+       [
+        "spouse",
+        0.7521728873252869
+       ],
+       [
+        "girlfriend",
+        0.7313239574432373
+       ],
+       [
+        "wives",
+        0.704310953617096
+       ],
+       [
+        "boyfriend",
+        0.658947229385376
+       ]
+      ],
+      "benchmark_cos_a_d": 0.8270237445831299
+     },
+     {
+      "analogy": "brother - male + female -> sister",
+      "rank": 1,
+      "cos": 0.8626859188079834,
+      "top": [
+       [
+        "sister",
+        0.8626859188079834
+       ],
+       [
+        "sisters",
+        0.7789630889892578
+       ],
+       [
+        "brothers",
+        0.753740668296814
+       ],
+       [
+        "daughter",
+        0.6989352703094482
+       ],
+       [
+        "siblings",
+        0.6976624727249146
+       ]
+      ],
+      "benchmark_cos_a_d": 0.8771535754203796
+     },
+     {
+      "analogy": "father - man + woman -> mother",
+      "rank": 1,
+      "cos": 0.7932748198509216,
+      "top": [
+       [
+        "mother",
+        0.7932748198509216
+       ],
+       [
+        "dad",
+        0.7116881608963013
+       ],
+       [
+        "mom",
+        0.6995128393173218
+       ],
+       [
+        "grandmother",
+        0.6882546544075012
+       ],
+       [
+        "parent",
+        0.6714163422584534
+       ]
+      ],
+      "benchmark_cos_a_d": 0.8427467942237854
+     },
+     {
+      "analogy": "kitten - cat + dog -> puppy",
+      "rank": 1,
+      "cos": 0.8264853954315186,
+      "top": [
+       [
+        "puppy",
+        0.8264853954315186
+       ],
+       [
+        "pet",
+        0.6392632126808167
+       ],
+       [
+        "animal",
+        0.6223539113998413
+       ],
+       [
+        "infant",
+        0.6209588050842285
+       ],
+       [
+        "baby",
+        0.6131210327148438
+       ]
+      ],
+      "benchmark_cos_a_d": 0.7489138841629028
+     },
+     {
+      "analogy": "bigger - big + small -> smaller",
+      "skipped": "word not in vocab"
+     },
+     {
+      "analogy": "walked - walk + run -> ran",
+      "skipped": "word not in vocab"
+     }
+    ]
+   },
+   "center": {
+    "define2": {
+     "wife": {
+      "top": [
+       [
+        "husband",
+        "spouse",
+        0.7668946981430054
+       ],
+       [
+        "girlfriend",
+        "husband",
+        0.732000470161438
+       ],
+       [
+        "girlfriend",
+        "spouse",
+        0.7170758247375488
+       ]
+      ],
+      "n_excluded": 65
+     },
+     "duckling": {
+      "top": [
+       [
+        "boar",
+        "chicken",
+        0.4383343756198883
+       ],
+       [
+        "chicken",
+        "pig",
+        0.43113771080970764
+       ],
+       [
+        "boar",
+        "kitten",
+        0.43070724606513977
+       ]
+      ],
+      "n_excluded": 2
+     },
+     "puppy": {
+      "top": [
+       [
+        "dog",
+        "kitten",
+        0.747612714767456
+       ],
+       [
+        "dog",
+        "pet",
+        0.6692638993263245
+       ],
+       [
+        "baby",
+        "dog",
+        0.6632530689239502
+       ]
+      ],
+      "n_excluded": 5
+     },
+     "foal": null,
+     "freedom": {
+      "top": [
+       [
+        "independence",
+        "liberty",
+        0.6700422167778015
+       ],
+       [
+        "democracy",
+        "independence",
+        0.6280087828636169
+       ],
+       [
+        "autonomy",
+        "liberty",
+        0.5954044461250305
+       ]
+      ],
+      "n_excluded": 8
+     },
+     "autonomy": {
+      "top": [
+       [
+        "independence",
+        "sovereignty",
+        0.5979477167129517
+       ],
+       [
+        "flexibility",
+        "independence",
+        0.5897072553634644
+       ],
+       [
+        "independence",
+        "mobility",
+        0.580060601234436
+       ]
+      ],
+      "n_excluded": 9
+     },
+     "justice": {
+      "top": [
+       [
+        "equality",
+        "fairness",
+        0.538940966129303
+       ],
+       [
+        "democracy",
+        "fairness",
+        0.5301876664161682
+       ],
+       [
+        "court",
+        "equality",
+        0.5260167717933655
+       ]
+      ],
+      "n_excluded": 7
+     },
+     "knowledge": {
+      "top": [
+       [
+        "awareness",
+        "expertise",
+        0.43651434779167175
+       ],
+       [
+        "awareness",
+        "information",
+        0.4344036877155304
+       ],
+       [
+        "awareness",
+        "wisdom",
+        0.43241801857948303
+       ]
+      ],
+      "n_excluded": 6
+     },
+     "rationality": null,
+     "causation": null
+    },
+    "null": {
+     "random_unit": {
+      "mean": 0.07746885530650616,
+      "p50": 0.07698776945471764,
+      "p90": 0.08434461429715157,
+      "max": 0.09119214862585068
+     },
+     "random_word": {
+      "mean": 0.5467751657962799,
+      "p50": 0.5403470396995544,
+      "p90": 0.6988382697105409,
+      "max": 0.8493229746818542
+     }
+    },
+    "analogies": [
+     {
+      "analogy": "king - man + woman -> queen",
+      "rank": 1,
+      "cos": 0.46340444684028625,
+      "top": [
+       [
+        "queen",
+        0.46340444684028625
+       ],
+       [
+        "princess",
+        0.33145153522491455
+       ],
+       [
+        "female",
+        0.2652507424354553
+       ],
+       [
+        "ward",
+        0.26463380455970764
+       ],
+       [
+        "ray",
+        0.2612943947315216
+       ]
+      ],
+      "benchmark_cos_a_d": 0.5010427832603455
+     },
+     {
+      "analogy": "man - king + queen -> woman",
+      "rank": 1,
+      "cos": 0.4479385018348694,
+      "top": [
+       [
+        "woman",
+        0.4479385018348694
+       ],
+       [
+        "girl",
+        0.36022481322288513
+       ],
+       [
+        "lady",
+        0.3487319350242615
+       ],
+       [
+        "gentleman",
+        0.31669098138809204
+       ],
+       [
+        "guy",
+        0.2969053089618683
+       ]
+      ],
+      "benchmark_cos_a_d": 0.5268735885620117
+     },
+     {
+      "analogy": "husband - man + woman -> wife",
+      "rank": 1,
+      "cos": 0.68845134973526,
+      "top": [
+       [
+        "wife",
+        0.68845134973526
+       ],
+       [
+        "spouse",
+        0.590773344039917
+       ],
+       [
+        "girlfriend",
+        0.5557610392570496
+       ],
+       [
+        "wives",
+        0.5222543478012085
+       ],
+       [
+        "husbands",
+        0.46099257469177246
+       ]
+      ],
+      "benchmark_cos_a_d": 0.693816065788269
+     },
+     {
+      "analogy": "brother - male + female -> sister",
+      "rank": 1,
+      "cos": 0.7839611768722534,
+      "top": [
+       [
+        "sister",
+        0.7839611768722534
+       ],
+       [
+        "sisters",
+        0.6509391665458679
+       ],
+       [
+        "brothers",
+        0.6105263829231262
+       ],
+       [
+        "daughter",
+        0.5270192623138428
+       ],
+       [
+        "siblings",
+        0.516781210899353
+       ]
+      ],
+      "benchmark_cos_a_d": 0.7966165542602539
+     },
+     {
+      "analogy": "father - man + woman -> mother",
+      "rank": 1,
+      "cos": 0.6625196933746338,
+      "top": [
+       [
+        "mother",
+        0.6625196933746338
+       ],
+       [
+        "dad",
+        0.522224485874176
+       ],
+       [
+        "grandmother",
+        0.5180907249450684
+       ],
+       [
+        "mom",
+        0.49267372488975525
+       ],
+       [
+        "sister",
+        0.4564330577850342
+       ]
+      ],
+      "benchmark_cos_a_d": 0.709443211555481
+     },
+     {
+      "analogy": "kitten - cat + dog -> puppy",
+      "rank": 1,
+      "cos": 0.7011480927467346,
+      "top": [
+       [
+        "puppy",
+        0.7011480927467346
+       ],
+       [
+        "pet",
+        0.3794046640396118
+       ],
+       [
+        "infant",
+        0.313016414642334
+       ],
+       [
+        "animal",
+        0.3070182800292969
+       ],
+       [
+        "baby",
+        0.29554808139801025
+       ]
+      ],
+      "benchmark_cos_a_d": 0.584038257598877
+     },
+     {
+      "analogy": "bigger - big + small -> smaller",
+      "skipped": "word not in vocab"
+     },
+     {
+      "analogy": "walked - walk + run -> ran",
+      "skipped": "word not in vocab"
+     }
+    ]
+   }
+  }
+ },
+ "controls_model": "curie",
+ "p16": [
+  {
+   "a": "young",
+   "b": "dog",
+   "target": "puppy",
+   "top5": [
+    [
+     "young",
+     0.9422529935836792
+    ],
+    [
+     "dog",
+     0.9422529339790344
+    ],
+    [
+     "puppy",
+     0.904537558555603
+    ],
+    [
+     "youth",
+     0.9006800055503845
+    ],
+    [
+     "child",
+     0.8980646133422852
+    ]
+   ],
+   "cos_target": 0.904537558555603,
+   "cos_a": 0.9422529935836792,
+   "cos_b": 0.9422529339790344,
+   "paper_target": 0.90453,
+   "paper_ab": 0.94225
+  },
+  {
+   "a": "young",
+   "b": "cat",
+   "target": "kitten",
+   "top5": [
+    [
+     "young",
+     0.9331279397010803
+    ],
+    [
+     "cat",
+     0.9331279397010803
+    ],
+    [
+     "kitten",
+     0.8996626138687134
+    ],
+    [
+     "kid",
+     0.8901331424713135
+    ],
+    [
+     "baby",
+     0.8891211748123169
+    ]
+   ],
+   "cos_target": 0.8996626138687134,
+   "cos_a": 0.9331279397010803,
+   "cos_b": 0.9331279397010803,
+   "paper_target": 0.899662,
+   "paper_ab": 0.93312
+  },
+  {
+   "a": "young",
+   "b": "duck",
+   "target": "duckling",
+   "top5": [
+    [
+     "duck",
+     0.9337230920791626
+    ],
+    [
+     "young",
+     0.9337230324745178
+    ],
+    [
+     "duckling",
+     0.9063799381256104
+    ],
+    [
+     "youth",
+     0.8929357528686523
+    ],
+    [
+     "baby",
+     0.8795232772827148
+    ]
+   ],
+   "cos_target": 0.9063799381256104,
+   "cos_a": 0.9337230324745178,
+   "cos_b": 0.9337230920791626,
+   "paper_target": 0.90637,
+   "paper_ab": 0.93372
+  },
+  {
+   "a": "female",
+   "b": "spouse",
+   "target": "wife",
+   "top5": [
+    [
+     "spouse",
+     0.9572814702987671
+    ],
+    [
+     "female",
+     0.9572814702987671
+    ],
+    [
+     "wife",
+     0.9389517903327942
+    ],
+    [
+     "woman",
+     0.9300691485404968
+    ],
+    [
+     "girlfriend",
+     0.9089975953102112
+    ]
+   ],
+   "cos_target": 0.9389517903327942,
+   "cos_a": 0.9572814702987671,
+   "cos_b": 0.9572814702987671,
+   "paper_target": 0.93895,
+   "paper_ab": 0.95728
+  },
+  {
+   "a": "male",
+   "b": "spouse",
+   "target": "husband",
+   "top5": [
+    [
+     "male",
+     0.9542309045791626
+    ],
+    [
+     "spouse",
+     0.9542307257652283
+    ],
+    [
+     "husband",
+     0.9302557706832886
+    ],
+    [
+     "wife",
+     0.9094895720481873
+    ],
+    [
+     "partner",
+     0.9030826091766357
+    ]
+   ],
+   "cos_target": 0.9302557706832886,
+   "cos_a": 0.9542309045791626,
+   "cos_b": 0.9542307257652283,
+   "paper_target": 0.93025,
+   "paper_ab": 0.95423
+  },
+  {
+   "a": "male",
+   "b": "sibling",
+   "target": "brother",
+   "top5": [
+    [
+     "sibling",
+     0.9515306949615479
+    ],
+    [
+     "male",
+     0.9515304565429688
+    ],
+    [
+     "brother",
+     0.9232529997825623
+    ],
+    [
+     "siblings",
+     0.9085178971290588
+    ],
+    [
+     "adult",
+     0.8902258276939392
+    ]
+   ],
+   "cos_target": 0.9232529997825623,
+   "cos_a": 0.9515304565429688,
+   "cos_b": 0.9515306949615479,
+   "paper_target": 0.92325,
+   "paper_ab": 0.95153
+  },
+  {
+   "a": "female",
+   "b": "sibling",
+   "target": "sister",
+   "top5": [
+    [
+     "sibling",
+     0.9506659507751465
+    ],
+    [
+     "female",
+     0.9506658911705017
+    ],
+    [
+     "sister",
+     0.931836724281311
+    ],
+    [
+     "siblings",
+     0.911156415939331
+    ],
+    [
+     "daughter",
+     0.9033839106559753
+    ]
+   ],
+   "cos_target": 0.931836724281311,
+   "cos_a": 0.9506658911705017,
+   "cos_b": 0.9506659507751465,
+   "paper_target": 0.93183,
+   "paper_ab": 0.95066
+  }
+ ],
+ "controls": {
+  "raw": [
+   {
+    "a": "young",
+    "b": "dog",
+    "target": "puppy",
+    "rank_a": 283,
+    "cos_a": 0.8000478744506836,
+    "rank_b": 1,
+    "cos_b": 0.9045587182044983,
+    "rank_a+b": 1,
+    "cos_a+b": 0.904537558555603
+   },
+   {
+    "a": "young",
+    "b": "cat",
+    "target": "kitten",
+    "rank_a": 885,
+    "cos_a": 0.7828226089477539,
+    "rank_b": 1,
+    "cos_b": 0.8961779475212097,
+    "rank_a+b": 1,
+    "cos_a+b": 0.8996626138687134
+   },
+   {
+    "a": "young",
+    "b": "duck",
+    "target": "duckling",
+    "rank_a": 537,
+    "cos_a": 0.7908799648284912,
+    "rank_b": 1,
+    "cos_b": 0.9017356634140015,
+    "rank_a+b": 1,
+    "cos_a+b": 0.9063799381256104
+   },
+   {
+    "a": "female",
+    "b": "spouse",
+    "target": "wife",
+    "rank_a": 10,
+    "cos_a": 0.871854305267334,
+    "rank_b": 2,
+    "cos_b": 0.925828218460083,
+    "rank_a+b": 1,
+    "cos_a+b": 0.9389517903327942
+   },
+   {
+    "a": "male",
+    "b": "spouse",
+    "target": "husband",
+    "rank_a": 11,
+    "cos_a": 0.8567928671836853,
+    "rank_b": 3,
+    "cos_b": 0.9185644388198853,
+    "rank_a+b": 1,
+    "cos_a+b": 0.9302557706832886
+   },
+   {
+    "a": "male",
+    "b": "sibling",
+    "target": "brother",
+    "rank_a": 21,
+    "cos_a": 0.8476842045783997,
+    "rank_b": 3,
+    "cos_b": 0.9093226194381714,
+    "rank_a+b": 1,
+    "cos_a+b": 0.9232529997825623
+   },
+   {
+    "a": "female",
+    "b": "sibling",
+    "target": "sister",
+    "rank_a": 21,
+    "cos_a": 0.8595305681228638,
+    "rank_b": 2,
+    "cos_b": 0.9122002124786377,
+    "rank_a+b": 1,
+    "cos_a+b": 0.931836724281311
+   },
+   {
+    "a": "man",
+    "b": "unmarried",
+    "target": "bachelor",
+    "rank_a": 373,
+    "cos_a": 0.8028807640075684,
+    "rank_b": 23,
+    "cos_b": 0.8244746923446655,
+    "rank_a+b": 18,
+    "cos_a+b": 0.8651105165481567
+   }
+  ],
+  "center": [
+   {
+    "a": "young",
+    "b": "dog",
+    "target": "puppy",
+    "rank_a": 73,
+    "cos_a": 0.20239746570587158,
+    "rank_b": 1,
+    "cos_b": 0.6360593438148499,
+    "rank_a+b": 1,
+    "cos_a+b": 0.5779850482940674
+   },
+   {
+    "a": "young",
+    "b": "cat",
+    "target": "kitten",
+    "rank_a": 246,
+    "cos_a": 0.128280371427536,
+    "rank_b": 1,
+    "cos_b": 0.6368879079818726,
+    "rank_a+b": 1,
+    "cos_a+b": 0.5547971725463867
+   },
+   {
+    "a": "young",
+    "b": "duck",
+    "target": "duckling",
+    "rank_a": 37,
+    "cos_a": 0.25024330615997314,
+    "rank_b": 1,
+    "cos_b": 0.6768910884857178,
+    "rank_a+b": 1,
+    "cos_a+b": 0.6691417098045349
+   },
+   {
+    "a": "female",
+    "b": "spouse",
+    "target": "wife",
+    "rank_a": 13,
+    "cos_a": 0.42026686668395996,
+    "rank_b": 2,
+    "cos_b": 0.6870156526565552,
+    "rank_a+b": 1,
+    "cos_a+b": 0.7024648785591125
+   },
+   {
+    "a": "male",
+    "b": "spouse",
+    "target": "husband",
+    "rank_a": 8,
+    "cos_a": 0.39006298780441284,
+    "rank_b": 3,
+    "cos_b": 0.6719698309898376,
+    "rank_a+b": 1,
+    "cos_a+b": 0.6856833696365356
+   },
+   {
+    "a": "male",
+    "b": "sibling",
+    "target": "brother",
+    "rank_a": 20,
+    "cos_a": 0.3337094187736511,
+    "rank_b": 3,
+    "cos_b": 0.6262698769569397,
+    "rank_a+b": 1,
+    "cos_a+b": 0.6320902109146118
+   },
+   {
+    "a": "female",
+    "b": "sibling",
+    "target": "sister",
+    "rank_a": 14,
+    "cos_a": 0.40033158659935,
+    "rank_b": 2,
+    "cos_b": 0.6487818956375122,
+    "rank_a+b": 1,
+    "cos_a+b": 0.696628212928772
+   },
+   {
+    "a": "man",
+    "b": "unmarried",
+    "target": "bachelor",
+    "rank_a": 74,
+    "cos_a": 0.20622919499874115,
+    "rank_b": 11,
+    "cos_b": 0.3557347059249878,
+    "rank_a+b": 6,
+    "cos_a+b": 0.3881123661994934
+   }
+  ]
+ },
+ "baseline": {
+  "raw": {
+   "n": 1000,
+   "mean": 0.9007033705711365,
+   "p10": 0.8824433982372284,
+   "p50": 0.9009684026241302,
+   "p90": 0.9187392354011535
+  },
+  "center": {
+   "n": 1000,
+   "mean": 0.500924289226532,
+   "p10": 0.3838230401277542,
+   "p50": 0.5020637810230255,
+   "p90": 0.6152572393417358
+  }
+ },
+ "seconds": 2300.7485287189484
+}

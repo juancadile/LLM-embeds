@@ -215,11 +215,18 @@ def report(res) -> str:
         for name, cr in entry["configs"].items():
             s = cr["score"]
             _, layer, pool, ctx = name.rsplit("_", 3)
-            rows.append([layer, pool, ctx, s["p16_rank1"], fmt(s["p16_mean_rank"], 1), s["sum_beats_b"], s["bachelor_rank"],
-                         s["define2_paper_hits"], f"{s['mag_L2_p_less']:.2g}", fmt(s["mag_L2_median_ratio"], 2), fmt(s["baseline_mean"], 3)])
-        rows.sort(key=lambda r: (-r[3], float(r[4])))
-        L += [md_table(["layer", "pool", "context", "p16 targets at rank 1 (of 7)", "mean rank", "sum beats v(b) alone (of 7)", "bachelor rank",
-                        "define2 = paper pair (of 10)", "magnitude p (similar < random, L2)", "median |%diff| ratio similar/random", "random-sum baseline"], rows, align_right_from=3), ""]
+            c7 = [x for x in cr["center"]["p16"] if x["target"] != "bachelor"]
+            c_rank1 = sum(x["rank"] == 1 for x in c7)
+            c_mean = float(np.mean([x["rank"] for x in c7]))
+            c_hits = sum(bool(v and v["paper_pair_hit"]) for v in cr["center"]["define2"].values())
+            rows.append([layer, pool, ctx, f"{s['p16_rank1']} / {c_rank1}", f"{fmt(s['p16_mean_rank'], 1)} / {fmt(c_mean, 1)}",
+                         s["sum_beats_b"], s["bachelor_rank"], f"{s['define2_paper_hits']} / {c_hits}",
+                         f"{s['mag_L2_p_less']:.2g}", fmt(s["mag_L2_median_ratio"], 2), fmt(s["baseline_mean"], 3),
+                         s["p16_rank1"], c_rank1, s["p16_mean_rank"]])
+        rows.sort(key=lambda r: (-max(r[-3], r[-2]), -r[-3], r[-1]))
+        rows = [r[:-3] for r in rows]
+        L += [md_table(["layer", "pool", "context", "p16 targets at rank 1 (of 7), raw / centered", "mean rank, raw / centered", "sum beats v(b) alone (of 7)", "bachelor rank",
+                        "define2 = paper pair (of 10), raw / centered", "magnitude p (similar < random, L2 raw)", "median |%diff| ratio similar/random", "random-sum baseline (raw)"], rows, align_right_from=3), ""]
         best = rows[0]
         bname = cfg_name(mid, best[0], best[1], best[2])
         cr = entry["configs"][bname]["raw"]

@@ -46,6 +46,64 @@ def _word_span_mask(offsets, start, end):
     return np.array(m, dtype=bool)
 
 
+def hf_revision(model_id: str) -> str | None:
+    """Commit hash of the cached snapshot, if the model is in the HF cache."""
+    import os
+    hub = Path(os.environ.get("HF_HOME", Path.home() / ".cache/huggingface")) / "hub" / f"models--{model_id.replace('/', '--')}"
+    snaps = hub / "snapshots"
+    if snaps.exists():
+        revs = sorted(snaps.iterdir(), key=lambda p: p.stat().st_mtime)
+        return revs[-1].name if revs else None
+    return None
+
+
+def write_sidecar(npy: Path, model_id: str, model, dtype: str, layer: str, layer_index: int, pool: str,
+                  ctx: str, template: str, tokens: dict[str, int]) -> None:
+    """Metadata next to every configuration's .npy; a configuration without one is not done."""
+    counts = list(tokens.values())
+    meta = {
+        "model_id": model_id, "revision": hf_revision(model_id), "dtype": dtype,
+        "architecture": (getattr(getattr(model, "config", None), "architectures", None) or [type(model).__name__])[0],
+        "num_hidden_layers": getattr(getattr(model, "config", None), "num_hidden_layers", None),
+        "hidden_size": getattr(getattr(model, "config", None), "hidden_size", None),
+        "layer": layer, "layer_index": layer_index, "pooling": pool, "context": ctx, "context_template": template,
+        "special_tokens_pooled": False,
+        "n_words": int(np.load(npy, mmap_mode="r").shape[0]),
+        "tokens_per_word": {"mean": float(np.mean(counts)) if counts else None,
+                            "max": int(max(counts)) if counts else None,
+                            "frac_multi_token": float(np.mean([c > 1 for c in counts])) if counts else None},
+        "written": time.strftime("%Y-%m-%d %H:%M:%S"),
+    }
+    json.dump(meta, open(npy.with_suffix(".json"), "w"), indent=1)
+
+
+def backfill_sidecars(model_ids: list[str], dtype: str = "bfloat16") -> list[str]:
+    """Write missing sidecars for configurations extracted before sidecars existed."""
+    from transformers import AutoConfig
+    done = []
+    for mid in model_ids:
+        prefix = slug(mid)
+        tok_path = CACHE / f"{prefix}_tokens.json"
+        tokens = json.load(open(tok_path)) if tok_path.exists() else {}
+        cfg = AutoConfig.from_pretrained(mid)
+        lidx = layer_indices(cfg.num_hidden_layers + 1)
+
+        class _M:  # minimal stand-in carrying the config
+            config = cfg
+        for f in CACHE.glob(f"{prefix}_*_*_*.npy"):
+            if f.with_suffix(".json").exists():
+                continue
+            try:
+                _, layer, pool, ctx = f.stem.rsplit("_", 3)
+            except ValueError:
+                continue
+            if layer not in LAYERS or pool not in POOLS or ctx not in CONTEXTS:
+                continue
+            write_sidecar(f, mid, _M, dtype, layer, lidx[layer], pool, ctx, CONTEXTS[ctx], tokens.get(ctx, {}))
+            done.append(f.stem)
+    return done
+
+
 def extract(model_id: str, words: list[str], out_prefix: str | None = None, batch_size: int = 64,
             dtype="bfloat16", device="cuda", layers=LAYERS, pools=POOLS, contexts=CONTEXTS,
             force: bool = False) -> dict:
@@ -108,6 +166,7 @@ def extract(model_id: str, words: list[str], out_prefix: str | None = None, batc
                     A[b0 + r] = H[pos].mean(0) if p == "mean" else H[pos[-1]]
         for (l, p), A in acc.items():
             np.save(paths[(l, p, ctx)], A)
+            write_sidecar(paths[(l, p, ctx)], model_id, model, dtype, l, lidx[l], p, ctx, template, tokens_per_word.get(ctx, {}))
         print(f"[extract] {out_prefix} ctx={ctx} done ({time.time() - t0:.0f}s)", flush=True)
     if tokens_per_word:
         json.dump(tokens_per_word, open(tok_path, "w"))
