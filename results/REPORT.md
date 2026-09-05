@@ -1,6 +1,6 @@
 # LLM-embeds rerun — report
 
-Generated 2026-09-04 19:40 by `python -m src.run_all` at git 9ec7144; python 3.11.4, numpy 1.26.4, host MacBook-Pro-5.local.
+Generated 2026-09-04 20:17 by `python -m src.run_all` at git 0803852; python 3.12.3, numpy 2.5.2, host promaxgb10-e746.
 Seed 2026 throughout. Original notebooks untouched; code in `src/`.
 
 ## Phase 1 — define(a+b), controls, define2, analogies
@@ -594,6 +594,50 @@ All metrics, pooled over the 74 pairs:
 | t5-3b | postln | L1 | center | 10.0 | 11.2 | 0.49 | 0.51 |
 | t5-3b | postln | L2 | raw | 9.0 | 9.7 | 0.36 | 0.64 |
 | t5-3b | postln | L2 | center | 9.0 | 10.9 | 0.31 | 0.69 |
+
+### 3.x Checks on the OPT magnitude result: rogue dimensions and token count
+
+Vectors: the Phase 3 original-recipe extraction already on disk (no re-extraction), 5,124 vocab rows + 51 pair-word rows, pre-norm and post-norm sides. Test: |%diff| of L2 norm, 74 similar pairs vs 5,000 seeded random vocab pairs, Mann–Whitney (p< = similar closer).
+
+**Rogue dimensions.** Top-3 dimensions by share of total squared norm over the vocab, and the test with them zeroed.
+
+| model | side | top-3 dims (share of Σ‖v‖²) | variant | similar median | random median | p< | p> | per category |
+| :--- | :--- | :--- | :--- | ---: | ---: | ---: | ---: | ---: |
+| opt-1.3b | preln | d1346: 6.2%; d734: 2.4%; d1359: 1.7% | original | 7.3 | 13.8 | 1.6e-05 | 1 | us_uk 1.7 (p=7e-05), plural 9.6 (p=0.006), verb 9.0 (p=0.04) |
+| opt-1.3b | preln |  | top1 zeroed | 6.5 | 12.3 | 1.2e-05 | 1 | us_uk 1.7 (p=8e-05), plural 9.5 (p=0.008), verb 7.2 (p=0.03) |
+| opt-1.3b | preln |  | top3 zeroed | 6.2 | 12.6 | 5e-06 | 1 | us_uk 1.8 (p=7e-05), plural 9.7 (p=0.006), verb 6.9 (p=0.02) |
+| opt-1.3b | postln | d1346: 5.6%; d734: 2.5%; d1359: 1.8% | original | 2.5 | 13.3 | 2.9e-06 | 1 | us_uk 0.8 (p=0.004), plural 2.5 (p=0.0002), verb 4.8 (p=0.02) |
+| opt-1.3b | postln |  | top1 zeroed | 4.2 | 12.0 | 1.1e-05 | 1 | us_uk 1.0 (p=0.001), plural 4.4 (p=0.0005), verb 5.3 (p=0.06) |
+| opt-1.3b | postln |  | top3 zeroed | 4.3 | 12.5 | 1.8e-05 | 1 | us_uk 0.9 (p=0.0009), plural 3.2 (p=0.0008), verb 5.4 (p=0.07) |
+| opt-13b | preln | d902: 45.3%; d3964: 1.3%; d4960: 1.2% | original | 12.4 | 24.3 | 5.1e-05 | 1 | us_uk 7.9 (p=0.005), plural 15.4 (p=0.06), verb 12.2 (p=0.003) |
+| opt-13b | preln |  | top1 zeroed | 7.6 | 9.0 | 0.066 | 0.93 | us_uk 6.2 (p=0.05), plural 10.8 (p=0.8), verb 5.7 (p=0.02) |
+| opt-13b | preln |  | top3 zeroed | 7.2 | 8.5 | 0.069 | 0.93 | us_uk 5.3 (p=0.03), plural 9.9 (p=0.8), verb 5.7 (p=0.03) |
+| opt-13b | postln | d902: 41.4%; d3964: 1.2%; d3779: 1.0% | original | 2.3 | 10.7 | 1.8e-07 | 1 | us_uk 1.1 (p=0.001), plural 3.1 (p=0.0005), verb 2.3 (p=0.002) |
+| opt-13b | postln |  | top1 zeroed | 5.7 | 7.8 | 0.0015 | 1 | us_uk 0.6 (p=0.0006), plural 5.8 (p=0.05), verb 7.3 (p=0.2) |
+| opt-13b | postln |  | top3 zeroed | 5.2 | 7.7 | 0.0023 | 1 | us_uk 1.0 (p=0.002), plural 5.1 (p=0.04), verb 7.6 (p=0.2) |
+
+**Token count.** Tokens per word from the OPT tokenizer (word alone, no special tokens; this is how the recipe tokenises). Spearman correlation with L2 norm; then the test restricted to similar pairs whose two words have equal token counts, and against random pairs drawn to match each similar pair's two token counts (68 per pair).
+
+| model | side | multi-token words | Spearman(tokens, ‖v‖) | median ‖v‖ by token count | original (74 vs 5,000) | equal-count pairs vs standard random | all pairs vs count-matched random | equal-count pairs vs count-matched random |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| opt-1.3b | preln | 64% of vocab >1 token (max 4) | -0.708 | 1: 96.7, 2: 79.9, 3: 73.6, 4: 71.3 | 7.3 vs 13.8 (n=74, p<=1.6e-05, p>=1) | 5.4 vs 13.8 (n=43, p<=6.6e-07, p>=1) | 7.3 vs 11.3 (n=74, p<=0.0017, p>=1) | 5.4 vs 9.1 (n=43, p<=0.0039, p>=1) |
+| opt-1.3b | postln | 64% of vocab >1 token (max 4) | -0.876 | 1: 45.2, 2: 35.7, 3: 32.6, 4: 30.9 | 2.5 vs 13.3 (n=74, p<=2.9e-06, p>=1) | 0.4 vs 13.3 (n=43, p<=2.1e-16, p>=1) | 2.5 vs 7.1 (n=74, p<=0.027, p>=0.97) | 0.4 vs 1.8 (n=43, p<=0.0003, p>=1) |
+| opt-13b | preln | 64% of vocab >1 token (max 4) | -0.730 | 1: 186.8, 2: 105.8, 3: 111.7, 4: 121.5 | 12.4 vs 24.3 (n=74, p<=5.1e-05, p>=1) | 7.1 vs 24.3 (n=43, p<=1e-09, p>=1) | 12.4 vs 14.9 (n=74, p<=0.055, p>=0.95) | 7.1 vs 9.1 (n=43, p<=0.1, p>=0.9) |
+| opt-13b | postln | 64% of vocab >1 token (max 4) | -0.837 | 1: 72.1, 2: 46.8, 3: 44.4, 4: 45.2 | 2.3 vs 10.7 (n=74, p<=1.8e-07, p>=1) | 0.3 vs 10.7 (n=43, p<=5.5e-16, p>=1) | 2.3 vs 5.1 (n=74, p<=0.012, p>=0.99) | 0.3 vs 1.5 (n=43, p<=0.00069, p>=1) |
+
+Token-count pattern of the 74 similar pairs (count_a-count_b: pairs): 1-1: 17, 1-2: 21, 2-2: 22, 2-3: 7, 2-4: 1, 3-3: 4, 3-4: 2. 43 of 74 pairs have equal counts.
+
+**Reading.** opt-1.3b preln: rogue-dimension removal keeps the closer-than-random result (p< 2e-05 → 5e-06 with top-3 zeroed); opt-1.3b postln: rogue-dimension removal keeps the closer-than-random result (p< 3e-06 → 2e-05 with top-3 zeroed); opt-13b preln: rogue-dimension removal removes the closer-than-random result (p< 5e-05 → 0.07 with top-3 zeroed); opt-13b postln: rogue-dimension removal keeps the closer-than-random result (p< 2e-07 → 0.002 with top-3 zeroed).
+
+opt-1.3b preln: Spearman(tokens, ‖v‖) = -0.71; with both sides matched on token count the result is still closer (similar 5.4 vs random 9.1, n=43, p< 0.004; original p< 2e-05); opt-1.3b postln: Spearman(tokens, ‖v‖) = -0.88; with both sides matched on token count the result is still closer (similar 0.4 vs random 1.8, n=43, p< 0.0003; original p< 3e-06); opt-13b preln: Spearman(tokens, ‖v‖) = -0.73; with both sides matched on token count the result is gone (similar 7.1 vs random 9.1, n=43, p< 0.1; original p< 5e-05); opt-13b postln: Spearman(tokens, ‖v‖) = -0.84; with both sides matched on token count the result is still closer (similar 0.3 vs random 1.5, n=43, p< 0.0007; original p< 2e-07).
+
+**Post-norm "closer" survives token-count matching on both OPT models**, but the matched medians are 0.4 vs 1.8 and 0.3 vs 1.5 percent: after LayerNorm the whole magnitude spread among equal-token-count words is under 2 %, so what survives is statistically real and numerically negligible.
+
+**opt-1.3b pre-norm: the closer-than-random result survives both controls** (p< 5e-06 with top-3 dimensions zeroed; p< 0.004 token-matched).
+
+**opt-13b pre-norm (the paper's object for this model): the closer-than-random result does not survive either control.** It rests on dimension d902 (45 % of total squared norm) and on token count (p< 0.07 with the top-3 dimensions zeroed; p< 0.10 with both arms matched on token count).
+
+_Checks ran in 4 s._
 
 ### Recommendation for the method section
 

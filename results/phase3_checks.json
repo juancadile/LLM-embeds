@@ -1,0 +1,739 @@
+{
+ "models": {
+  "opt-1.3b": {
+   "hf": "facebook/opt-1.3b",
+   "token_counts": {
+    "vocab_frac_multi": 0.6397345823575332,
+    "vocab_max": 4,
+    "pairs_words_multi": [
+     "alumna",
+     "alumna",
+     "alumna",
+     "alumnae",
+     "alumnae",
+     "alumnae",
+     "alumni",
+     "alumni",
+     "alumni",
+     "alumnus",
+     "alumnus",
+     "alumnus",
+     "analog",
+     "analogue",
+     "analyse",
+     "analyze",
+     "apologise",
+     "apologize",
+     "appendices",
+     "appendices",
+     "appendix",
+     "appendix",
+     "appendixes",
+     "appendixes",
+     "bacteria",
+     "bacterium",
+     "chew",
+     "chew",
+     "chew",
+     "chewed",
+     "chewed",
+     "chewed",
+     "chewing",
+     "chewing",
+     "chewing",
+     "chews",
+     "chews",
+     "chews",
+     "cried",
+     "cried",
+     "cried",
+     "cries",
+     "cries",
+     "cries",
+     "crises",
+     "crisis",
+     "crying",
+     "crying",
+     "crying",
+     "datum",
+     "drives",
+     "drives",
+     "drives",
+     "drove",
+     "drove",
+     "drove",
+     "flavor",
+     "flavour",
+     "indices",
+     "licence",
+     "maneuver",
+     "manoeuvre",
+     "mice",
+     "nuclei",
+     "nucleus",
+     "offence",
+     "offense",
+     "organise",
+     "organize",
+     "paediatric",
+     "pediatric",
+     "persons",
+     "persons",
+     "phenomena",
+     "phenomenon",
+     "potato",
+     "potatoes",
+     "radii",
+     "talked",
+     "talked",
+     "talked",
+     "talks",
+     "talks",
+     "talks",
+     "teeth",
+     "theses",
+     "thesis",
+     "thinks",
+     "thinks",
+     "thinks",
+     "tooth",
+     "traveled",
+     "travelled"
+    ]
+   },
+   "sides": {
+    "preln": {
+     "rogue_dims": [
+      [
+       1346,
+       0.0617030514728928
+      ],
+      [
+       734,
+       0.024245527501413476
+      ],
+      [
+       1359,
+       0.017322342451066407
+      ]
+     ],
+     "rogue": {
+      "original": {
+       "sim_median": 7.3152546882629395,
+       "rand_median": 13.750676155090332,
+       "p_less": 1.60669150385447e-05,
+       "p_greater": 0.999983938704935,
+       "cats": {
+        "us_uk": [
+         1.7454992532730103,
+         7.354086119448766e-05
+        ],
+        "plural": [
+         9.582635879516602,
+         0.006355483550578356
+        ],
+        "verb": [
+         9.010072708129883,
+         0.04142680764198303
+        ]
+       }
+      },
+      "top1_zeroed": {
+       "sim_median": 6.487548351287842,
+       "rand_median": 12.31179428100586,
+       "p_less": 1.2390291993221872e-05,
+       "p_greater": 0.999987614097826,
+       "cats": {
+        "us_uk": [
+         1.6787514686584473,
+         8.13271981314756e-05
+        ],
+        "plural": [
+         9.462641716003418,
+         0.008341045118868351
+        ],
+        "verb": [
+         7.242727756500244,
+         0.02755705639719963
+        ]
+       }
+      },
+      "top3_zeroed": {
+       "sim_median": 6.154583930969238,
+       "rand_median": 12.594350814819336,
+       "p_less": 5.0104428381391015e-06,
+       "p_greater": 0.9999949914090696,
+       "cats": {
+        "us_uk": [
+         1.7622928619384766,
+         7.409957470372319e-05
+        ],
+        "plural": [
+         9.650595664978027,
+         0.005866291467100382
+        ],
+        "verb": [
+         6.8819990158081055,
+         0.0186016783118248
+        ]
+       }
+      }
+     },
+     "spearman_tc_norm_vocab": -0.7081270242513386,
+     "spearman_tc_norm_all": -0.7074368084287467,
+     "median_norm_by_tc": {
+      "1": 96.703369140625,
+      "2": 79.88935852050781,
+      "3": 73.60942840576172,
+      "4": 71.29336547851562
+     },
+     "token": {
+      "n_pairs_equal_tc": 43,
+      "n_pairs_unmatched": 0,
+      "original": {
+       "n_sim": 74,
+       "n_rand": 5000,
+       "sim_median": 7.3152546882629395,
+       "rand_median": 13.750676155090332,
+       "p_less": 1.606691330380272e-05,
+       "p_greater": 0.9999839663505554
+      },
+      "equal_tc_pairs_vs_standard_random": {
+       "n_sim": 43,
+       "n_rand": 5000,
+       "sim_median": 5.372569561004639,
+       "rand_median": 13.750676155090332,
+       "p_less": 6.552298827955383e-07,
+       "p_greater": 0.9999993443489075
+      },
+      "all_pairs_vs_tc_matched_random": {
+       "n_sim": 74,
+       "n_rand": 5032,
+       "sim_median": 7.3152546882629395,
+       "rand_median": 11.324678421020508,
+       "p_less": 0.0017276727594435215,
+       "p_greater": 0.9982727766036987
+      },
+      "equal_tc_pairs_vs_tc_matched_random": {
+       "n_sim": 43,
+       "n_rand": 2924,
+       "sim_median": 5.372569561004639,
+       "rand_median": 9.067596435546875,
+       "p_less": 0.0039468975737690926,
+       "p_greater": 0.9960551857948303
+      },
+      "tc_pairs_hist": {
+       "1-1": 17,
+       "1-2": 21,
+       "2-2": 22,
+       "2-3": 7,
+       "2-4": 1,
+       "3-3": 4,
+       "3-4": 2
+      }
+     }
+    },
+    "postln": {
+     "rogue_dims": [
+      [
+       1346,
+       0.0560112733992259
+      ],
+      [
+       734,
+       0.025046308316391565
+      ],
+      [
+       1359,
+       0.01801933849346155
+      ]
+     ],
+     "rogue": {
+      "original": {
+       "sim_median": 2.4532676935195923,
+       "rand_median": 13.300027847290039,
+       "p_less": 2.868802076033048e-06,
+       "p_greater": 0.9999971322844984,
+       "cats": {
+        "us_uk": [
+         0.7947014570236206,
+         0.0035025058314204216
+        ],
+        "plural": [
+         2.477931499481201,
+         0.00018971243116538972
+        ],
+        "verb": [
+         4.820197582244873,
+         0.024678824469447136
+        ]
+       }
+      },
+      "top1_zeroed": {
+       "sim_median": 4.23717188835144,
+       "rand_median": 12.034749031066895,
+       "p_less": 1.0859352403120522e-05,
+       "p_greater": 0.9999891445196483,
+       "cats": {
+        "us_uk": [
+         0.9846382737159729,
+         0.0012465602485463023
+        ],
+        "plural": [
+         4.412485599517822,
+         0.0004949327558279037
+        ],
+        "verb": [
+         5.339734077453613,
+         0.05547996982932091
+        ]
+       }
+      },
+      "top3_zeroed": {
+       "sim_median": 4.259315013885498,
+       "rand_median": 12.530532836914062,
+       "p_less": 1.7895910646047875e-05,
+       "p_greater": 0.9999821103153173,
+       "cats": {
+        "us_uk": [
+         0.9408230781555176,
+         0.000905713823158294
+        ],
+        "plural": [
+         3.2059366703033447,
+         0.0007660320843569934
+        ],
+        "verb": [
+         5.3834967613220215,
+         0.06861166656017303
+        ]
+       }
+      }
+     },
+     "spearman_tc_norm_vocab": -0.8758312088441361,
+     "spearman_tc_norm_all": -0.8749739539377527,
+     "median_norm_by_tc": {
+      "1": 45.16366958618164,
+      "2": 35.67692565917969,
+      "3": 32.595130920410156,
+      "4": 30.929336547851562
+     },
+     "token": {
+      "n_pairs_equal_tc": 43,
+      "n_pairs_unmatched": 0,
+      "original": {
+       "n_sim": 74,
+       "n_rand": 5000,
+       "sim_median": 2.4532675743103027,
+       "rand_median": 13.300027847290039,
+       "p_less": 2.8688041311397683e-06,
+       "p_greater": 0.9999971389770508
+      },
+      "equal_tc_pairs_vs_standard_random": {
+       "n_sim": 43,
+       "n_rand": 5000,
+       "sim_median": 0.3825109601020813,
+       "rand_median": 13.300027847290039,
+       "p_less": 2.052678997947982e-16,
+       "p_greater": 1.0
+      },
+      "all_pairs_vs_tc_matched_random": {
+       "n_sim": 74,
+       "n_rand": 5032,
+       "sim_median": 2.4532675743103027,
+       "rand_median": 7.139418125152588,
+       "p_less": 0.026909686625003815,
+       "p_greater": 0.9730952382087708
+      },
+      "equal_tc_pairs_vs_tc_matched_random": {
+       "n_sim": 43,
+       "n_rand": 2924,
+       "sim_median": 0.3825109601020813,
+       "rand_median": 1.804793357849121,
+       "p_less": 0.0003023909230250865,
+       "p_greater": 0.9996978044509888
+      },
+      "tc_pairs_hist": {
+       "1-1": 17,
+       "1-2": 21,
+       "2-2": 22,
+       "2-3": 7,
+       "2-4": 1,
+       "3-3": 4,
+       "3-4": 2
+      }
+     }
+    }
+   }
+  },
+  "opt-13b": {
+   "hf": "facebook/opt-13b",
+   "token_counts": {
+    "vocab_frac_multi": 0.6397345823575332,
+    "vocab_max": 4,
+    "pairs_words_multi": [
+     "alumna",
+     "alumna",
+     "alumna",
+     "alumnae",
+     "alumnae",
+     "alumnae",
+     "alumni",
+     "alumni",
+     "alumni",
+     "alumnus",
+     "alumnus",
+     "alumnus",
+     "analog",
+     "analogue",
+     "analyse",
+     "analyze",
+     "apologise",
+     "apologize",
+     "appendices",
+     "appendices",
+     "appendix",
+     "appendix",
+     "appendixes",
+     "appendixes",
+     "bacteria",
+     "bacterium",
+     "chew",
+     "chew",
+     "chew",
+     "chewed",
+     "chewed",
+     "chewed",
+     "chewing",
+     "chewing",
+     "chewing",
+     "chews",
+     "chews",
+     "chews",
+     "cried",
+     "cried",
+     "cried",
+     "cries",
+     "cries",
+     "cries",
+     "crises",
+     "crisis",
+     "crying",
+     "crying",
+     "crying",
+     "datum",
+     "drives",
+     "drives",
+     "drives",
+     "drove",
+     "drove",
+     "drove",
+     "flavor",
+     "flavour",
+     "indices",
+     "licence",
+     "maneuver",
+     "manoeuvre",
+     "mice",
+     "nuclei",
+     "nucleus",
+     "offence",
+     "offense",
+     "organise",
+     "organize",
+     "paediatric",
+     "pediatric",
+     "persons",
+     "persons",
+     "phenomena",
+     "phenomenon",
+     "potato",
+     "potatoes",
+     "radii",
+     "talked",
+     "talked",
+     "talked",
+     "talks",
+     "talks",
+     "talks",
+     "teeth",
+     "theses",
+     "thesis",
+     "thinks",
+     "thinks",
+     "thinks",
+     "tooth",
+     "traveled",
+     "travelled"
+    ]
+   },
+   "sides": {
+    "preln": {
+     "rogue_dims": [
+      [
+       902,
+       0.4527956321986368
+      ],
+      [
+       3964,
+       0.012834482806002113
+      ],
+      [
+       4960,
+       0.012360213087802387
+      ]
+     ],
+     "rogue": {
+      "original": {
+       "sim_median": 12.421339511871338,
+       "rand_median": 24.26188087463379,
+       "p_less": 5.1124544408237336e-05,
+       "p_greater": 0.9999488922760724,
+       "cats": {
+        "us_uk": [
+         7.940756320953369,
+         0.0049553243443369865
+        ],
+        "plural": [
+         15.372692108154297,
+         0.05675918608903885
+        ],
+        "verb": [
+         12.207498550415039,
+         0.002556741004809737
+        ]
+       }
+      },
+      "top1_zeroed": {
+       "sim_median": 7.6214354038238525,
+       "rand_median": 9.03175163269043,
+       "p_less": 0.06607771937651302,
+       "p_greater": 0.9339325461849023,
+       "cats": {
+        "us_uk": [
+         6.246283054351807,
+         0.05367688834667206
+        ],
+        "plural": [
+         10.819584846496582,
+         0.7891724705696106
+        ],
+        "verb": [
+         5.706142902374268,
+         0.02418419159948826
+        ]
+       }
+      },
+      "top3_zeroed": {
+       "sim_median": 7.155263423919678,
+       "rand_median": 8.464360237121582,
+       "p_less": 0.06892671386130617,
+       "p_greater": 0.9310838921072554,
+       "cats": {
+        "us_uk": [
+         5.251879692077637,
+         0.030715547502040863
+        ],
+        "plural": [
+         9.870746612548828,
+         0.816068172454834
+        ],
+        "verb": [
+         5.694610118865967,
+         0.02984226681292057
+        ]
+       }
+      }
+     },
+     "spearman_tc_norm_vocab": -0.7298477074701729,
+     "spearman_tc_norm_all": -0.727162710590943,
+     "median_norm_by_tc": {
+      "1": 186.83782958984375,
+      "2": 105.78353881835938,
+      "3": 111.71434783935547,
+      "4": 121.51604461669922
+     },
+     "token": {
+      "n_pairs_equal_tc": 43,
+      "n_pairs_unmatched": 0,
+      "original": {
+       "n_sim": 74,
+       "n_rand": 5000,
+       "sim_median": 12.42133903503418,
+       "rand_median": 24.26188087463379,
+       "p_less": 5.112454164191149e-05,
+       "p_greater": 0.9999489188194275
+      },
+      "equal_tc_pairs_vs_standard_random": {
+       "n_sim": 43,
+       "n_rand": 5000,
+       "sim_median": 7.066707134246826,
+       "rand_median": 24.26188087463379,
+       "p_less": 1.0216338885982168e-09,
+       "p_greater": 1.0
+      },
+      "all_pairs_vs_tc_matched_random": {
+       "n_sim": 74,
+       "n_rand": 5032,
+       "sim_median": 12.42133903503418,
+       "rand_median": 14.941340446472168,
+       "p_less": 0.0546523816883564,
+       "p_greater": 0.9453564286231995
+      },
+      "equal_tc_pairs_vs_tc_matched_random": {
+       "n_sim": 43,
+       "n_rand": 2924,
+       "sim_median": 7.066707134246826,
+       "rand_median": 9.118669509887695,
+       "p_less": 0.09978346526622772,
+       "p_greater": 0.9002479314804077
+      },
+      "tc_pairs_hist": {
+       "1-1": 17,
+       "1-2": 21,
+       "2-2": 22,
+       "2-3": 7,
+       "2-4": 1,
+       "3-3": 4,
+       "3-4": 2
+      }
+     }
+    },
+    "postln": {
+     "rogue_dims": [
+      [
+       902,
+       0.4137992792713463
+      ],
+      [
+       3964,
+       0.011881699745817107
+      ],
+      [
+       3779,
+       0.010024862170193705
+      ]
+     ],
+     "rogue": {
+      "original": {
+       "sim_median": 2.30027973651886,
+       "rand_median": 10.734457015991211,
+       "p_less": 1.8463510758409e-07,
+       "p_greater": 0.9999998154426314,
+       "cats": {
+        "us_uk": [
+         1.0587892532348633,
+         0.0014782579382881522
+        ],
+        "plural": [
+         3.0811023712158203,
+         0.0005108483601361513
+        ],
+        "verb": [
+         2.321667194366455,
+         0.0022855110000818968
+        ]
+       }
+      },
+      "top1_zeroed": {
+       "sim_median": 5.702003479003906,
+       "rand_median": 7.765363693237305,
+       "p_less": 0.001490438872149077,
+       "p_greater": 0.9985099489023115,
+       "cats": {
+        "us_uk": [
+         0.6410830020904541,
+         0.0005973956431262195
+        ],
+        "plural": [
+         5.806572914123535,
+         0.046643562614917755
+        ],
+        "verb": [
+         7.290287971496582,
+         0.15036043524742126
+        ]
+       }
+      },
+      "top3_zeroed": {
+       "sim_median": 5.201984405517578,
+       "rand_median": 7.746413707733154,
+       "p_less": 0.0022752687507584368,
+       "p_greater": 0.9977253009045355,
+       "cats": {
+        "us_uk": [
+         1.038759708404541,
+         0.0016109913121908903
+        ],
+        "plural": [
+         5.09840726852417,
+         0.0356086827814579
+        ],
+        "verb": [
+         7.558500289916992,
+         0.18465809524059296
+        ]
+       }
+      }
+     },
+     "spearman_tc_norm_vocab": -0.8367715247844593,
+     "spearman_tc_norm_all": -0.8354592265696446,
+     "median_norm_by_tc": {
+      "1": 72.06179809570312,
+      "2": 46.81231689453125,
+      "3": 44.44495391845703,
+      "4": 45.18535614013672
+     },
+     "token": {
+      "n_pairs_equal_tc": 43,
+      "n_pairs_unmatched": 0,
+      "original": {
+       "n_sim": 74,
+       "n_rand": 5000,
+       "sim_median": 2.3002796173095703,
+       "rand_median": 10.734457015991211,
+       "p_less": 1.8463492779119406e-07,
+       "p_greater": 0.9999998211860657
+      },
+      "equal_tc_pairs_vs_standard_random": {
+       "n_sim": 43,
+       "n_rand": 5000,
+       "sim_median": 0.2712884843349457,
+       "rand_median": 10.734457015991211,
+       "p_less": 5.470718461541549e-16,
+       "p_greater": 1.0
+      },
+      "all_pairs_vs_tc_matched_random": {
+       "n_sim": 74,
+       "n_rand": 5032,
+       "sim_median": 2.3002796173095703,
+       "rand_median": 5.094392776489258,
+       "p_less": 0.011748416349291801,
+       "p_greater": 0.9882540106773376
+      },
+      "equal_tc_pairs_vs_tc_matched_random": {
+       "n_sim": 43,
+       "n_rand": 2924,
+       "sim_median": 0.2712884843349457,
+       "rand_median": 1.4675233364105225,
+       "p_less": 0.000690740009304136,
+       "p_greater": 0.9993097186088562
+      },
+      "tc_pairs_hist": {
+       "1-1": 17,
+       "1-2": 21,
+       "2-2": 22,
+       "2-3": 7,
+       "2-4": 1,
+       "3-3": 4,
+       "3-4": 2
+      }
+     }
+    }
+   }
+  }
+ },
+ "n_vocab": 5124,
+ "n_words": 5175,
+ "seconds": 3.6080596446990967
+}

@@ -302,6 +302,11 @@ def report(res) -> str:
                         rows.append([name, side, metric, mode, fmt(m["median"], 1), fmt(s["magnitude"][metric][mode]["random"]["median"], 1), f"{m['p_less']:.2g}", f"{m['p_greater']:.2g}"])
         L += ["All metrics, pooled over the 74 pairs:", "", md_table(["model", "side", "metric", "mode", "similar median", "random median", "p similar<random", "p similar>random"], rows, align_right_from=4), ""]
 
+    checks = RESULTS / "phase3_checks.json"
+    if checks.exists():
+        from . import phase3_checks
+        L += [phase3_checks.report(json.load(open(checks)))]
+
     L += ["### Recommendation for the method section", "",
           "_See the Reading paragraphs above; the recommendation paragraph is written by hand in results/NOTES.md once the tables are in._", "",
           f"_Phase 3 ran in {res.get('seconds', 0):.0f} s._", ""]
