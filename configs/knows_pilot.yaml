@@ -1,0 +1,48 @@
+# Engineering pilot only. Too small for comparative complexity claims.
+experiment_name: knows_pilot
+seed: 2026
+seeds: [2026]
+output_dir: results/probe_experiments/knows_pilot_float32
+models:
+  primary: Qwen/Qwen3-1.7B
+  replications: []
+  revisions:
+    Qwen/Qwen3-1.7B: 70d244cc86ccca08cf5af4e1e306ecf908b1ad5e
+predicates: [knows]
+data:
+  n_scenarios: 128
+  paraphrases: 3
+  stable_probability: 0.8
+  split: {tune: 0.10, coding: 0.70, evaluation: 0.20}
+labels:
+  prompt_version: knows-forced-choice-v1
+extract:
+  batch_size: 1
+  dtype: float32
+  device: cuda
+  layers: [emb, p25, p50, p75, final]
+  pooling: [last, mean]
+  question_only_controls: true
+  store_all_layers_for_primary: false
+probe:
+  kinds: [linear, mlp]
+  hidden_size: 256
+  epochs: 30
+  patience: 5
+  batch_size: 128
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  endpoints: [0.01, 0.02, 0.04, 0.08, 0.16, 0.32, 0.64, 1.0]
+intrinsic_dimension:
+  dimensions: [1, 4, 16, 64, 256, 1024]
+  projection_seeds: [0]
+  target_fraction: 0.90
+compression:
+  quantization_bits: [16, 8, 6, 4, 3, 2]
+  pruning: [0.25, 0.50, 0.75, 0.90, 0.95, 0.98, 0.99]
+  max_delta_nll: 0.05
+  max_accuracy_loss: 0.01
+thresholds:
+  minimum_stable_per_class: 1000
+  minimum_macro_f1: 0.75
+  mdl_shuffled_improvement: 0.10

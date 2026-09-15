@@ -1,0 +1,45 @@
+{
+  "date": "2026-09-12",
+  "remote_run_root": "/home/forestzhang001/knows-mdl-v5-balanced",
+  "failure": {
+    "cause": "primary wrapper wrote successful ID and compression component exits but omitted id_compress_primary.exit",
+    "observed_component_exits": {
+      "id_primary.exit": 0,
+      "compression_primary.exit": 0
+    },
+    "downstream_exits": {
+      "replication_data.exit": 3,
+      "replication_mdl.exit": 1,
+      "quality_gates.exit": 1
+    },
+    "secondary_issue": "the first grid queue checked quality-gate termination but not zero exit and began primary-only cells"
+  },
+  "recovery": {
+    "archive": "/home/forestzhang001/knows-mdl-v5-balanced/queue_failure_20260912",
+    "primary_artifact_audit_passed": true,
+    "aggregate_primary_exit_reconstructed": 0,
+    "partial_grid_completed_cells_retained": true,
+    "partial_grid_active_cell_discarded": "qwen-qwen3-14b/lucky_guessed/p50.last",
+    "all_queue_boundaries_now_require_zero_exit": true,
+    "analysis_source": "analysis_v5",
+    "relaunch_observation": "Qwen3-1.7B label process live under detached replication wrapper"
+  },
+  "compression_hotfix": {
+    "cause": "vector_to_parameters aliased the source NumPy vector, allowing later state loads to mutate the test reference",
+    "selection_affected": false,
+    "sidecar_test_deltas_affected": true,
+    "targeted_rerun_exit": 0,
+    "post_rerun_artifact_audit_passed": true,
+    "probe_models_sha256": "7230fcc231584c44f0346cf1211613cd9c4bd62366914ff0d14285fc7046df5f",
+    "probe_compress_sha256": "47eb25d5ed4f6e8c6261d8c00e23efaeffd1e5223bf3460eb007fe07c28e0312"
+  },
+  "queue_script_sha256": {
+    "continue_replication_data.sh": "09433d66568f325be5c30279cac18b24969605821dd382f261f8f172b19be952",
+    "continue_replication_mdl.sh": "a1e7bb8b38aad961103ca38461d8b7e83dbfc99265639b584f83c9ced40a438f",
+    "continue_quality_gates.sh": "084afae68c5e96b9c09d84ab182187d85422fb27031ad2920d3763906467cae3",
+    "continue_id_compression_grid.sh": "e471e4ea1e69215ea5b77258dda834fd48a75be6a0d82c13be8d08ce9933b80b",
+    "continue_artifact_audit.sh": "84d9cd4acf212dd018bc0d1ea79e7e172dbd285143a49c1ef75681d65b51cb11",
+    "continue_llc.sh": "d84fbb27472ecb32f56e67891d796c2f8ba4a75d0715f1c8dcaccc4f0c47016d",
+    "continue_report.sh": "024055204d734832e60c1425db24ecafb6ab1d8b432ca5ebff90166e7a4a50cd"
+  }
+}

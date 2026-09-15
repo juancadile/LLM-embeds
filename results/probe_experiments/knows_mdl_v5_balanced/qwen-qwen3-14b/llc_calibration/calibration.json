@@ -1,0 +1,102 @@
+{
+  "status": "rejected",
+  "fingerprint": "11ca7ff47d7111ea91a896c419acf88d62ecabd2d40f267c665f4aaddebc5a4b",
+  "attempts": [
+    {
+      "candidate": {
+        "localization": 300000.0,
+        "learning_rate": 1e-06
+      },
+      "accepted": false,
+      "reason": "invalid_sensitivity_chains"
+    },
+    {
+      "candidate": {
+        "localization": 300000.0,
+        "learning_rate": 1e-07
+      },
+      "accepted": false,
+      "reason": "sensitivity_exceeds_10_percent"
+    },
+    {
+      "candidate": {
+        "localization": 300000.0,
+        "learning_rate": 1e-08
+      },
+      "accepted": false,
+      "reason": "sensitivity_exceeds_10_percent"
+    },
+    {
+      "candidate": {
+        "localization": 1000000.0,
+        "learning_rate": 3e-07
+      },
+      "accepted": false,
+      "reason": "invalid_sensitivity_chains"
+    },
+    {
+      "candidate": {
+        "localization": 1000000.0,
+        "learning_rate": 3e-08
+      },
+      "accepted": false,
+      "reason": "sensitivity_exceeds_10_percent"
+    },
+    {
+      "candidate": {
+        "localization": 1000000.0,
+        "learning_rate": 3e-09
+      },
+      "accepted": false,
+      "reason": "sensitivity_exceeds_10_percent"
+    },
+    {
+      "candidate": {
+        "localization": 3000000.0,
+        "learning_rate": 1e-07
+      },
+      "accepted": false,
+      "reason": "invalid_sensitivity_chains"
+    },
+    {
+      "candidate": {
+        "localization": 3000000.0,
+        "learning_rate": 1e-08
+      },
+      "accepted": false,
+      "reason": "sensitivity_exceeds_10_percent"
+    },
+    {
+      "candidate": {
+        "localization": 3000000.0,
+        "learning_rate": 1e-09
+      },
+      "accepted": false,
+      "reason": "sensitivity_exceeds_10_percent"
+    },
+    {
+      "candidate": {
+        "localization": 10000000.0,
+        "learning_rate": 3e-08
+      },
+      "accepted": false,
+      "reason": "invalid_sensitivity_chains"
+    },
+    {
+      "candidate": {
+        "localization": 10000000.0,
+        "learning_rate": 3e-09
+      },
+      "accepted": false,
+      "reason": "sensitivity_exceeds_10_percent"
+    },
+    {
+      "candidate": {
+        "localization": 10000000.0,
+        "learning_rate": 3e-10
+      },
+      "accepted": false,
+      "reason": "sensitivity_exceeds_10_percent"
+    }
+  ]
+}

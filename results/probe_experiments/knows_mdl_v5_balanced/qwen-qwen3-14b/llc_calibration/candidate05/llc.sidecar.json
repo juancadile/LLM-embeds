@@ -1,0 +1,40 @@
+{
+  "sampler": "DevInterp SGMCMC.rmsprop_sgld",
+  "loss": "binary_cross_entropy_with_logits",
+  "devinterp": {
+    "package": "devinterp",
+    "version": "2.0.1",
+    "revision": "fbbf4c54e1f6ee46acb149f004df261fb05055c6",
+    "url": "https://github.com/timaeus-research/devinterp.git"
+  },
+  "chains": 4,
+  "burn_in": 1000,
+  "draws": 1000,
+  "thinning": 10,
+  "batch_size": 128,
+  "diagnostic_interval": 100,
+  "sensitivity_settings": [
+    [
+      1.0,
+      1.0
+    ],
+    [
+      0.5,
+      1.0
+    ],
+    [
+      2.0,
+      1.0
+    ],
+    [
+      1.0,
+      0.5
+    ],
+    [
+      1.0,
+      2.0
+    ]
+  ],
+  "rejected": true,
+  "rejection_reason": "sensitivity_exceeds_10_percent"
+}

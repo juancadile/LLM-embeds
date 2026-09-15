@@ -43,3 +43,40 @@ LLM-embeds/
 ```
 "Small" Models are: GPT-3 Ada, OPT-1.3B, and T5-large
 "Large" Models are: GPT-3 Curie, OPT-13B, T5-3b (xl)
+
+## Model-relative epistemic probing
+
+The staged KNOWS study is implemented separately from the completed embedding rerun.
+It generates factorial scenarios, obtains counterbalanced model labels, extracts
+scenario-only hidden states, and runs online MDL, random-subspace dimension,
+serialized probe compression, and LLC analyses.
+
+Create a modern environment (the historical `environment.yml` is intentionally
+unchanged), then run one stage at a time:
+
+```bash
+python3 -m venv .venv-probe
+source .venv-probe/bin/activate
+pip install -r requirements-probe.txt
+
+python -m src.probe_experiments --config configs/knows_mdl.yaml --stage labels
+python -m src.probe_experiments --config configs/knows_mdl.yaml --stage extract
+python -m src.probe_experiments --config configs/knows_mdl.yaml --stage mdl
+python -m src.probe_experiments --config configs/knows_mdl.yaml --stage id
+python -m src.probe_experiments --config configs/knows_mdl.yaml --stage compress
+python -m src.probe_experiments --config configs/knows_mdl.yaml --stage llc
+python -m src.probe_experiments --config configs/knows_mdl.yaml --stage report
+```
+
+Use repeatable `--model`, `--predicate`, `--layer`, and `--pool` filters for a
+smaller cell-level run. Artifacts are written under
+`results/probe_experiments/knows_mdl/`; activation arrays are memory mapped and
+each substantive artifact has an adjacent metadata sidecar. The LLC stage first
+checks its sampler against regular logistic regression and refuses to continue if
+that check fails.
+
+Run the lightweight acceptance suite with:
+
+```bash
+python -m unittest discover -s tests -v
+```

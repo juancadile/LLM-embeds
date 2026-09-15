@@ -1,0 +1,23 @@
+[
+  {
+    "date": "2026-09-13",
+    "stage": "llc",
+    "previous_digest": "8f532a5af98037bf25a7e0eab002523c2f36bd066d1362123f8c92cf0b24126b",
+    "new_digest": "70aa35fa930fc17b9b0213ac96600b0610ab7f6f4c505bb2957b10c4c3392c2f",
+    "changed_settings": ["llc.calibration_candidates"],
+    "reason": "The configuration declared no LLC calibration candidates, so probe_calibration.calibrate fell back to its single default (learning_rate 3e-4, localization 1.0) and had one attempt. That attempt was rejected for leaving the trained basin, and the arithmetic shows the default cannot succeed: a Gaussian localization gamma holds a chain at radius sqrt(d/gamma), and with d = 1311233 and gamma = 1 that radius is 1145.09, matching the observed mean chain distance of 1145.5, while the preregistered basin limit is 0.25 * ||w|| = 3.55 for ||w|| = 14.209465026855469. Satisfying the basin criterion requires gamma >= 1.04e5. This amendment declares an ordered candidate grid over localization and learning rate, weakest localization first, before it is run. It changes no acceptance criterion: selection remains the declared mixing, basin, and axial-sensitivity checks, and the LLC value is never a selection criterion. If no candidate passes, LLC is reported as non-identifiable under the declared criteria.",
+    "affects_prior_stages": false,
+    "prior_result_superseded": "results/probe_experiments/knows_mdl_v5_balanced/qwen-qwen3-14b/llc_calibration rejected under the single default candidate; archived as llc_calibration_default_rejected_20260913"
+  },
+  {
+    "date": "2026-09-13",
+    "stage": "llc",
+    "previous_digest": "70aa35fa930fc17b9b0213ac96600b0610ab7f6f4c505bb2957b10c4c3392c2f",
+    "new_digest": "3f0a42422fb1fa1c6813f9647fe88ad403c645f7c93b0f7127d6ed495cee470e",
+    "changed_settings": ["llc.calibration_candidates"],
+    "reason": "The first declared grid held the learning rate near its original value while raising localization by five orders of magnitude, and every one of its twelve candidates diverged within seconds. The step size must be coupled to gamma: the discretized localization step contracts by lr*gamma per step. A diagnostics-only stability probe on the calibration cell, run with 200 burn-in and 200 draws and inspecting only completion, chain distance and loss increase, placed the divergence boundary near lr*gamma = 1 -- at gamma 3e5 the chain completed for lr 1e-6, 1e-7, 1e-8 and returned NaN losses for lr 1e-5 and 3e-4, and at gamma 1e6 it completed for lr 1e-7 and below and returned NaN for lr 1e-6. The observed chain radii matched sqrt(d/gamma) throughout (2.17 observed against 2.09 predicted at gamma 3e5; 1.14 against 1.15 at gamma 1e6). This amendment replaces the grid with lr = c/gamma for c in 0.3, 0.03, 0.003 at each declared gamma, so that every candidate is numerically able to run. No acceptance criterion changed; the LLC value remains outside the selection rule.",
+    "affects_prior_stages": false,
+    "expected_outcome_declared_in_advance": "The same stability probe showed that in the basin-compliant regime the estimate sits at the noise floor and scales roughly as 1/gamma (LLC 1.16 at gamma 1e4, 0.073 at gamma 1e5, and between -0.012 and 0.05 at gamma 3e5 and above, against d/2 = 655616 for a regular model of this size), while chains that produce large positive estimates leave the basin (loss increase 1.1 to 3.9 nats at gamma 10 to 1e3 against a 0.05 limit). The declared axial-sensitivity check is therefore expected to reject every candidate. That rejection is the reportable result and must not be tuned away.",
+    "prior_result_superseded": "llc_calibration rejected under the uncoupled grid; archived as llc_calibration_uncoupled_grid_rejected_20260913"
+  }
+]

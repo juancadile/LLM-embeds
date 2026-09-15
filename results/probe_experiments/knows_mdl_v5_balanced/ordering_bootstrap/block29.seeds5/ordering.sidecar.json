@@ -1,0 +1,275 @@
+{
+  "software": {
+    "python": "3.12.3",
+    "numpy": "2.5.2",
+    "pandas": "3.0.5",
+    "torch": "2.14.0+cu130",
+    "transformers": "5.16.1",
+    "sklearn": "1.9.0",
+    "yaml": "6.0.3"
+  },
+  "git_revision": "unknown",
+  "platform": "Linux-6.17.0-1014-nvidia-aarch64-with-glibc2.39",
+  "probe_source_hashes": {
+    "probe_artifact_audit.py": "0d7479250fd2af86334c518d4ff48fcc4c557ed76ea0a531e6d1b55c08207aa6",
+    "probe_bootstrap.py": "f2520d79f48e7c56f660d0405dabb99da359c0d6024e89787e6b50e0e15c18b8",
+    "probe_bound.py": "191f6de2f407edd581a22353e3a0ab02112359420e603cc753186c84457a5fcc",
+    "probe_calibration.py": "0f6fec7da94a987fb65fb8c5ec1c10c77d2606cf3260d1c4c3de4934533f8a9b",
+    "probe_compress.py": "2904abaf5e84ba4b1736a4896187d9da7a4e4013a0b0a647677afd50e391a091",
+    "probe_controls.py": "001d6e955d56b0e296c90325094214c1a494a663761cd62fbea412393001e14e",
+    "probe_data.py": "8d201a25a15c2a621180cfc97377a716b87739114865e85a7b9129842ecbe749",
+    "probe_experiments.py": "af4b7bfc6f5f9b0a23264e871ba4fa2127cfbc3bdbb9cc3b335f2958ac68a650",
+    "probe_gate.py": "20c3e12bf06854c084c468061a3a44bc0ed6d77696a61ba24da89e0c68f06829",
+    "probe_hf.py": "60e681b16dcab63236fb76c9c550e93dddade9190d11a4cb7092da35196a375a",
+    "probe_id.py": "b79e247d5b050088886e6238129efb93cbbe4671eafa270ac2158fd3b26f5483",
+    "probe_joint_refits.py": "b3b65af5b93ae18562f3c551fd34c38f299c677208225032101dd7a2cd83fd3a",
+    "probe_jtb.py": "44ff1d4d60162aea587621c1f0335cf3e4ae6859b827153ed0ef749417bc7d05",
+    "probe_llc.py": "530310ad16e0a1bf1bc15b75a8b04328bcca1cfbb570914c91b1f3cca071dd08",
+    "probe_mdl.py": "da367bb6bb81a414d2015bc5be849aa9bcc306bbfb7f140d546fa6407a8b1229",
+    "probe_mdl_gate.py": "c1b68a01449704d8d05a56c4479054c3c7e7e512a906226f7d19aeda1b3cd7c6",
+    "probe_models.py": "7230fcc231584c44f0346cf1211613cd9c4bd62366914ff0d14285fc7046df5f",
+    "probe_ordering.py": "66f32791c06681c58ce5149d388dd0b243f5cac38fbeb094319a5bb15f4e4000",
+    "probe_quality_gate.py": "0dab8b519c83fc08043d1c94d7cf2b15ef87af839084899e1b794564c74cab2e",
+    "probe_report.py": "2962598f64ce501cec245a350fb98e2117fe37ebdfd9b7c1fd45dfa22912a0c5",
+    "probe_utils.py": "ec1288b1124fbc273372ae97a305a304681c973273a6fa42181699e4ee01d2ea"
+  },
+  "layer": "block29",
+  "probe": "linear",
+  "draws": 400,
+  "seeds": [
+    2026,
+    2027,
+    2028,
+    2029,
+    2030
+  ],
+  "aggregation": "per-draw mean over probe seeds before ranking",
+  "degenerate_cells": 0,
+  "cohort_size": 4970,
+  "cohort": "examples stable for all five predicates",
+  "resampling": "independent scenario groups within fixed splits, shared index vector, each sampled copy labelled as its own group for the online coder",
+  "primary": {
+    "statistic": "normalized_mdl",
+    "complete_draws": 400,
+    "probability_cheapest": {
+      "justified": 0.6175,
+      "believes": 0.31,
+      "true": 0.0725
+    },
+    "probability_dearest": {
+      "lucky_guessed": 1.0
+    },
+    "per_predicate": {
+      "believes": {
+        "median": 0.10393971736595875,
+        "ci_low": 0.08161806891222131,
+        "ci_high": 0.12645578749288255
+      },
+      "justified": {
+        "median": 0.0966143335226621,
+        "ci_low": 0.08143432956268222,
+        "ci_high": 0.1148947915595519
+      },
+      "knows": {
+        "median": 0.11308670300588922,
+        "ci_low": 0.09560079909106389,
+        "ci_high": 0.13732445469862564
+      },
+      "lucky_guessed": {
+        "median": 0.1795512558717139,
+        "ci_low": 0.14972285098270371,
+        "ci_high": 0.22120193610170316
+      },
+      "true": {
+        "median": 0.10705934058386186,
+        "ci_low": 0.08914864240412095,
+        "ci_high": 0.12823339227137495
+      }
+    },
+    "pairs": {
+      "believes_minus_justified": {
+        "median": 0.00749416049476348,
+        "ci_low": -0.025410612927005527,
+        "ci_high": 0.040008713471638396,
+        "probability_a_cheaper": 0.32,
+        "separated": false
+      },
+      "believes_minus_knows": {
+        "median": -0.009554863216052575,
+        "ci_low": -0.045578554121375736,
+        "ci_high": 0.023919249839375746,
+        "probability_a_cheaper": 0.7175,
+        "separated": false
+      },
+      "believes_minus_lucky_guessed": {
+        "median": -0.07671165221900622,
+        "ci_low": -0.11900951749827689,
+        "ci_high": -0.037235723005614396,
+        "probability_a_cheaper": 1.0,
+        "separated": true
+      },
+      "believes_minus_true": {
+        "median": -0.0038077369471566924,
+        "ci_low": -0.0353087988925151,
+        "ci_high": 0.028261268256461473,
+        "probability_a_cheaper": 0.5675,
+        "separated": false
+      },
+      "justified_minus_knows": {
+        "median": -0.016754796199608395,
+        "ci_low": -0.02880770751884405,
+        "ci_high": -0.006516606799583888,
+        "probability_a_cheaper": 1.0,
+        "separated": true
+      },
+      "justified_minus_lucky_guessed": {
+        "median": -0.08268378181495277,
+        "ci_low": -0.12599200684186432,
+        "ci_high": -0.047123607522186806,
+        "probability_a_cheaper": 1.0,
+        "separated": true
+      },
+      "justified_minus_true": {
+        "median": -0.010339508969630144,
+        "ci_low": -0.02595798072101209,
+        "ci_high": 0.0068093261250153836,
+        "probability_a_cheaper": 0.875,
+        "separated": false
+      },
+      "knows_minus_lucky_guessed": {
+        "median": -0.06557239824563116,
+        "ci_low": -0.10993732701438914,
+        "ci_high": -0.026746124088302282,
+        "probability_a_cheaper": 1.0,
+        "separated": true
+      },
+      "knows_minus_true": {
+        "median": 0.0071752613310013535,
+        "ci_low": -0.010480501905732863,
+        "ci_high": 0.024373775233815148,
+        "probability_a_cheaper": 0.205,
+        "separated": false
+      },
+      "lucky_guessed_minus_true": {
+        "median": 0.07354193116792099,
+        "ci_low": 0.036385037169455084,
+        "ci_high": 0.11495961331287365,
+        "probability_a_cheaper": 0.0,
+        "separated": true
+      }
+    }
+  },
+  "secondary": {
+    "statistic": "bits_per_label",
+    "complete_draws": 400,
+    "probability_cheapest": {
+      "justified": 0.665,
+      "believes": 0.2675,
+      "true": 0.065,
+      "knows": 0.0025
+    },
+    "probability_dearest": {
+      "lucky_guessed": 0.9975,
+      "knows": 0.0025
+    },
+    "per_predicate": {
+      "believes": {
+        "median": 0.10013072286059213,
+        "ci_low": 0.08231986891456086,
+        "ci_high": 0.12034596087003857
+      },
+      "justified": {
+        "median": 0.0925948975708277,
+        "ci_low": 0.0783390972869446,
+        "ci_high": 0.10807371980678833
+      },
+      "knows": {
+        "median": 0.10478221138498775,
+        "ci_low": 0.09060059662458705,
+        "ci_high": 0.12390983411740866
+      },
+      "lucky_guessed": {
+        "median": 0.16056057999754947,
+        "ci_low": 0.1386634722879201,
+        "ci_high": 0.1963472051886279
+      },
+      "true": {
+        "median": 0.10267027309601251,
+        "ci_low": 0.08643982843665848,
+        "ci_high": 0.12187046751769964
+      }
+    },
+    "pairs": {
+      "believes_minus_justified": {
+        "median": 0.007528064134579793,
+        "ci_low": -0.019014055723557972,
+        "ci_high": 0.03739735748280068,
+        "probability_a_cheaper": 0.2775,
+        "separated": false
+      },
+      "believes_minus_knows": {
+        "median": -0.004732013664146356,
+        "ci_low": -0.03442942870104127,
+        "ci_high": 0.02051525987587037,
+        "probability_a_cheaper": 0.6375,
+        "separated": false
+      },
+      "believes_minus_lucky_guessed": {
+        "median": -0.060988267189409306,
+        "ci_low": -0.09722340692195616,
+        "ci_high": -0.028722639496069402,
+        "probability_a_cheaper": 1.0,
+        "separated": true
+      },
+      "believes_minus_true": {
+        "median": -0.003125257715279918,
+        "ci_low": -0.028948647727832313,
+        "ci_high": 0.02320885418490252,
+        "probability_a_cheaper": 0.57,
+        "separated": false
+      },
+      "justified_minus_knows": {
+        "median": -0.012350756249013349,
+        "ci_low": -0.023654511840902552,
+        "ci_high": -0.0026660272078476836,
+        "probability_a_cheaper": 0.995,
+        "separated": true
+      },
+      "justified_minus_lucky_guessed": {
+        "median": -0.06822655437768127,
+        "ci_low": -0.10712082037566031,
+        "ci_high": -0.04159826401902232,
+        "probability_a_cheaper": 1.0,
+        "separated": true
+      },
+      "justified_minus_true": {
+        "median": -0.010065552069102104,
+        "ci_low": -0.025487158688905668,
+        "ci_high": 0.0064455315322102715,
+        "probability_a_cheaper": 0.89,
+        "separated": false
+      },
+      "knows_minus_lucky_guessed": {
+        "median": -0.055847671745814224,
+        "ci_low": -0.09421677200458815,
+        "ci_high": -0.028133518204747632,
+        "probability_a_cheaper": 0.9975,
+        "separated": true
+      },
+      "knows_minus_true": {
+        "median": 0.002738995154454138,
+        "ci_low": -0.013894815115056351,
+        "ci_high": 0.018272406155679096,
+        "probability_a_cheaper": 0.37,
+        "separated": false
+      },
+      "lucky_guessed_minus_true": {
+        "median": 0.05859288447700442,
+        "ci_low": 0.0294661132589722,
+        "ci_high": 0.09720847121630992,
+        "probability_a_cheaper": 0.0,
+        "separated": true
+      }
+    }
+  }
+}

@@ -1,0 +1,98 @@
+experiment_name: knows_mdl
+seed: 2026
+seeds: [2026, 2027, 2028, 2029, 2030]
+output_dir: results/probe_experiments/knows_mdl_v5_balanced
+
+models:
+  revisions:
+    Qwen/Qwen3-14B: 40c069824f4251a91eefaf281ebe4c544efd3e18
+    Qwen/Qwen3-1.7B: 70d244cc86ccca08cf5af4e1e306ecf908b1ad5e
+    meta-llama/Llama-3.1-8B-Instruct: 0e9e39f249a16976918f6564b8830bc894c89659
+  primary: Qwen/Qwen3-14B
+  replications:
+    - Qwen/Qwen3-1.7B
+    - meta-llama/Llama-3.1-8B-Instruct
+predicates: [knows, believes, "true", justified, lucky_guessed]
+
+data:
+  development_scenarios: 128
+  n_scenarios: 2048
+  paraphrases: 3
+  # Prospective allocation: one quarter canonical-support scenarios, enough
+  # headroom for the preregistered 1,000-stable-positive KNOWS gate.
+  canonical_support_fraction: 0.24
+  stable_probability: 0.8
+  split: {tune: 0.10, coding: 0.70, evaluation: 0.20}
+
+labels:
+  # Labels are always obtained twice with reversed semantic answer order.
+  prompt_version: knows-forced-choice-v4-semantic-tokens
+  prompt_variant: semantic_tokens
+  format: chat
+
+extract:
+  batch_size: 4
+  dtype: float32
+  device: auto
+  layers: [emb, p25, p50, p75, final]
+  pooling: [last, mean]
+  question_only_controls: true
+  store_all_layers_for_primary: true
+
+probe:
+  kinds: [linear, mlp]
+  hidden_size: 256
+  epochs: 100
+  patience: 10
+  batch_size: 128
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  endpoints: [0.01, 0.02, 0.04, 0.08, 0.16, 0.32, 0.64, 1.0]
+
+intrinsic_dimension:
+  dimensions: [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536]
+  projection_seeds: [0, 1, 2, 3, 4]
+  target_fraction: 0.90
+
+compression:
+  quantization_bits: [16, 8, 6, 4, 3, 2]
+  pruning: [0.25, 0.50, 0.75, 0.90, 0.95, 0.98, 0.99]
+  max_delta_nll: 0.05
+  max_accuracy_loss: 0.01
+
+llc:
+  chains: 4
+  burn_in: 1000
+  draws: 1000
+  thinning: 10
+  learning_rate: 0.0003
+  localization: 1.0
+  sensitivity_multipliers: [0.5, 1.0, 2.0]
+  # Ordered before running. A Gaussian localization gamma holds a chain at radius
+  # sqrt(d/gamma); this probe has d = 1,311,233 and a basin limit of 0.25*||w|| =
+  # 3.55, so gamma below 1.04e5 cannot stay inside the basin by arithmetic alone
+  # and is not offered. Step size must be coupled to gamma: the discretized
+  # localization step contracts by lr*gamma, and a diagnostics-only stability
+  # probe put the divergence boundary near lr*gamma = 1 (lr*gamma <= 0.3
+  # completed, >= 1 produced NaN losses). Each candidate therefore fixes
+  # lr = c / gamma for c in 0.3, 0.03, 0.003, weakest localization first and
+  # coarsest stable step first. Acceptance remains the declared mixing, basin,
+  # and sensitivity checks; the LLC value is never a selection criterion.
+  calibration_candidates:
+    - {localization: 300000.0, learning_rate: 1.0e-6}
+    - {localization: 300000.0, learning_rate: 1.0e-7}
+    - {localization: 300000.0, learning_rate: 1.0e-8}
+    - {localization: 1000000.0, learning_rate: 3.0e-7}
+    - {localization: 1000000.0, learning_rate: 3.0e-8}
+    - {localization: 1000000.0, learning_rate: 3.0e-9}
+    - {localization: 3000000.0, learning_rate: 1.0e-7}
+    - {localization: 3000000.0, learning_rate: 1.0e-8}
+    - {localization: 3000000.0, learning_rate: 1.0e-9}
+    - {localization: 10000000.0, learning_rate: 3.0e-8}
+    - {localization: 10000000.0, learning_rate: 3.0e-9}
+    - {localization: 10000000.0, learning_rate: 3.0e-10}
+
+thresholds:
+  minimum_stable_per_class: 1000
+  minimum_macro_f1: 0.75
+  mdl_shuffled_improvement: 0.10

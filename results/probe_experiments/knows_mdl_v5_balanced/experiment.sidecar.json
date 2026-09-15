@@ -1,0 +1,268 @@
+{
+  "config_digest": "3f0a42422fb1fa1c6813f9647fe88ad403c645f7c93b0f7127d6ed495cee470e",
+  "configuration": {
+    "experiment_name": "knows_mdl",
+    "seed": 2026,
+    "seeds": [
+      2026,
+      2027,
+      2028,
+      2029,
+      2030
+    ],
+    "output_dir": "results/probe_experiments/knows_mdl_v5_balanced",
+    "models": {
+      "revisions": {
+        "Qwen/Qwen3-14B": "40c069824f4251a91eefaf281ebe4c544efd3e18",
+        "Qwen/Qwen3-1.7B": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+        "meta-llama/Llama-3.1-8B-Instruct": "0e9e39f249a16976918f6564b8830bc894c89659"
+      },
+      "primary": "Qwen/Qwen3-14B",
+      "replications": [
+        "Qwen/Qwen3-1.7B",
+        "meta-llama/Llama-3.1-8B-Instruct"
+      ]
+    },
+    "predicates": [
+      "knows",
+      "believes",
+      "true",
+      "justified",
+      "lucky_guessed"
+    ],
+    "data": {
+      "development_scenarios": 128,
+      "n_scenarios": 2048,
+      "paraphrases": 3,
+      "canonical_support_fraction": 0.24,
+      "stable_probability": 0.8,
+      "split": {
+        "tune": 0.1,
+        "coding": 0.7,
+        "evaluation": 0.2
+      }
+    },
+    "labels": {
+      "prompt_version": "knows-forced-choice-v4-semantic-tokens",
+      "prompt_variant": "semantic_tokens",
+      "format": "chat"
+    },
+    "extract": {
+      "batch_size": 4,
+      "dtype": "float32",
+      "device": "auto",
+      "layers": [
+        "emb",
+        "p25",
+        "p50",
+        "p75",
+        "final"
+      ],
+      "pooling": [
+        "last",
+        "mean"
+      ],
+      "question_only_controls": true,
+      "store_all_layers_for_primary": true
+    },
+    "probe": {
+      "kinds": [
+        "linear",
+        "mlp"
+      ],
+      "hidden_size": 256,
+      "epochs": 100,
+      "patience": 10,
+      "batch_size": 128,
+      "learning_rate": 0.001,
+      "weight_decay": 0.0001,
+      "endpoints": [
+        0.01,
+        0.02,
+        0.04,
+        0.08,
+        0.16,
+        0.32,
+        0.64,
+        1.0
+      ]
+    },
+    "intrinsic_dimension": {
+      "dimensions": [
+        1,
+        2,
+        4,
+        8,
+        16,
+        32,
+        64,
+        128,
+        256,
+        512,
+        1024,
+        2048,
+        4096,
+        8192,
+        16384,
+        32768,
+        65536
+      ],
+      "projection_seeds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "target_fraction": 0.9
+    },
+    "compression": {
+      "quantization_bits": [
+        16,
+        8,
+        6,
+        4,
+        3,
+        2
+      ],
+      "pruning": [
+        0.25,
+        0.5,
+        0.75,
+        0.9,
+        0.95,
+        0.98,
+        0.99
+      ],
+      "max_delta_nll": 0.05,
+      "max_accuracy_loss": 0.01
+    },
+    "llc": {
+      "chains": 4,
+      "burn_in": 1000,
+      "draws": 1000,
+      "thinning": 10,
+      "learning_rate": 0.0003,
+      "localization": 1.0,
+      "sensitivity_multipliers": [
+        0.5,
+        1.0,
+        2.0
+      ],
+      "calibration_candidates": [
+        {
+          "localization": 300000.0,
+          "learning_rate": 1e-06
+        },
+        {
+          "localization": 300000.0,
+          "learning_rate": 1e-07
+        },
+        {
+          "localization": 300000.0,
+          "learning_rate": 1e-08
+        },
+        {
+          "localization": 1000000.0,
+          "learning_rate": 3e-07
+        },
+        {
+          "localization": 1000000.0,
+          "learning_rate": 3e-08
+        },
+        {
+          "localization": 1000000.0,
+          "learning_rate": 3e-09
+        },
+        {
+          "localization": 3000000.0,
+          "learning_rate": 1e-07
+        },
+        {
+          "localization": 3000000.0,
+          "learning_rate": 1e-08
+        },
+        {
+          "localization": 3000000.0,
+          "learning_rate": 1e-09
+        },
+        {
+          "localization": 10000000.0,
+          "learning_rate": 3e-08
+        },
+        {
+          "localization": 10000000.0,
+          "learning_rate": 3e-09
+        },
+        {
+          "localization": 10000000.0,
+          "learning_rate": 3e-10
+        }
+      ]
+    },
+    "thresholds": {
+      "minimum_stable_per_class": 1000,
+      "minimum_macro_f1": 0.75,
+      "mdl_shuffled_improvement": 0.1
+    },
+    "_config_path": "/home/forestzhang001/knows-mdl-v5-balanced/configs/knows_mdl.yaml"
+  },
+  "software": {
+    "python": "3.12.3",
+    "numpy": "2.5.3",
+    "pandas": "2.3.3",
+    "torch": "2.14.0+cu130",
+    "transformers": "5.17.0",
+    "sklearn": "1.9.1",
+    "yaml": "6.0.1"
+  },
+  "git_revision": "unknown",
+  "platform": "Linux-6.17.0-1014-nvidia-aarch64-with-glibc2.39",
+  "probe_source_hashes": {
+    "probe_artifact_audit.py": "0d7479250fd2af86334c518d4ff48fcc4c557ed76ea0a531e6d1b55c08207aa6",
+    "probe_bootstrap.py": "9fccf743ceae6200ac92d156662c9636c7bde41892f6dbaea0d3608819fcac94",
+    "probe_calibration.py": "0f6fec7da94a987fb65fb8c5ec1c10c77d2606cf3260d1c4c3de4934533f8a9b",
+    "probe_compress.py": "47eb25d5ed4f6e8c6261d8c00e23efaeffd1e5223bf3460eb007fe07c28e0312",
+    "probe_controls.py": "001d6e955d56b0e296c90325094214c1a494a663761cd62fbea412393001e14e",
+    "probe_data.py": "8d201a25a15c2a621180cfc97377a716b87739114865e85a7b9129842ecbe749",
+    "probe_experiments.py": "af4b7bfc6f5f9b0a23264e871ba4fa2127cfbc3bdbb9cc3b335f2958ac68a650",
+    "probe_gate.py": "20c3e12bf06854c084c468061a3a44bc0ed6d77696a61ba24da89e0c68f06829",
+    "probe_hf.py": "60e681b16dcab63236fb76c9c550e93dddade9190d11a4cb7092da35196a375a",
+    "probe_id.py": "970aab75cf5fbf5b0b1623fee050b7aaa36ee1183af358a446913c14e39b2875",
+    "probe_joint_refits.py": "ea52c872d9272fa52ae2c151221e934ea3a0e833a7458948f10b08c60bcc6227",
+    "probe_llc.py": "530310ad16e0a1bf1bc15b75a8b04328bcca1cfbb570914c91b1f3cca071dd08",
+    "probe_mdl.py": "da367bb6bb81a414d2015bc5be849aa9bcc306bbfb7f140d546fa6407a8b1229",
+    "probe_mdl_gate.py": "c1b68a01449704d8d05a56c4479054c3c7e7e512a906226f7d19aeda1b3cd7c6",
+    "probe_models.py": "7230fcc231584c44f0346cf1211613cd9c4bd62366914ff0d14285fc7046df5f",
+    "probe_quality_gate.py": "0dab8b519c83fc08043d1c94d7cf2b15ef87af839084899e1b794564c74cab2e",
+    "probe_report.py": "d0ce62b3e252b498d2c7ff47e2fa4c5d323128a1b3b32bc54c75960243351bcf",
+    "probe_utils.py": "ec1288b1124fbc273372ae97a305a304681c973273a6fa42181699e4ee01d2ea"
+  },
+  "amendments": [
+    {
+      "date": "2026-09-13",
+      "stage": "llc",
+      "previous_digest": "8f532a5af98037bf25a7e0eab002523c2f36bd066d1362123f8c92cf0b24126b",
+      "new_digest": "70aa35fa930fc17b9b0213ac96600b0610ab7f6f4c505bb2957b10c4c3392c2f",
+      "changed_settings": [
+        "llc.calibration_candidates"
+      ],
+      "reason": "The configuration declared no LLC calibration candidates, so probe_calibration.calibrate fell back to its single default (learning_rate 3e-4, localization 1.0) and had one attempt. That attempt was rejected for leaving the trained basin, and the arithmetic shows the default cannot succeed: a Gaussian localization gamma holds a chain at radius sqrt(d/gamma), and with d = 1311233 and gamma = 1 that radius is 1145.09, matching the observed mean chain distance of 1145.5, while the preregistered basin limit is 0.25 * ||w|| = 3.55 for ||w|| = 14.209465026855469. Satisfying the basin criterion requires gamma >= 1.04e5. This amendment declares an ordered candidate grid over localization and learning rate, weakest localization first, before it is run. It changes no acceptance criterion: selection remains the declared mixing, basin, and axial-sensitivity checks, and the LLC value is never a selection criterion. If no candidate passes, LLC is reported as non-identifiable under the declared criteria.",
+      "affects_prior_stages": false,
+      "prior_result_superseded": "results/probe_experiments/knows_mdl_v5_balanced/qwen-qwen3-14b/llc_calibration rejected under the single default candidate; archived as llc_calibration_default_rejected_20260913"
+    },
+    {
+      "date": "2026-09-13",
+      "stage": "llc",
+      "previous_digest": "70aa35fa930fc17b9b0213ac96600b0610ab7f6f4c505bb2957b10c4c3392c2f",
+      "new_digest": "3f0a42422fb1fa1c6813f9647fe88ad403c645f7c93b0f7127d6ed495cee470e",
+      "changed_settings": [
+        "llc.calibration_candidates"
+      ],
+      "reason": "The first declared grid held the learning rate near its original value while raising localization by five orders of magnitude, and every one of its twelve candidates diverged within seconds. The step size must be coupled to gamma: the discretized localization step contracts by lr*gamma per step. A diagnostics-only stability probe on the calibration cell, run with 200 burn-in and 200 draws and inspecting only completion, chain distance and loss increase, placed the divergence boundary near lr*gamma = 1 -- at gamma 3e5 the chain completed for lr 1e-6, 1e-7, 1e-8 and returned NaN losses for lr 1e-5 and 3e-4, and at gamma 1e6 it completed for lr 1e-7 and below and returned NaN for lr 1e-6. The observed chain radii matched sqrt(d/gamma) throughout (2.17 observed against 2.09 predicted at gamma 3e5; 1.14 against 1.15 at gamma 1e6). This amendment replaces the grid with lr = c/gamma for c in 0.3, 0.03, 0.003 at each declared gamma, so that every candidate is numerically able to run. No acceptance criterion changed; the LLC value remains outside the selection rule.",
+      "affects_prior_stages": false,
+      "expected_outcome_declared_in_advance": "The same stability probe showed that in the basin-compliant regime the estimate sits at the noise floor and scales roughly as 1/gamma (LLC 1.16 at gamma 1e4, 0.073 at gamma 1e5, and between -0.012 and 0.05 at gamma 3e5 and above, against d/2 = 655616 for a regular model of this size), while chains that produce large positive estimates leave the basin (loss increase 1.1 to 3.9 nats at gamma 10 to 1e3 against a 0.05 limit). The declared axial-sensitivity check is therefore expected to reject every candidate. That rejection is the reportable result and must not be tuned away.",
+      "prior_result_superseded": "llc_calibration rejected under the uncoupled grid; archived as llc_calibration_uncoupled_grid_rejected_20260913"
+    }
+  ]
+}

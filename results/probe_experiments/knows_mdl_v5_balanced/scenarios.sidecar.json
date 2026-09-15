@@ -1,0 +1,43 @@
+{
+  "software": {
+    "python": "3.12.3",
+    "numpy": "2.5.2",
+    "pandas": "3.0.5",
+    "torch": "2.14.0+cu130",
+    "transformers": "5.16.1",
+    "sklearn": "1.9.0",
+    "yaml": "6.0.3"
+  },
+  "git_revision": "unknown",
+  "platform": "Linux-6.17.0-1014-nvidia-aarch64-with-glibc2.39",
+  "probe_source_hashes": {
+    "probe_bootstrap.py": "9fccf743ceae6200ac92d156662c9636c7bde41892f6dbaea0d3608819fcac94",
+    "probe_calibration.py": "0f6fec7da94a987fb65fb8c5ec1c10c77d2606cf3260d1c4c3de4934533f8a9b",
+    "probe_compress.py": "35694b33fcb1e0acf08970f623811f55e309b8841d11d2df0254e4b81fa2ac65",
+    "probe_controls.py": "001d6e955d56b0e296c90325094214c1a494a663761cd62fbea412393001e14e",
+    "probe_data.py": "8d201a25a15c2a621180cfc97377a716b87739114865e85a7b9129842ecbe749",
+    "probe_experiments.py": "33072768f0f7dd981e3ac4be62eb30a64f89040ef47ae07e5635d1521da9a1ce",
+    "probe_gate.py": "20c3e12bf06854c084c468061a3a44bc0ed6d77696a61ba24da89e0c68f06829",
+    "probe_hf.py": "60e681b16dcab63236fb76c9c550e93dddade9190d11a4cb7092da35196a375a",
+    "probe_id.py": "e70642af5aeefa68d1192b046f9afd6564fa9ba3bda4e563af8d04a670bf634d",
+    "probe_joint_refits.py": "ea52c872d9272fa52ae2c151221e934ea3a0e833a7458948f10b08c60bcc6227",
+    "probe_llc.py": "f9bdfed3476828b3991d817306f931b3a19d2d79b1f47d79916f8a78086da1d3",
+    "probe_mdl.py": "5f544e5a8952aea2a574360afd32b31d0ac1a440c148e704faa3d937098f0fd7",
+    "probe_models.py": "783d7097ae95f9e5be4a212f29f4bb9aa536e61ec5a4e2fb86dca786212885f3",
+    "probe_report.py": "d0ce62b3e252b498d2c7ff47e2fa4c5d323128a1b3b32bc54c75960243351bcf",
+    "probe_utils.py": "ec3c39170cd7848f229d3957fa8697f153b7a01ee6e9fbd3d1a4a634d63e8922"
+  },
+  "seed": 2026,
+  "factors": [
+    "truth",
+    "belief",
+    "evidence_source",
+    "reliable",
+    "defeater",
+    "gettier",
+    "guessing"
+  ],
+  "split_unit": "scenario_id",
+  "paraphrases_grouped": true,
+  "canonical_support_fraction": 0.24
+}

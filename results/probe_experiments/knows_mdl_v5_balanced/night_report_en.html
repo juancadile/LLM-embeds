@@ -1,0 +1,558 @@
+<title>Thirteen Kilobytes of Knowledge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    color-scheme: light;
+    --ground: #F2F4F3;
+    --surface: #FBFCFB;
+    --surface-sunk: #EAEEEC;
+    --ink: #16211F;
+    --ink-2: #3D4E4A;
+    --muted: #5F726E;
+    --hairline: #D5DEDA;
+    --hairline-strong: #B9C6C1;
+    --accent: #1F4E5F;
+    --accent-soft: #CFE0E4;
+    --moss: #33705A;
+    --clay: #A44F2E;
+    --amber: #7A6220;
+
+    --f-display: "Spectral", Georgia, "Times New Roman", serif;
+    --f-body: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+    --f-mono: "IBM Plex Mono", "SF Mono", Menlo, monospace;
+
+    --measure: 34rem;
+    --wide: 62rem;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --ground: #0D1514;
+      --surface: #14201E;
+      --surface-sunk: #101A19;
+      --ink: #E7EEEB;
+      --ink-2: #B9C9C4;
+      --muted: #8FA29E;
+      --hairline: #253330;
+      --hairline-strong: #364945;
+      --accent: #7FBDCB;
+      --accent-soft: #24414A;
+      --moss: #74B896;
+      --clay: #DD8F68;
+      --amber: #C9A94E;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --ground: #0D1514;
+    --surface: #14201E;
+    --surface-sunk: #101A19;
+    --ink: #E7EEEB;
+    --ink-2: #B9C9C4;
+    --muted: #8FA29E;
+    --hairline: #253330;
+    --hairline-strong: #364945;
+    --accent: #7FBDCB;
+    --accent-soft: #24414A;
+    --moss: #74B896;
+    --clay: #DD8F68;
+    --amber: #C9A94E;
+  }
+
+  * { box-sizing: border-box; }
+  body { background: var(--ground); color: var(--ink); font-family: var(--f-body); font-size: 16px; line-height: 1.6; padding-inline: 20px; padding-block: 0; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: var(--wide); margin: 0 auto; }
+  .col { max-width: var(--measure); }
+  p, ul, ol { margin: 0 0 1.1em; }
+  a { color: var(--accent); }
+  code { font-family: var(--f-mono); font-size: .92em; }
+
+  header.masthead { padding-block: 4.5rem 2.5rem; border-bottom: 1px solid var(--hairline-strong); }
+  .eyebrow { font-family: var(--f-mono); font-size: .72rem; letter-spacing: .13em; text-transform: uppercase; color: var(--muted); margin: 0 0 1.4rem; }
+  h1 { font-family: var(--f-display); font-weight: 600; font-size: clamp(2.5rem, 7vw, 4.1rem); line-height: 1.02; letter-spacing: -.02em; text-wrap: balance; margin: 0 0 1rem; }
+  .standfirst { font-family: var(--f-display); font-size: clamp(1.12rem, 2.4vw, 1.35rem); line-height: 1.5; color: var(--ink-2); max-width: 40rem; margin: 0; }
+  .meta { display: flex; flex-wrap: wrap; gap: 1.6rem 2.6rem; margin-top: 2.6rem; font-family: var(--f-mono); font-size: .78rem; }
+  .meta div { display: flex; flex-direction: column; gap: .25rem; }
+  .meta .k { color: var(--muted); text-transform: uppercase; letter-spacing: .09em; font-size: .68rem; }
+  .meta .v { color: var(--ink); font-variant-numeric: tabular-nums; }
+
+  section { padding-block: 3.4rem; border-bottom: 1px solid var(--hairline); }
+  section:last-of-type { border-bottom: 0; }
+  .sec-head { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 1.6rem; }
+  .sec-num { font-family: var(--f-mono); font-size: .74rem; color: var(--muted); letter-spacing: .1em; padding-top: .35rem; flex: none; }
+  h2 { font-family: var(--f-display); font-weight: 600; font-size: clamp(1.6rem, 3.6vw, 2.1rem); line-height: 1.15; letter-spacing: -.015em; margin: 0; text-wrap: balance; }
+  h3 { font-family: var(--f-body); font-weight: 600; font-size: 1rem; letter-spacing: .01em; margin: 2rem 0 .7rem; }
+  .lead { font-size: 1.06rem; color: var(--ink-2); }
+
+  .headline-figure { display: flex; flex-wrap: wrap; align-items: baseline; gap: .6rem 1.4rem; margin: 1.8rem 0 1.4rem; padding: 1.4rem 1.6rem; background: var(--surface); border: 1px solid var(--hairline); border-left: 3px solid var(--accent); }
+  .headline-figure .num { font-family: var(--f-display); font-size: clamp(2.2rem, 6vw, 3.2rem); font-weight: 600; line-height: 1; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+  .headline-figure .cap { font-size: .95rem; color: var(--ink-2); max-width: 26rem; }
+
+  figure { margin: 2rem 0; background: var(--surface); border: 1px solid var(--hairline); padding: 1.5rem 1.4rem 1.1rem; }
+  figure .fig-title { font-family: var(--f-body); font-weight: 600; font-size: .95rem; margin: 0 0 .25rem; }
+  figure .fig-sub { font-size: .85rem; color: var(--muted); margin: 0 0 1.2rem; max-width: 44rem; }
+  figcaption { font-size: .82rem; color: var(--muted); margin-top: 1rem; padding-top: .9rem; border-top: 1px solid var(--hairline); max-width: 44rem; }
+  .chart-scroll { overflow-x: auto; }
+  svg { display: block; max-width: 100%; height: auto; }
+  svg text { font-family: var(--f-mono); }
+  .legend { display: flex; flex-wrap: wrap; gap: .5rem 1.3rem; font-family: var(--f-mono); font-size: .74rem; color: var(--ink-2); margin-bottom: 1rem; }
+  .legend span { display: inline-flex; align-items: center; gap: .45rem; }
+  .swatch { width: 11px; height: 11px; border-radius: 2px; flex: none; }
+
+  .table-wrap { overflow-x: auto; margin: 1.4rem 0; }
+  table { border-collapse: collapse; width: 100%; font-size: .87rem; }
+  th, td { text-align: left; padding: .55rem .8rem .55rem 0; border-bottom: 1px solid var(--hairline); vertical-align: top; }
+  th { font-family: var(--f-mono); font-size: .7rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 500; white-space: nowrap; }
+  td.num, th.num { text-align: right; font-family: var(--f-mono); font-variant-numeric: tabular-nums; padding-right: 0; white-space: nowrap; }
+  tr.emph td { background: var(--accent-soft); font-weight: 500; }
+  tr.emph td:first-child { box-shadow: inset 3px 0 0 var(--accent); padding-left: .7rem; }
+  .rowlabel { font-weight: 500; }
+  .note { font-size: .82rem; color: var(--muted); }
+
+  .chip { display: inline-flex; align-items: center; gap: .4rem; font-family: var(--f-mono); font-size: .68rem; letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; padding: .18rem .5rem; border: 1px solid currentColor; border-radius: 2px; }
+  .chip.pass { color: var(--moss); }
+  .chip.fail { color: var(--clay); }
+  .chip.part { color: var(--amber); }
+  .chip.void { color: var(--muted); }
+  .chip .glyph { font-size: .8rem; line-height: 1; }
+
+  .callout { margin: 1.8rem 0; padding: 1.2rem 1.4rem; background: var(--surface-sunk); border: 1px solid var(--hairline); }
+  .callout h3 { margin-top: 0; }
+  .callout p:last-child { margin-bottom: 0; }
+  .callout.pending { border-left: 3px solid var(--accent); }
+
+  .claims { list-style: none; padding: 0; margin: 1.5rem 0 0; display: grid; gap: 1px; background: var(--hairline); border: 1px solid var(--hairline); }
+  .claims li { background: var(--surface); padding: 1rem 1.2rem; display: grid; grid-template-columns: auto 1fr; gap: .3rem 1rem; align-items: start; }
+  .claims .mark { font-family: var(--f-mono); font-size: .8rem; color: var(--accent); padding-top: .15rem; }
+  .claims strong { font-weight: 600; }
+  .claims p { margin: .3rem 0 0; font-size: .92rem; color: var(--ink-2); grid-column: 2; }
+
+  .tip { position: fixed; pointer-events: none; z-index: 20; background: var(--ink); color: var(--ground); font-family: var(--f-mono); font-size: .74rem; line-height: 1.45; padding: .45rem .6rem; border-radius: 3px; opacity: 0; transition: opacity .12s; max-width: 18rem; }
+  .tip.on { opacity: 1; }
+
+  footer { padding-block: 3rem 5rem; font-size: .82rem; color: var(--muted); }
+  footer code { color: var(--ink-2); }
+
+  @media (max-width: 640px) {
+    header.masthead { padding-block: 3rem 2rem; }
+    .sec-head { flex-direction: column; gap: .3rem; }
+    .sec-num { padding-top: 0; }
+    .claims li { grid-template-columns: 1fr; }
+    .claims p { grid-column: 1; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">Results report &#183; 14 September 2026 &#183; corrected version</p>
+  <h1>Thirteen Kilobytes of Knowledge</h1>
+  <p class="standfirst">How large is the rule by which Qwen3-14B decides whether someone knows something. We attempted four measures on its frozen representations; three produced usable estimates.</p>
+  <p class="note" style="margin-top:1rem">For the paper: &#8220;A 13 kB bound on Qwen3-14B's KNOWS rule&#8221;.</p>
+  <div class="meta">
+    <div><span class="k">Model</span><span class="v">Qwen3-14B</span></div>
+    <div><span class="k">Scenarios</span><span class="v">2,048 &#8594; 6,144 texts</span></div>
+    <div><span class="k">Common cohort</span><span class="v">4,970 ex. &#183; 1,022 groups</span></div>
+    <div><span class="k">Layers read</span><span class="v">40 + embedding</span></div>
+    <div><span class="k">Predictions</span><span class="v">11 &#183; 3 confirmed &#183; 3 partial &#183; 4 failed &#183; 1 not testable</span></div>
+  </div>
+</header>
+
+<section>
+  <div class="sec-head"><span class="sec-num">01</span><h2>The question, and why this way of answering it</h2></div>
+  <div class="col">
+    <p class="lead">The paper wants to put a number on the complexity of a concept. The reviewer's objection had two parts, and both point to the same place.</p>
+    <p>First: the 100 kB chain assumes parameters are incompressible. They are not &#8212; quantization and pruning are standard and lose almost no accuracy, so the naive bound is loose &#8220;by an order of magnitude&#8221; before the intrinsic-dimension move even enters.</p>
+    <p>Second, and more fundamentally: if you prompt an LLM as a classifier, the classifier <em>is</em> the whole model, and the upper bound on JUSTICE ends up being the size of GPT&#8209;4. That tells you nothing. The interesting version is something bounded &#8212; a small probe trained on the model's representations &#8212; where the size actually means something.</p>
+    <p>This report measures exactly that, across five epistemic predicates, with the model's own answers as ground truth. We are not measuring the human concept of knowledge; we are measuring how much it costs to extract, from the model's activations, <em>its own decision rule</em>.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="sec-num">02</span><h2>How it is measured</h2></div>
+  <div class="col"><p>Five steps, all with controls.</p></div>
+  <ol class="claims">
+    <li><span class="mark">i</span><strong>Scenario bank.</strong><p>2,048 epistemic situations in a factorial design &#8212; someone believes something, has such-and-such evidence, it turns out true or not, they got lucky or not &#8212; each rewritten in several paraphrases: 6,144 texts. Paraphrases of the same scenario never cross splits.</p></li>
+    <li><span class="mark">ii</span><strong>The model's own labels.</strong><p>Five yes/no questions per scenario: does she know? believe? is it true? is she justified? was it a lucky guess? Only answers stable under option order are retained.</p></li>
+    <li><span class="mark">iii</span><strong>Frozen activations.</strong><p>All 40 layers plus the embedding are read, with model and tokenizer revisions pinned and no truncation.</p></li>
+    <li><span class="mark">iv</span><strong>Tiny probes.</strong><p>Linear and 256-unit MLP, trained to predict the model's answers. If a small probe reproduces them, the rule is simple <em>relative to that representation</em>.</p></li>
+    <li><span class="mark">v</span><strong>Four size measures, three usable.</strong><p>Online codelength in the style of Voita&#8211;Titov (how many bits it costs to transmit the labels while learning as you go), intrinsic dimension by random subspace, and serialized bytes of the compressed probe. The fourth, the local learning coefficient, turned out not to be identifiable. Controls throughout: shuffled labels, shuffled representations, random projections.</p></li>
+  </ol>
+  <div class="col">
+    <p class="note" style="margin-top:1.6rem">The four hypotheses of this batch were written with numerical predictions and falsification criteria <em>before</em> anything was run, in <code>NIGHT_EXPERIMENTS.md</code>. There was no external time-stamped registry, so the exact wording is &#8220;prospectively prespecified predictions&#8221;, not &#8220;preregistration&#8221;. The predictions were left unedited; results and corrections were recorded beneath them.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="sec-num">03</span><h2>The bound: from 5.2 MB to 13 kB</h2></div>
+  <div class="headline-figure">
+    <span class="num">397&#215;</span>
+    <span class="cap">smaller than the naive description, retaining <strong>0.980</strong> macro-F1 on data never used to select anything.</span>
+  </div>
+  <div class="col">
+    <p>The starting point was a finding already in the data that had gone unnoticed: <strong>the linear probe is as cheap as or cheaper than the MLP for all five predicates</strong>. The rule is linearly decodable, so quoting the bound on a 1,311,233-parameter MLP overstates it.</p>
+    <p>An honest description has to be applicable to the <em>raw</em> activations. A probe trained on standardized inputs becomes one on raw inputs by folding mean and scale into its first affine layer &#8212; <code>w&#183;((x&#8722;m)/s)+b = (w/s)&#183;x + b'</code>, exact, verified at a maximum relative logit difference of 5.7&#183;10&#8315;&#8311;. Only <em>after</em> folding is it compressed, and compression is judged on raw activations.</p>
+    <p><strong>Where the 397&#215; comes from.</strong> Almost all of it comes from discovering that a linear probe suffices, not from quantization: going from the float32 MLP to the float32 linear probe gives 256&#215; (5,244,932 &#8594; 20,484); quantizing the linear probe gives a further 1.55&#215; (20,484 &#8594; 13,210). Compressing the MLP without changing architecture gives only 29.5&#215;. This does not weaken the result; it makes it more precise.</p>
+  </div>
+
+  <figure>
+    <p class="fig-title">Ladder of descriptions &#8212; KNOWS, layer 29</p>
+    <p class="fig-sub">Serialized payload of the map from raw activations to label, conditional on the declared probe format and decoder; it does not include the generic decoder code and does not identify model, layer or architecture. Median of five seeds. Log scale.</p>
+    <div class="chart-scroll"><svg id="ladder" viewBox="0 0 1000 260" role="img" aria-label="Ladder of description sizes, from 5,244,932 to 13,210 bytes"></svg></div>
+    <figcaption>The highlighted rung is the one the paper should cite. The d90 subspace is shown with the standardizer included, which is what is needed to apply it.</figcaption>
+  </figure>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Rung</th><th class="num">Base-probe parameters</th><th class="num">Stored values</th><th class="num">Bytes (median; range)</th><th class="num">Eval. macro-F1</th><th>Selected method</th></tr></thead>
+      <tbody>
+        <tr><td class="rowlabel">MLP float32</td><td class="num">1,311,233</td><td class="num">1,311,233</td><td class="num">5,244,932</td><td class="num">&#8212;</td><td class="note">folded, uncompressed</td></tr>
+        <tr><td class="rowlabel">MLP compressed</td><td class="num">1,311,233</td><td class="num">43,529 / 86,545</td><td class="num">177,506 (177,506&#8211;349,570)</td><td class="num">0.982</td><td class="note">SVD rank 8 (3 seeds) or 16 (2)</td></tr>
+        <tr><td class="rowlabel">MLP d90 subspace</td><td class="num">1,311,233</td><td class="num">1,024 + 10,240</td><td class="num">45,064</td><td class="num">&#8212;</td><td class="note">&#966; in d90 + per-predicate standardizer</td></tr>
+        <tr><td class="rowlabel">Linear float32</td><td class="num">5,121</td><td class="num">5,121</td><td class="num">20,484</td><td class="num">&#8212;</td><td class="note">folded, uncompressed</td></tr>
+        <tr class="emph"><td class="rowlabel">Linear compressed</td><td class="num">5,121</td><td class="num">5,121</td><td class="num">13,210 (8,089&#8211;13,210)</td><td class="num">0.980</td><td class="note">16-bit quantization (3 seeds) or 8-bit (2)</td></tr>
+        <tr><td class="rowlabel">Linear d90 subspace</td><td class="num">5,121</td><td class="num">512 + 10,240</td><td class="num">43,016</td><td class="num">&#8212;</td><td class="note">&#966; in d90 + per-predicate standardizer</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col">
+    <h3>Why 13 kB and not less</h3>
+    <p>The folded weights <code>w/s</code> have a much wider dynamic range than the standardized ones, so coarse quantization fails the declared acceptance rule (&#8804; 0.05 nats of loss and &#8804; 1 accuracy point on tuning). At 4 bits the probe collapses to the majority class (macro-F1 0.22). At 8 bits it sits right on the boundary: it passes for two seeds out of five, and for those two the payload drops to 8,089 bytes. At 16 bits it always passes. The median across the five seeds is 13,210 bytes; for the MLP, two seeds need rank 16 and rise to 349,570.</p>
+
+    <h3>The intrinsic-dimension move does not tighten the bound</h3>
+    <p>This is the uncomfortable result, and the one that would interest the reviewer most. The subspace <code>&#952;&#8320; + P&#183;&#966;</code> reconstructs a probe over <em>standardized</em> inputs and, unlike a direct probe, cannot absorb the standardizer: applying it requires the 40,960 bytes of mean and scale. With those, the linear subspace costs 43,016 bytes &#8212; more than twice the compressed linear probe, and more even than the uncompressed float32 linear probe (20,484). And the standardizer is fit per predicate on that predicate's own stable cohort, so it cannot be called shared overhead either: a design with a single per-layer standardizer would be a different experiment, which was not run.</p>
+
+    <div class="callout">
+      <h3>E1 fails on its own criterion</h3>
+      <p>The prespecified predictions said the experiment failed &#8220;if the subspace description does not beat direct compression&#8221;. It does not. The 397&#215; reduction survives as a result; the experiment as declared does not, and it stands as failed/mixed in the ledger. Two sub-predictions also failed: the compressed linear probe did not get below 10,000 B (13,210), and the linear probe's d90 was not &#8220;well below&#8221; 1,024 (512, a factor of two).</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="sec-num">04</span><h2>The composition: knowledge from two numbers</h2></div>
+  <div class="col">
+    <p class="lead">If the model's KNOWS were approximately a function of its own belief, justification and truth rules, then its knowledge labels should be cheap to code using only the outputs of those three probes.</p>
+    <p>They are. Three numbers cost 0.139 bits per label against 0.129 from the full 5,120 dimensions: a ratio of <strong>1.08</strong>, well inside the 1.5 ceiling I had declared. A nonlinear summary based on the JTB components preserves almost all of the codelength of the full representation.</p>
+    <p class="note">The features are out-of-fold logits from 5-fold cross-fitting over independent scenario groups: no example is scored by a probe that saw it, or saw any paraphrase of it.</p>
+  </div>
+
+  <figure>
+    <p class="fig-title">Cost of coding KNOWS by what the reader is given</p>
+    <p class="fig-sub">Bits per label, mean of five seeds, nonlinear readout. The line marks the cohort's marginal entropy (0.902 bits): at that height, the predictor knows nothing.</p>
+    <div class="legend">
+      <span><i class="swatch" style="background:var(--accent)"></i>condition</span>
+      <span><i class="swatch" style="background:var(--clay)"></i>control</span>
+    </div>
+    <div class="chart-scroll"><svg id="jtb" viewBox="0 0 1000 480" role="img" aria-label="Bits per label by condition, from 0.129 to 0.852"></svg></div>
+    <figcaption>Linear readout on the same three signals: 0.380 bits, ratio 3.18. The components are linearly present in the representation; a linear readout of these three logits does not match the nonlinear readout.</figcaption>
+  </figure>
+
+  <ul class="claims">
+    <li><span class="mark">&#8594;</span><strong>The composition is not additive.</strong><p>A linear probe reads KNOWS off the raw activations more cheaply than an MLP (0.119 versus 0.129). But on the three component signals, the linear readout costs 3.18&#215; and the nonlinear one 1.08&#215;. This is <em>compatible with</em> a conjunctive composition; it does not show that conjunction is the model's internal operation.</p></li>
+    <li><span class="mark">&#8594;</span><strong>Belief adds no detectable improvement &#8212; and its necessity is not identifiable.</strong><p>Justification + truth alone reach 0.139, tied with all three; belief alone (0.596) improves only marginally on a random three-dimensional projection (0.618), with no evidence of separation. But the cohort cannot separate the two readings: of the 1,701 examples with JUSTIFIED=1 and TRUE=1, exactly one has BELIEVES=0. With that collinearity there is no support on which an incremental effect of belief could show.</p></li>
+    <li><span class="mark">&#8594;</span><strong>The controls behave.</strong><p>Shuffled components land at 0.852, close to the marginal of 0.902 and far from the real components (0.139).</p></li>
+  </ul>
+
+  <div class="callout col">
+    <h3>Gettier: the prediction was not falsifiable, and two variables must be kept apart</h3>
+    <p>I predicted that residual cost would concentrate on the cases the model judges a lucky guess. The comparison turned out to be impossible: in the evaluation split, all 344 cases with <code>lucky_guessed = 1</code> have <code>knows = 0</code> without exception &#8212; marginal entropy exactly 0.0000 bits, against 0.9804 for the rest. A constant subset is cheaper than one with almost a bit of entropy whatever the probe does.</p>
+    <p>Moreover, two different things had been run together. <code>lucky_guessed = 1</code> is a <em>judgement the model produced</em> (1,563 examples in the cohort); <code>gettier = True</code> is a <em>factor of the scenario design</em> (418). On the 418 design-Gettier cases, the model grants knowledge in zero and calls 395 a lucky guess. On its own luck judgement, it grants knowledge in 2 of 1,563. Both show near-total exclusion of KNOWS, but they are not the same variable, and those cases show no higher decoding cost under this protocol; there is no evidence here of the human philosophical difficulty with them.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="sec-num">05</span><h2>Depth: two thirds of the way, and not the end</h2></div>
+  <div class="col">
+    <p>Every predicate reaches its minimum between layers 26 and 29 of 40 &#8212; between 65% and 72% of depth &#8212; under both probe kinds, ten cells out of ten. I had declared the 24&#8211;36 window and they fell in a three-layer band.</p>
+    <p>Five different epistemic predicates agreeing like this suggests that the depth is a property of the model's processing, not of the concept being decoded. The final layer is generally worse.</p>
+  </div>
+
+  <figure>
+    <p class="fig-title">Depth profile, linear probe</p>
+    <p class="fig-sub">Bits per label against layer. Shared scale across panels. The filled dot marks each predicate's minimum.</p>
+    <div class="chart-scroll"><svg id="depth" viewBox="0 0 1000 250" role="img" aria-label="Five panels of cost by layer, all with minimum between layers 26 and 29"></svg></div>
+    <figcaption>The embedding layer is off scale: it costs between 0.89 and 0.95 bits, essentially the marginal. KNOWS has the complete 40-layer sweep; the other four, a 15-point grid that places the minimum in the same spot. In the KNOWS panel the dot marks l26 because on the grid layers 26 and 29 tie (0.1514); the full sweep places the minimum at block28 (0.149), which is what the table uses.</figcaption>
+  </figure>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Predicate</th><th>Minimum layer</th><th class="num">Minimum</th><th class="num">Final layer</th><th class="num">Final / min.</th></tr></thead>
+      <tbody>
+        <tr><td class="rowlabel">believes</td><td>block29</td><td class="num">0.091</td><td class="num">0.145</td><td class="num">1.59</td></tr>
+        <tr><td class="rowlabel">justified</td><td>block26</td><td class="num">0.126</td><td class="num">0.191</td><td class="num">1.52</td></tr>
+        <tr><td class="rowlabel">true</td><td>block26</td><td class="num">0.122</td><td class="num">0.172</td><td class="num">1.41</td></tr>
+        <tr><td class="rowlabel">knows</td><td>block28</td><td class="num">0.149</td><td class="num">0.206</td><td class="num">1.38</td></tr>
+        <tr><td class="rowlabel">lucky_guessed</td><td>block26</td><td class="num">0.187</td><td class="num">0.250</td><td class="num">1.34</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note col">Partially failed prediction: I declared that the final layer would cost at least 1.4&#215; the minimum. It holds for all five with the MLP probe (1.53 to 1.99), but with the linear probe knows (1.38) and lucky_guessed (1.34) fall just short.</p>
+</section>
+
+<section>
+  <div class="sec-head"><span class="sec-num">06</span><h2>The ordering between concepts: two claims survive</h2></div>
+  <div class="col">
+    <p class="lead">The descriptive table suggested a complexity ordering among the five predicates. A paired bootstrap of 400 resamples of the scenario bank, with five probe seeds averaged per draw, decided which differences hold up under this procedure. The scope is limited: E3 compares normalized MDL with a linear probe at layer 29 on the common cohort; it does not measure absolute complexity or each predicate's own minimum.</p>
+  </div>
+  <div class="callout pending col">
+    <h3>The intervals from the first run were withdrawn</h3>
+    <p>External review found that the bootstrap resampled scenario groups with replacement but kept each copy's original identifier. The online coder then merged repeated copies as if they were a single group: on the coding split, of 720 sampled groups only about 455 distinct identifiers (63%) reached the coder. That changes the number of groups, the shuffle order and every prequential endpoint.</p>
+    <p><em>All</em> summaries produced by the defective bootstrap are withdrawn &#8212; medians, intervals and probabilities &#8212; because the defect altered the effective size, order and endpoints of every draw. The unresampled estimates remain as descriptive results. The defect is fixed at the root shared by the bootstrap and the joint-refit driver &#8212; every sampled copy now enters as its own group, with a regression test that checks it in every split.</p>
+    <p>A second review found that the corrected run was training the probe with <strong>a single seed</strong> (2026) per draw, although the protocol declares five. That run was kept as a control (its levels match the confirmatory run within 0.005; it only had wider intervals), and the confirmatory analysis was done to protocol: 400 draws &#215; five seeds, averaged per draw before building the ranking. What follows is that result.</p>
+  </div>
+
+  <h3 class="col">Confirmatory result: corrected bootstrap, five seeds</h3>
+  <div class="col">
+    <p>400 clean draws, each copy as its own group, five probe seeds averaged per draw before ranking. Zero degenerate resamples. Averaging the five fixed seeds estimates mean performance over them and reduces training variability; it does not incorporate all of it. The intervals are scenario-resampling intervals for that average, not a joint bootstrap over scenarios and seeds.</p>
+  </div>
+
+  <figure>
+    <p class="fig-title">Normalized MDL by predicate, 400 paired resamples &#215; 5 seeds</p>
+    <p class="fig-sub">Median and 95% interval on the cohort stable for all five predicates. Each draw resamples independent scenario groups within fixed splits; each sampled copy enters as its own group; all five predicates are evaluated on the same index vector.</p>
+    <div class="chart-scroll"><svg id="forest" viewBox="0 0 1000 300" role="img" aria-label="Normalized-MDL intervals by predicate, five seeds averaged per draw"></svg></div>
+    <figcaption>Five of ten paired differences have 95% intervals excluding zero: the four predicates against lucky_guessed (justified &#8722;0.083 [&#8722;0.126, &#8722;0.047]; believes &#8722;0.077 [&#8722;0.119, &#8722;0.037]; knows &#8722;0.066 [&#8722;0.110, &#8722;0.027]; true &#8722;0.074 [&#8722;0.115, &#8722;0.036]) and <strong>justified against knows</strong> (&#8722;0.017 [&#8722;0.029, &#8722;0.007], justified cheaper in 100% of draws). The other five pairs contain zero. Levels sit ~30% below those of the withdrawn run: merging duplicated groups had inflated every codelength.</figcaption>
+  </figure>
+
+  <div class="col">
+    <p>Cheapest: justified 61.8%, believes 31.0%, true 7.2%, knows 0%. Dearest: lucky_guessed <strong>100%</strong>. Three verdicts: the prediction about believes <strong>fails</strong> (31.0% against the declared 80%); the one about lucky_guessed <strong>holds</strong>; and the non-separation prediction for justification, knowledge and truth <strong>fails in part</strong>: justified is separated from knows for the seed average (&#8722;0.0168, 95% CI [&#8722;0.0288, &#8722;0.0065]; also at 99.5% [&#8722;0.0367, &#8722;0.0033]). The direction is the same in all five seeds (medians between &#8722;0.015 and &#8722;0.017, justified cheaper in 95&#8211;98% of draws), but the individual interval contains zero for three of them and touches zero for the other two. The separation is clear for the average, not for any single training run. The difference is small &#8212; 15% of the codelength, against the ~60% gap to lucky_guessed.</p>
+    <p><strong>What the study can claim about ordering</strong>, with intervals excluding zero under paired scenario resampling and five seeds: the <em>lucky-guess</em> rule is the most expensive to decode, and the <em>justification</em> rule is cheaper to decode than the <em>knowledge</em> rule. Belief, truth, knowledge and justification are not ranked among themselves beyond that; in particular, knowledge does not separate from belief or from truth &#8212; which does not show that they are equally complex, only that this measurement does not distinguish them.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="sec-num">07</span><h2>Negative results, plainly</h2></div>
+  <ul class="claims">
+    <li><span class="mark">&#215;</span><strong>Replication failed in both secondary models.</strong><p>Neither Qwen3-1.7B nor Llama-3.1-8B passes the prespecified threshold of 1,000 stable examples per class, for any of the five predicates. Llama produced 4,257 positives and <em>zero</em> stable negatives for KNOWS. With this prompt they say yes to almost everything, so the study speaks about Qwen3-14B and not about &#8220;language models&#8221;. The failure is informative about the labeling method, not about the complexity measure.</p></li>
+    <li><span class="mark">&#215;</span><strong>The local learning coefficient is not identifiable here.</strong><p>All twelve declared candidates were rejected. The standard mixing diagnostics are nominal (R-hat 0.999, ESS 4,000) and eleven of twelve stay inside the basin, but the estimate scales as 1/&#947;: it is an estimate of the localization prior, not of the local geometry. There is no plateau. It is reported as non-identifiable under the declared criteria, rather than tuned until it yields a number.</p></li>
+    <li><span class="mark">&#215;</span><strong>The Gettier test was not falsifiable as I wrote it.</strong><p>The luck subset has zero marginal entropy. See section 04.</p></li>
+  </ul>
+</section>
+
+<section>
+  <div class="sec-head"><span class="sec-num">08</span><h2>Corrections after external review</h2></div>
+  <div class="col"><p>An independent review of the first version of this report found two technical defects. Both were real and both affected central numbers.</p></div>
+  <ul class="claims">
+    <li><span class="mark">1</span><strong>The &#8220;5,357-byte&#8221; bound was not a valid description.</strong><p>The code verified that the standardizer could be folded, but when measuring size it simply deleted mean and scale from an artifact whose weights had been quantized in standardized space. Without the standardizer, that file could not be applied to raw activations. The correct procedure &#8212; fold, then compress, then evaluate on raw inputs &#8212; gives 13,210 bytes and 397&#215;, not 979&#215;. The same held for the compressed MLP, which ended at 177,506. The measuring function now refuses any artifact whose standardizer is not the identity, so the invalid measurement cannot be repeated.</p></li>
+    <li><span class="mark">2</span><strong>The bootstrap merged copies of the same group.</strong><p>See section 06. Fixed at the shared root; the 400 draws were repeated.</p></li>
+    <li><span class="mark">3</span><strong>The corrected bootstrap used a single probe seed.</strong><p>Second review. Each draw trained with seed 2026 although the protocol declares five. Multi-seed support with per-draw averaging before ranking was added; the protocol-conforming run (400 &#215; 5) reproduces the control's levels within 0.005 with narrower intervals, and is the one reported.</p></li>
+    <li><span class="mark">4</span><strong>Three interpretations softened.</strong><p>&#8220;Conjunction&#8221; became &#8220;compatible with a conjunctive composition&#8221;; &#8220;belief contributes nothing&#8221; became &#8220;no detectable improvement, necessity not identifiable&#8221; because of near-total collinearity; and the design factor <code>gettier</code> was separated from the model's judgement <code>lucky_guessed</code>.</p></li>
+  </ul>
+</section>
+
+<section>
+  <div class="sec-head"><span class="sec-num">09</span><h2>Prediction ledger</h2></div>
+  <div class="col"><p>The predictions were written before running, with numerical thresholds. E1's declared falsification criterion is added as its own row.</p></div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Exp.</th><th>Declared prediction</th><th>Result</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td class="rowlabel">E1</td><td>The bound drops ~3 orders of magnitude</td><td class="num">397&#215; (2.6 orders)</td><td><span class="chip part"><span class="glyph">&#9680;</span>partial</span></td></tr>
+        <tr><td class="rowlabel">E1</td><td>Compressed linear probe &lt; 10,000 B</td><td class="num">13,210 B</td><td><span class="chip fail"><span class="glyph">&#10007;</span>fails</span></td></tr>
+        <tr><td class="rowlabel">E1</td><td>Linear d90 well below 1,024</td><td class="num">512</td><td><span class="chip fail"><span class="glyph">&#10007;</span>fails</span></td></tr>
+        <tr><td class="rowlabel">E1</td><td>Declared criterion: the subspace beats direct compression</td><td class="num">43,016 vs 13,210 B</td><td><span class="chip fail"><span class="glyph">&#10007;</span>fails</span></td></tr>
+        <tr><td class="rowlabel">E2</td><td>KNOWS from 3 signals &#8804; 1.5&#215; the cost from 5,120</td><td class="num">1.08&#215;</td><td><span class="chip pass"><span class="glyph">&#10003;</span>confirmed</span></td></tr>
+        <tr><td class="rowlabel">E2</td><td>Residual cost concentrated on luck cases</td><td class="num">entropy 0.0000</td><td><span class="chip void"><span class="glyph">&#8212;</span>not testable</span></td></tr>
+        <tr><td class="rowlabel">E3</td><td>believes cheapest in &#8805; 80% of draws</td><td class="num">31.0%</td><td><span class="chip fail"><span class="glyph">&#10007;</span>fails</span></td></tr>
+        <tr><td class="rowlabel">E3</td><td>lucky_guessed dearest in &#8805; 80% of draws</td><td class="num">100%</td><td><span class="chip pass"><span class="glyph">&#10003;</span>confirmed</span></td></tr>
+        <tr><td class="rowlabel">E3</td><td>justified, knows and true not separated (paired 95% CIs contain 0)</td><td class="num">justified &lt; knows separated; the other two pairs not</td><td><span class="chip part"><span class="glyph">&#9680;</span>partial</span></td></tr>
+        <tr><td class="rowlabel">E4</td><td>Minimum between layers 24 and 36</td><td class="num">26&#8211;29, 10/10</td><td><span class="chip pass"><span class="glyph">&#10003;</span>confirmed</span></td></tr>
+        <tr><td class="rowlabel">E4</td><td>Final layer &#8805; 1.4&#215; the minimum</td><td class="num">2 of 5 below</td><td><span class="chip part"><span class="glyph">&#9680;</span>partial</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="sec-num">10</span><h2>What the paper can claim</h2></div>
+  <ul class="claims">
+    <li><span class="mark">1</span><strong>A bounded, measured bound.</strong><p>The rule by which this model decides whether someone knows something fits in a serialized payload of 13,210 bytes (median of five seeds; range 8,089&#8211;13,210) applicable to its raw activations under the declared format, with 0.980 macro-F1 on untouched data: 397 times less than the float32 MLP, of which 256&#215; from the switch to a linear probe and 1.55&#215; from quantization. It answers both parts of the reviewer's section 5: the naive bound was loose by two and a half orders of magnitude, and the bounded object does yield an informative number.</p></li>
+    <li><span class="mark">2</span><strong>Compact and essentially linear decoding.</strong><p>A 5,121-parameter linear probe reads KNOWS off the activations more cheaply than a 1.3-million-parameter MLP. The structure is there in nearly linear form.</p></li>
+    <li><span class="mark">3</span><strong>A nonlinear summary of the JTB components preserves almost all of the codelength.</strong><p>Three of the model's own epistemic scores suffice, and combining them requires a nonlinearity. Compatible with a conjunctive reading; not a demonstration of it. On belief, the design cannot decide.</p></li>
+    <li><span class="mark">4</span><strong>A caution about the section 3.1 move.</strong><p>Dimensionality reduction does not tighten the standalone bound once what is needed to apply it to raw activations is counted: even the uncompressed linear probe is smaller.</p></li>
+    <li><span class="mark">5</span><strong>Consistent minima between layers 26 and 29, final layer generally worse.</strong><p>Five predicates, two probe kinds, a three-layer band.</p></li>
+    <li><span class="mark">6</span><strong>Two ordering claims, and nothing more.</strong><p>Under paired resampling and five seeds: <em>lucky guess</em> is the most expensive rule to decode, and <em>justification</em> is cheaper than <em>knowledge</em>. Belief, truth, knowledge and justification are not ranked among themselves beyond that; not separating is not being equally complex.</p></li>
+    <li><span class="mark">7</span><strong>And explicit limits.</strong><p>One model, one scenario design, two failed replications, one non-identifiable measure, and three failed predictions plus one partial inside the bootstrap itself.</p></li>
+  </ul>
+</section>
+
+<footer class="col">
+  <p>Prespecified predictions, results and corrections in <code>NIGHT_EXPERIMENTS.md</code>; implementation audit in <code>PROBE_REVIEW.md</code>. Per-experiment artifacts in <code>results/probe_experiments/knows_mdl_v5_balanced/</code>: <code>bound_ladder/</code> (folded path, snapshot <code>analysis_v11</code>), <code>jtb_composition/</code>, <code>ordering_bootstrap/block29</code> (one seed, control) and <code>ordering_bootstrap/block29.seeds5</code> (five seeds, confirmatory, the one reported), and the per-layer cells. Invalidated outputs are kept in <code>audit_fix_20260913/superseded_night_20260914/</code>. Spanish original: <code>night_report.html</code>.</p>
+</footer>
+
+</div>
+
+<div class="tip" id="tip" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  "use strict";
+  var NS = "http://www.w3.org/2000/svg";
+  var css = function (n) { return getComputedStyle(document.documentElement).getPropertyValue(n).trim(); };
+  var tip = document.getElementById("tip");
+
+  function el(tag, attrs, text) {
+    var n = document.createElementNS(NS, tag);
+    for (var k in attrs) { n.setAttribute(k, attrs[k]); }
+    if (text !== undefined) { n.textContent = text; }
+    return n;
+  }
+  function hoverable(node, label) {
+    function move(e) {
+      tip.style.left = Math.min(e.clientX + 14, window.innerWidth - tip.offsetWidth - 10) + "px";
+      tip.style.top = Math.max(e.clientY - tip.offsetHeight - 12, 8) + "px";
+    }
+    node.addEventListener("pointerenter", function (e) { tip.textContent = label; tip.classList.add("on"); move(e); });
+    node.addEventListener("pointermove", move);
+    node.addEventListener("pointerleave", function () { tip.classList.remove("on"); });
+  }
+  var fmt = function (n) { return n.toLocaleString("en-US"); };
+  var dec = function (v, d) { return v.toFixed(d); };
+
+  /* ---------- 1. bound ladder, log scale ---------- */
+  (function () {
+    var svg = document.getElementById("ladder");
+    if (!svg) { return; }
+    var rows = [
+      { label: "MLP float32", v: 5244932 },
+      { label: "MLP compressed", v: 177506 },
+      { label: "Linear d90 subspace", v: 43016, dim: true },
+      { label: "Linear float32", v: 20484 },
+      { label: "Linear compressed", v: 13210, emph: true }
+    ];
+    var L = 250, R = 930, top = 56, step = 38, lo = 4, hi = 7;
+    var x = function (v) { return L + (Math.log(v) / Math.LN10 - lo) / (hi - lo) * (R - L); };
+    var ink = css("--ink"), muted = css("--muted"), hair = css("--hairline"), accent = css("--accent"), soft = css("--hairline-strong");
+    var ticks = [1e4, 1e5, 1e6, 1e7], names = ["10 kB", "100 kB", "1 MB", "10 MB"];
+    ticks.forEach(function (t, i) {
+      svg.appendChild(el("line", { x1: x(t), x2: x(t), y1: top - 22, y2: top + step * rows.length - 14, stroke: hair, "stroke-width": 1 }));
+      svg.appendChild(el("text", { x: x(t), y: top - 30, fill: muted, "font-size": 11, "text-anchor": "middle" }, names[i]));
+    });
+    rows.forEach(function (r, i) {
+      var y = top + i * step;
+      svg.appendChild(el("text", { x: L - 16, y: y + 4, fill: r.emph ? ink : muted, "font-size": 12.5, "text-anchor": "end", "font-weight": r.emph ? 600 : 400 }, r.label));
+      svg.appendChild(el("line", { x1: L, x2: x(r.v), y1: y, y2: y, stroke: r.emph ? accent : soft, "stroke-width": r.emph ? 2 : 1, opacity: r.dim ? 0.45 : 1 }));
+      var dot = el("circle", { cx: x(r.v), cy: y, r: r.emph ? 7 : 5, fill: r.emph ? accent : (r.dim ? "none" : ink), stroke: r.dim ? soft : "none", "stroke-width": 2 });
+      svg.appendChild(dot);
+      svg.appendChild(el("text", { x: x(r.v) + 14, y: y + 4, fill: r.emph ? accent : muted, "font-size": 12, "font-weight": r.emph ? 600 : 400 }, fmt(r.v) + " B"));
+      hoverable(dot, r.label + " \u00b7 " + fmt(r.v) + " bytes");
+    });
+  })();
+
+  /* ---------- 2. JTB conditions ---------- */
+  (function () {
+    var svg = document.getElementById("jtb");
+    if (!svg) { return; }
+    var rows = [
+      { label: "Full representation (5,120)", v: 0.129 },
+      { label: "Justification + truth (2)", v: 0.139, emph: true },
+      { label: "Belief + justification + truth (3)", v: 0.139, emph: true },
+      { label: "All three + luck (4)", v: 0.140 },
+      { label: "Justification alone", v: 0.142 },
+      { label: "Belief + justification", v: 0.143 },
+      { label: "Belief + truth", v: 0.155 },
+      { label: "Truth alone", v: 0.159 },
+      { label: "Belief alone", v: 0.596 },
+      { label: "Random 3-dim projection", v: 0.618, ctrl: true },
+      { label: "Luck alone", v: 0.720 },
+      { label: "Shuffled components", v: 0.852, ctrl: true }
+    ];
+    var L = 300, R = 930, top = 34, step = 34, maxv = 0.95;
+    var x = function (v) { return L + v / maxv * (R - L); };
+    var ink = css("--ink"), muted = css("--muted"), hair = css("--hairline"), accent = css("--accent"), clay = css("--clay"), soft = css("--hairline-strong");
+    [0, 0.2, 0.4, 0.6, 0.8].forEach(function (t) {
+      svg.appendChild(el("line", { x1: x(t), x2: x(t), y1: top - 18, y2: top + step * rows.length - 12, stroke: hair, "stroke-width": 1 }));
+      svg.appendChild(el("text", { x: x(t), y: top - 26, fill: muted, "font-size": 11, "text-anchor": "middle" }, dec(t, 1)));
+    });
+    var marg = 0.902;
+    svg.appendChild(el("line", { x1: x(marg), x2: x(marg), y1: top - 18, y2: top + step * rows.length - 12, stroke: soft, "stroke-width": 1.5, "stroke-dasharray": "4 4" }));
+    svg.appendChild(el("text", { x: x(marg), y: top + step * rows.length + 4, fill: muted, "font-size": 10.5, "text-anchor": "end" }, "marginal 0.902"));
+    rows.forEach(function (r, i) {
+      var y = top + i * step;
+      var color = r.ctrl ? clay : accent;
+      svg.appendChild(el("text", { x: L - 16, y: y + 4, fill: r.emph ? ink : muted, "font-size": 12.5, "text-anchor": "end", "font-weight": r.emph ? 600 : 400 }, r.label));
+      var bar = el("rect", { x: L, y: y - 8, width: Math.max(x(r.v) - L, 2), height: 16, rx: 3, fill: color, opacity: r.emph ? 1 : (r.ctrl ? 0.8 : 0.55) });
+      svg.appendChild(bar);
+      svg.appendChild(el("text", { x: x(r.v) + 10, y: y + 4, fill: r.emph ? ink : muted, "font-size": 11.5, "font-weight": r.emph ? 600 : 400 }, dec(r.v, 3)));
+      hoverable(bar, r.label + " \u00b7 " + dec(r.v, 3) + " bits/label");
+    });
+  })();
+
+  /* ---------- 3. depth small multiples ---------- */
+  (function () {
+    var svg = document.getElementById("depth");
+    if (!svg) { return; }
+    var depths = [4, 8, 10, 12, 16, 20, 24, 26, 29, 30, 32, 34, 36, 40];
+    var series = [
+      { name: "believes", v: [0.1583, 0.1728, 0.1845, 0.1600, 0.1570, 0.1101, 0.0967, 0.0927, 0.0911, 0.0960, 0.1043, 0.0995, 0.1208, 0.1448] },
+      { name: "justified", v: [0.3213, 0.3462, 0.3311, 0.2853, 0.2234, 0.1674, 0.1394, 0.1258, 0.1289, 0.1370, 0.1496, 0.1523, 0.1691, 0.1910] },
+      { name: "true", v: [0.3055, 0.3066, 0.3112, 0.2681, 0.2262, 0.1607, 0.1319, 0.1224, 0.1248, 0.1293, 0.1302, 0.1315, 0.1489, 0.1721] },
+      { name: "knows", v: [0.3420, 0.3486, 0.3500, 0.3109, 0.2552, 0.1914, 0.1594, 0.1514, 0.1514, 0.1532, 0.1631, 0.1682, 0.1834, 0.2059] },
+      { name: "lucky_guessed", v: [0.3499, 0.3459, 0.3453, 0.3396, 0.2840, 0.2256, 0.1894, 0.1867, 0.1885, 0.1962, 0.2050, 0.2045, 0.2191, 0.2495] }
+    ];
+    var pw = 178, gap = 20, top = 46, ph = 128, lo = 0.07, hi = 0.37;
+    var ink = css("--ink"), muted = css("--muted"), hair = css("--hairline"), accent = css("--accent"), surface = css("--surface");
+    series.forEach(function (s, si) {
+      var ox = 26 + si * (pw + gap);
+      var x = function (d) { return ox + (d - 4) / 36 * pw; };
+      var y = function (v) { return top + ph - (v - lo) / (hi - lo) * ph; };
+      svg.appendChild(el("text", { x: ox, y: top - 22, fill: ink, "font-size": 12, "font-weight": 500 }, s.name));
+      [0.1, 0.2, 0.3].forEach(function (g) {
+        svg.appendChild(el("line", { x1: ox, x2: ox + pw, y1: y(g), y2: y(g), stroke: hair, "stroke-width": 1 }));
+        if (si === 0) { svg.appendChild(el("text", { x: ox - 8, y: y(g) + 3.5, fill: muted, "font-size": 10, "text-anchor": "end" }, dec(g, 1))); }
+      });
+      var d = s.v.map(function (v, i) { return (i ? "L" : "M") + x(depths[i]).toFixed(1) + " " + y(v).toFixed(1); }).join(" ");
+      svg.appendChild(el("path", { d: d, fill: "none", stroke: accent, "stroke-width": 2, "stroke-linejoin": "round", "stroke-linecap": "round" }));
+      var mi = s.v.indexOf(Math.min.apply(null, s.v));
+      svg.appendChild(el("circle", { cx: x(depths[mi]), cy: y(s.v[mi]), r: 4.5, fill: accent, stroke: surface, "stroke-width": 2 }));
+      svg.appendChild(el("text", { x: x(depths[mi]), y: y(s.v[mi]) + 19, fill: accent, "font-size": 10.5, "text-anchor": "middle", "font-weight": 500 }, "l" + depths[mi]));
+      s.v.forEach(function (v, i) {
+        var hit = el("circle", { cx: x(depths[i]), cy: y(v), r: 8, fill: "transparent" });
+        hoverable(hit, s.name + " \u00b7 layer " + depths[i] + " \u00b7 " + dec(v, 3) + " bits");
+        svg.appendChild(hit);
+      });
+      [4, 20, 40].forEach(function (t) {
+        svg.appendChild(el("text", { x: x(t), y: top + ph + 18, fill: muted, "font-size": 10, "text-anchor": "middle" }, String(t)));
+      });
+    });
+    svg.appendChild(el("text", { x: 26, y: top + ph + 38, fill: muted, "font-size": 10.5 }, "layer"));
+  })();
+
+  /* ---------- 4. ordering forest, five-seed confirmatory ---------- */
+  (function () {
+    var svg = document.getElementById("forest");
+    if (!svg) { return; }
+    var rows = [
+      { name: "justified", m: 0.0966, lo: 0.0814, hi: 0.1149 },
+      { name: "believes", m: 0.1039, lo: 0.0816, hi: 0.1265 },
+      { name: "true", m: 0.1071, lo: 0.0891, hi: 0.1282 },
+      { name: "knows", m: 0.1131, lo: 0.0956, hi: 0.1373 },
+      { name: "lucky_guessed", m: 0.1796, lo: 0.1497, hi: 0.2212, emph: true }
+    ];
+    var L = 200, R = 920, top = 62, step = 42, xlo = 0.05, xhi = 0.27;
+    var x = function (v) { return L + (v - xlo) / (xhi - xlo) * (R - L); };
+    var ink = css("--ink"), muted = css("--muted"), hair = css("--hairline"), accent = css("--accent"), soft = css("--hairline-strong"), surface = css("--surface");
+    [0.05, 0.10, 0.15, 0.20, 0.25].forEach(function (t) {
+      svg.appendChild(el("line", { x1: x(t), x2: x(t), y1: top - 24, y2: top + step * rows.length - 18, stroke: hair, "stroke-width": 1 }));
+      svg.appendChild(el("text", { x: x(t), y: top - 32, fill: muted, "font-size": 11, "text-anchor": "middle" }, dec(t, 2)));
+    });
+    svg.appendChild(el("text", { x: L, y: top + step * rows.length + 6, fill: muted, "font-size": 10.5 }, "normalized MDL (fraction of the marginal code), mean of 5 seeds per draw"));
+    rows.forEach(function (r, i) {
+      var y = top + i * step;
+      svg.appendChild(el("text", { x: L - 18, y: y + 4, fill: r.emph ? ink : muted, "font-size": 12.5, "text-anchor": "end", "font-weight": r.emph ? 600 : 400 }, r.name));
+      var c = r.emph ? accent : soft;
+      svg.appendChild(el("line", { x1: x(r.lo), x2: x(r.hi), y1: y, y2: y, stroke: c, "stroke-width": r.emph ? 3 : 2.5, "stroke-linecap": "round" }));
+      svg.appendChild(el("line", { x1: x(r.lo), x2: x(r.lo), y1: y - 6, y2: y + 6, stroke: c, "stroke-width": 1.5 }));
+      svg.appendChild(el("line", { x1: x(r.hi), x2: x(r.hi), y1: y - 6, y2: y + 6, stroke: c, "stroke-width": 1.5 }));
+      var dot = el("circle", { cx: x(r.m), cy: y, r: r.emph ? 6.5 : 5.5, fill: r.emph ? accent : ink, stroke: surface, "stroke-width": 2 });
+      svg.appendChild(dot);
+      svg.appendChild(el("text", { x: x(r.hi) + 14, y: y + 4, fill: muted, "font-size": 11.5 }, dec(r.m, 3)));
+      hoverable(dot, r.name + " \u00b7 median " + dec(r.m, 4) + " \u00b7 95% CI [" + dec(r.lo, 4) + " \u2013 " + dec(r.hi, 4) + "]");
+    });
+  })();
+})();
+</script>

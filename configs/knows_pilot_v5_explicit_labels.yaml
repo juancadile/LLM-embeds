@@ -1,0 +1,28 @@
+# Label-only prompt-validation pilot; factors and seed match v4.
+experiment_name: knows_pilot_v5_explicit_labels
+seed: 2026
+seeds: [2026]
+output_dir: results/probe_experiments/knows_pilot_v5_explicit_labels
+models:
+  primary: Qwen/Qwen3-1.7B
+  replications: []
+  revisions:
+    Qwen/Qwen3-1.7B: 70d244cc86ccca08cf5af4e1e306ecf908b1ad5e
+predicates: [knows]
+data:
+  n_scenarios: 128
+  paraphrases: 3
+  stable_probability: 0.8
+  split: {tune: 0.10, coding: 0.70, evaluation: 0.20}
+labels:
+  prompt_version: knows-forced-choice-v3-explicit-mapping
+  prompt_variant: explicit_mapping
+  format: chat
+extract:
+  batch_size: 1
+  dtype: float32
+  device: cuda
+  layers: [emb, p25, p50, p75, final]
+  pooling: [last, mean]
+  question_only_controls: true
+  store_all_layers_for_primary: false

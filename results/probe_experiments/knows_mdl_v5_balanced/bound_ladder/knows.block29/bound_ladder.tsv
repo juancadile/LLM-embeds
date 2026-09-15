@@ -1,0 +1,7 @@
+rung	probe	parameters	standalone_bytes	bytes_if_standardizer_shared	evaluation_macro_f1
+mlp_float32	mlp	1311233	5244932.0	5244932.0	
+mlp_compressed	mlp	1311233	177506.0	177506.0	0.9822770958000758
+mlp_subspace_d90	mlp	1024	45064.0	4104.0	
+linear_float32	linear	5121	20484.0	20484.0	
+linear_compressed	linear	5121	13210.0	13210.0	0.9803737389591486
+linear_subspace_d90	linear	512	43016.0	2056.0	

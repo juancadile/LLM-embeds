@@ -1,0 +1,247 @@
+{
+  "selection_rule": "lowest mean total_bits/marginal_bits among declared five-depth MLP cells",
+  "gate_rule": "selected mean evaluation macro-F1 and paired-seed mean shuffled-label improvement",
+  "minimum_macro_f1": 0.75,
+  "minimum_shuffled_label_improvement": 0.1,
+  "selected_layer": "p75",
+  "passed": true,
+  "layers": [
+    {
+      "layer": "emb",
+      "pool": "last",
+      "seeds": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "normalized_mdl_mean": 1.001818113082067,
+      "normalized_mdl_by_seed": [
+        1.0029826039180472,
+        1.000388901876096,
+        1.0058374328991695,
+        0.9995616170622601,
+        1.0003200096547618
+      ],
+      "bits_per_label_mean": 0.8747945682068018,
+      "macro_f1_mean": 0.43642611683848803,
+      "macro_f1_by_seed": [
+        0.436426116838488,
+        0.436426116838488,
+        0.436426116838488,
+        0.436426116838488,
+        0.436426116838488
+      ],
+      "shuffled_label_improvement_mean": 0.0028863250919271,
+      "shuffled_label_improvement_by_seed": [
+        0.006416190387180998,
+        0.004617339088542338,
+        -0.0005840150746485584,
+        0.003977089141577683,
+        5.021916983038999e-06
+      ],
+      "shuffled_representation_improvement_mean": 0.0,
+      "shuffled_representation_improvement_by_seed": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "layer": "p25",
+      "pool": "last",
+      "seeds": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "normalized_mdl_mean": 0.29067649593392025,
+      "normalized_mdl_by_seed": [
+        0.33582203468453004,
+        0.29371869733905726,
+        0.27930246659129127,
+        0.24259260729147272,
+        0.3019466737632499
+      ],
+      "bits_per_label_mean": 0.25382074493151985,
+      "macro_f1_mean": 0.9852309455156065,
+      "macro_f1_by_seed": [
+        0.9875693000693,
+        0.9912386953985708,
+        0.9837290057402026,
+        0.9810682477574888,
+        0.9825494786124708
+      ],
+      "shuffled_label_improvement_mean": 0.7731491808943207,
+      "shuffled_label_improvement_by_seed": [
+        0.7441746696049008,
+        0.778141931254138,
+        0.7843931032812566,
+        0.7986497838494174,
+        0.7603864164818908
+      ],
+      "shuffled_representation_improvement_mean": 0.7717291719223314,
+      "shuffled_representation_improvement_by_seed": [
+        0.7389696259729956,
+        0.7690951311884198,
+        0.7832740441618484,
+        0.8031327301583162,
+        0.7641743281300768
+      ]
+    },
+    {
+      "layer": "p50",
+      "pool": "last",
+      "seeds": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "normalized_mdl_mean": 0.199147441871257,
+      "normalized_mdl_by_seed": [
+        0.25136870995469063,
+        0.19692793740547998,
+        0.19373984967967722,
+        0.16665201386213582,
+        0.1870486984543014
+      ],
+      "bits_per_label_mean": 0.173896936126752,
+      "macro_f1_mean": 0.9841897018006931,
+      "macro_f1_by_seed": [
+        0.9825494786124708,
+        0.9861940637097824,
+        0.9824043581838564,
+        0.9836838934751972,
+        0.9861167150221586
+      ],
+      "shuffled_label_improvement_mean": 0.8409847323635538,
+      "shuffled_label_improvement_by_seed": [
+        0.8037358307893074,
+        0.8389822178611623,
+        0.846156240074667,
+        0.8644598060666425,
+        0.8515895670259891
+      ],
+      "shuffled_representation_improvement_mean": 0.8405586228190091,
+      "shuffled_representation_improvement_by_seed": [
+        0.8041023001893661,
+        0.8485380871054778,
+        0.8445802709961817,
+        0.8606950059388012,
+        0.8448774498652186
+      ]
+    },
+    {
+      "layer": "p75",
+      "pool": "last",
+      "seeds": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "normalized_mdl_mean": 0.17766314455663706,
+      "normalized_mdl_by_seed": [
+        0.21361406685522646,
+        0.17918059589697855,
+        0.16657547750967402,
+        0.157203876768167,
+        0.1717417057531393
+      ],
+      "bits_per_label_mean": 0.15513669776896344,
+      "macro_f1_mean": 0.986700130344697,
+      "macro_f1_by_seed": [
+        0.9861555581136564,
+        0.9825015242574688,
+        0.9874316844170404,
+        0.9874665374016866,
+        0.9899453475336324
+      ],
+      "shuffled_label_improvement_mean": 0.8606768670092257,
+      "shuffled_label_improvement_by_seed": [
+        0.8267562724159293,
+        0.8597863969110846,
+        0.8700817824033802,
+        0.8796273183486206,
+        0.8671325649671139
+      ],
+      "shuffled_representation_improvement_mean": 0.862289687478689,
+      "shuffled_representation_improvement_by_seed": [
+        0.8409390632555097,
+        0.863195949624855,
+        0.869512624660869,
+        0.8760192012574637,
+        0.8617815985947467
+      ]
+    },
+    {
+      "layer": "final",
+      "pool": "last",
+      "seeds": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "normalized_mdl_mean": 0.27801219665094684,
+      "normalized_mdl_by_seed": [
+        0.28722957292072365,
+        0.29250197103886033,
+        0.30486603942443774,
+        0.24637977739324554,
+        0.25908362247746686
+      ],
+      "bits_per_label_mean": 0.24276219041127148,
+      "macro_f1_mean": 0.985926102574814,
+      "macro_f1_by_seed": [
+        0.987396526359704,
+        0.9798344421755264,
+        0.988735465512448,
+        0.9849598448820238,
+        0.9887042339443672
+      ],
+      "shuffled_label_improvement_mean": 0.8066883426788698,
+      "shuffled_label_improvement_by_seed": [
+        0.8087949931982144,
+        0.793901309246063,
+        0.7838130036521981,
+        0.8355703311343976,
+        0.8113620761634758
+      ],
+      "shuffled_representation_improvement_mean": 0.8033897952679411,
+      "shuffled_representation_improvement_by_seed": [
+        0.7924713870429648,
+        0.7960096882012528,
+        0.7987911002558238,
+        0.8177492043594079,
+        0.8119275964802566
+      ]
+    }
+  ],
+  "cells_root": "/home/forestzhang001/knows-mdl-v5-balanced/results/probe_experiments/knows_mdl_v5_balanced/qwen-qwen3-14b/cells/knows",
+  "gate_source_sha256": "c1b68a01449704d8d05a56c4479054c3c7e7e512a906226f7d19aeda1b3cd7c6",
+  "software": {
+    "python": "3.12.3",
+    "numpy": "2.5.2",
+    "pandas": "3.0.5",
+    "torch": "2.14.0+cu130",
+    "transformers": "5.16.1",
+    "sklearn": "1.9.0",
+    "yaml": "6.0.3"
+  },
+  "git_revision": "unknown",
+  "platform": "Linux-6.17.0-1014-nvidia-aarch64-with-glibc2.39",
+  "probe_source_hashes": {
+    "probe_mdl_gate.py": "c1b68a01449704d8d05a56c4479054c3c7e7e512a906226f7d19aeda1b3cd7c6",
+    "probe_utils.py": "ec3c39170cd7848f229d3957fa8697f153b7a01ee6e9fbd3d1a4a634d63e8922"
+  }
+}

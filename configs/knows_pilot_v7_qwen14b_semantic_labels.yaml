@@ -1,0 +1,28 @@
+# Primary-model label pilot using counterbalanced semantic Yes/No strings.
+experiment_name: knows_pilot_v7_qwen14b_semantic_labels
+seed: 2026
+seeds: [2026]
+output_dir: results/probe_experiments/knows_pilot_v7_qwen14b_semantic_labels
+models:
+  primary: Qwen/Qwen3-14B
+  replications: []
+  revisions:
+    Qwen/Qwen3-14B: 40c069824f4251a91eefaf281ebe4c544efd3e18
+predicates: [knows]
+data:
+  n_scenarios: 128
+  paraphrases: 3
+  stable_probability: 0.8
+  split: {tune: 0.10, coding: 0.70, evaluation: 0.20}
+labels:
+  prompt_version: knows-forced-choice-v4-semantic-tokens
+  prompt_variant: semantic_tokens
+  format: chat
+extract:
+  batch_size: 1
+  dtype: float32
+  device: cuda
+  layers: [emb, p25, p50, p75, final]
+  pooling: [last, mean]
+  question_only_controls: true
+  store_all_layers_for_primary: false

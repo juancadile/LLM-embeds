@@ -1,0 +1,12 @@
+# Separate environment for the epistemic probing pipeline; the frozen 2022
+# environment.yml remains the reproducibility environment for the embedding rerun.
+numpy>=1.26,<3
+pandas>=2.1,<3
+pyarrow>=14
+PyYAML>=6
+scikit-learn>=1.4
+scipy>=1.10
+torch>=2.1
+transformers>=4.51
+accelerate>=0.30
+sentencepiece>=0.2

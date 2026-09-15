@@ -1,0 +1,4 @@
+# Install in a separate LLC environment after requirements-probe.txt. DevInterp
+# is pinned because its v2 API is explicitly under active development.
+-r requirements-probe.txt
+devinterp @ git+https://github.com/timaeus-research/devinterp.git@fbbf4c54e1f6ee46acb149f004df261fb05055c6
