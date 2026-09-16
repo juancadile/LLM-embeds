@@ -153,6 +153,9 @@
     .claims p { grid-column: 1; }
   }
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+  .bluf { padding-block: 2.6rem; }
+  .bluf .claims li { padding: .85rem 1.2rem; }
+  .bluf .claims .mark { color: var(--muted); }
 </style>
 
 <div class="wrap">
@@ -170,6 +173,19 @@
     <div><span class="k">Predicciones</span><span class="v">11 &#183; 3 confirmadas &#183; 3 parciales &#183; 4 falladas &#183; 1 no evaluable</span></div>
   </div>
 </header>
+
+<section class="bluf">
+  <div class="sec-head"><span class="sec-num">EN UNA P&#193;GINA</span><h2>Qu&#233; hicimos y qu&#233; muestra</h2></div>
+  <ul class="claims">
+    <li><span class="mark">&#8226;</span><strong>Conexi&#243;n con el paper de Jens.</strong><p>Pusimos a prueba emp&#237;ricamente su idea de que un clasificador da una cota superior constructiva del tama&#241;o de la regla de decisi&#243;n de un concepto.</p></li>
+    <li><span class="mark">&#8226;</span><strong>Qu&#233; entrenamos.</strong><p>Probes chicos sobre las activaciones internas extra&#237;das de Qwen3-14B, usando los propios juicios de s&#237;/no de Qwen como etiquetas objetivo &#8212; no su texto de respuesta como entrada.</p></li>
+    <li><span class="mark">&#8226;</span><strong>Separaci&#243;n entre entradas y etiquetas.</strong><p>Las activaciones vienen de una pasada aparte, solo con el texto del escenario: sin la pregunta del predicado, sin las opciones de respuesta, sin la respuesta generada. Qwen permaneci&#243; congelado.</p></li>
+    <li><span class="mark">&#8226;</span><strong>Resultado principal.</strong><p>Un probe lineal reprodujo los juicios KNOWS de Qwen con 0,980 de macro-F1, con un payload comprimido de 13.210 bytes (mediana de cinco semillas).</p></li>
+    <li><span class="mark">&#8226;</span><strong>Qu&#233; significa esa cota.</strong><p>Es condicional a que las representaciones preentrenadas de Qwen est&#233;n disponibles. Acota un decodificador aproximado de los juicios de Qwen, no la complejidad absoluta del conocimiento humano.</p></li>
+    <li><span class="mark">&#8226;</span><strong>Otras mediciones.</strong><p>Las descripciones por dimensi&#243;n intr&#237;nseca no superaron a la compresi&#243;n directa una vez contado el preprocesamiento. El MDL online mide extractabilidad de etiquetas y eficiencia de aprendizaje &#8212; una cantidad complementaria, no el tama&#241;o del clasificador.</p></li>
+    <li><span class="mark">&#8226;</span><strong>En una l&#237;nea.</strong><p>Esto es una implementaci&#243;n concreta y una prueba de estr&#233;s de la propuesta del clasificador-como-cota de Jens, con l&#237;mites expl&#237;citos sobre lo que el n&#250;mero resultante puede afirmar.</p></li>
+  </ul>
+</section>
 
 <section>
   <div class="sec-head"><span class="sec-num">01</span><h2>La pregunta, y por qu&#233; esta forma de responderla</h2></div>

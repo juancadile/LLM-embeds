@@ -143,6 +143,9 @@
     .claims p { grid-column: 1; }
   }
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+  .bluf { padding-block: 2.6rem; }
+  .bluf .claims li { padding: .85rem 1.2rem; }
+  .bluf .claims .mark { color: var(--muted); }
 </style>
 
 <div class="wrap">
@@ -160,6 +163,19 @@
     <div><span class="k">Predictions</span><span class="v">11 &#183; 3 confirmed &#183; 3 partial &#183; 4 failed &#183; 1 not testable</span></div>
   </div>
 </header>
+
+<section class="bluf">
+  <div class="sec-head"><span class="sec-num">BOTTOM LINE UP FRONT</span><h2>What we did and what it shows</h2></div>
+  <ul class="claims">
+    <li><span class="mark">&#8226;</span><strong>Connection to Jens's paper.</strong><p>We empirically tested its idea that a classifier provides a constructive upper bound on the size of a concept's decision rule.</p></li>
+    <li><span class="mark">&#8226;</span><strong>What we trained.</strong><p>Small probes on Qwen3-14B's extracted internal activations, using Qwen's own yes/no judgments as target labels &#8212; not its answer text as input.</p></li>
+    <li><span class="mark">&#8226;</span><strong>Separation of inputs and labels.</strong><p>Activations came from a separate scenario-only pass, with no predicate question, answer choices, or generated answer present. Qwen remained frozen.</p></li>
+    <li><span class="mark">&#8226;</span><strong>Main result.</strong><p>A linear probe reproduced Qwen's KNOWS judgments with 0.980 macro-F1, using a compressed payload of 13,210 bytes (median of five seeds).</p></li>
+    <li><span class="mark">&#8226;</span><strong>What that bound means.</strong><p>It is conditional on Qwen's pretrained representations being available. It bounds an approximate decoder of Qwen's judgments, not the absolute complexity of human knowledge.</p></li>
+    <li><span class="mark">&#8226;</span><strong>Other measurements.</strong><p>Intrinsic-dimensionality descriptions did not beat direct compression once preprocessing was counted. Online MDL measures label extractability and learning efficiency &#8212; a complementary quantity, not classifier size.</p></li>
+    <li><span class="mark">&#8226;</span><strong>Bottom line.</strong><p>This is a concrete implementation and stress test of Jens's classifier-bound proposal, with explicit limits on what the resulting number can claim.</p></li>
+  </ul>
+</section>
 
 <section>
   <div class="sec-head"><span class="sec-num">01</span><h2>The question, and why this way of answering it</h2></div>
