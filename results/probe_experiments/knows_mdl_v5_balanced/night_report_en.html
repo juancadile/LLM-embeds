@@ -168,7 +168,7 @@
   <div class="sec-head"><span class="sec-num">BOTTOM LINE UP FRONT</span><h2>What we did and what it shows</h2></div>
   <ul class="claims">
     <li><span class="mark">&#8226;</span><strong>Connection to Jens's paper.</strong><p>We empirically tested its idea that a classifier provides a constructive upper bound on the size of a concept's decision rule.</p></li>
-    <li><span class="mark">&#8226;</span><strong>What we trained.</strong><p>Small probes on Qwen3-14B's extracted internal activations, using Qwen's own yes/no judgments as target labels &#8212; not its answer text as input.</p></li>
+    <li><span class="mark">&#8226;</span><strong>What we trained.</strong><p>Small probes on Qwen3-14B's extracted internal activations, using Qwen's own yes/no judgments as target labels &#8212; not its answer text as input. The main results use layer 29 of 40 (last-token pooling), the layer where the full sweep places KNOWS's minimum codelength; the depth sweep covers all 40 layers for KNOWS and a 15-layer grid for the other four predicates.</p></li>
     <li><span class="mark">&#8226;</span><strong>Separation of inputs and labels.</strong><p>Activations came from a separate scenario-only pass, with no predicate question, answer choices, or generated answer present. Qwen remained frozen.</p></li>
     <li><span class="mark">&#8226;</span><strong>Main result.</strong><p>A linear probe reproduced Qwen's KNOWS judgments with 0.980 macro-F1, using a compressed payload of 13,210 bytes (median of five seeds).</p></li>
     <li><span class="mark">&#8226;</span><strong>What that bound means.</strong><p>It is conditional on Qwen's pretrained representations being available. It bounds an approximate decoder of Qwen's judgments, not the absolute complexity of human knowledge.</p></li>
@@ -197,6 +197,15 @@
     <li><span class="mark">iv</span><strong>Tiny probes.</strong><p>Linear and 256-unit MLP, trained to predict the model's answers. If a small probe reproduces them, the rule is simple <em>relative to that representation</em>.</p></li>
     <li><span class="mark">v</span><strong>Four size measures, three usable.</strong><p>Online codelength in the style of Voita&#8211;Titov (how many bits it costs to transmit the labels while learning as you go), intrinsic dimension by random subspace, and serialized bytes of the compressed probe. The fourth, the local learning coefficient, turned out not to be identifiable. Controls throughout: shuffled labels, shuffled representations, random projections.</p></li>
   </ol>
+  <h3 class="col">How &#8220;cost in bits&#8221; is actually computed, per layer and predicate</h3>
+  <ul class="claims">
+    <li><span class="mark">1</span><strong>Order the coding split by scenario group.</strong><p>The coding examples (4,141 for KNOWS at layer 29) are shuffled by independent scenario group, so paraphrases of one scenario stay together, and cut at 1, 2, 4, 8, 16, 32, 64 and 100% of the groups.</p></li>
+    <li><span class="mark">2</span><strong>Pay for the first block with the base rate.</strong><p>No probe exists yet, so the first 1% is coded with the yes/no frequency estimated on the tuning split (Jeffreys +0.5 smoothing): about 0.9 bits per label.</p></li>
+    <li><span class="mark">3</span><strong>Train, predict the next block, pay for the surprise.</strong><p>A probe is trained from scratch on the first 1% (standardizer fit on that prefix only, early stopping on the tuning split) and predicts the 1&#8594;2% block; each label costs &#8722;log&#8322; of the probability the probe gave the right answer. Then retrain on 2%, predict 2&#8594;4%, and so on: seven probes per chain, each scored only on data it has not seen.</p></li>
+    <li><span class="mark">4</span><strong>Sum and normalize.</strong><p>Total bits &#247; number of labels is the cost; divided by the base-rate code it becomes normalized MDL. A layer where the rule is learned from few examples is cheap even if another layer reaches the same final accuracy with more data &#8212; that is what makes this prequential coding a measure and not an accuracy score.</p></li>
+    <li><span class="mark">5</span><strong>Repeat under controls.</strong><p>The whole chain runs for linear and 256-unit MLP probes, five seeds, and three conditions: real labels, labels shuffled within scenario groups, and representations shuffled &#8212; 210 probe fits per cell, plus a final fit on 100% used only for evaluation macro-F1, never for pricing.</p></li>
+    <li><span class="mark">6</span><strong>Repeat across depth.</strong><p>44 cells for KNOWS (all 40 layers, embedding, and the quartile aliases) and 15 for each of the other four predicates: on the order of 25,000 probe fits behind the depth profile.</p></li>
+  </ul>
   <div class="col">
     <p class="note" style="margin-top:1.6rem">The four hypotheses of this batch were written with numerical predictions and falsification criteria <em>before</em> anything was run, in <code>NIGHT_EXPERIMENTS.md</code>. There was no external time-stamped registry, so the exact wording is &#8220;prospectively prespecified predictions&#8221;, not &#8220;preregistration&#8221;. The predictions were left unedited; results and corrections were recorded beneath them.</p>
   </div>
@@ -253,7 +262,7 @@
   <div class="sec-head"><span class="sec-num">04</span><h2>The composition: knowledge from two numbers</h2></div>
   <div class="col">
     <p class="lead">If the model's KNOWS were approximately a function of its own belief, justification and truth rules, then its knowledge labels should be cheap to code using only the outputs of those three probes.</p>
-    <p>They are. Three numbers cost 0.139 bits per label against 0.129 from the full 5,120 dimensions: a ratio of <strong>1.08</strong>, well inside the 1.5 ceiling I had declared. A nonlinear summary based on the JTB components preserves almost all of the codelength of the full representation.</p>
+    <p>They are. At layer 29, three numbers cost 0.139 bits per label against 0.129 from the full 5,120 dimensions: a ratio of <strong>1.08</strong>, well inside the 1.5 ceiling I had declared. A nonlinear summary based on the JTB components preserves almost all of the codelength of the full representation.</p>
     <p class="note">The features are out-of-fold logits from 5-fold cross-fitting over independent scenario groups: no example is scored by a probe that saw it, or saw any paraphrase of it.</p>
   </div>
 
